@@ -1,7 +1,7 @@
 import { User } from './user';
 import { Wallet } from './wallet';
 
-class Passenger extends User {
+export class Passenger extends User {
   profile: string;
   wallet: Wallet;
 
