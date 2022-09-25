@@ -20,7 +20,7 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     command: >
-      sh -c "npm run prisma:generate && npm start"
+      sh -c "npm run prisma:migrate && npm run build && npm start"
     ports:
       - "8080:8080"
     expose:

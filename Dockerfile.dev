@@ -5,12 +5,10 @@ FROM node:18-alpine3.15 as builder
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
+
 RUN npm install
 
-RUN npm run build
-
 ENV DATABASE_URL "postgres://postgres:example@0.0.0.0:5432/postgres"
-RUN npm run prisma:generate
 
 ENV PORT 8080
 
