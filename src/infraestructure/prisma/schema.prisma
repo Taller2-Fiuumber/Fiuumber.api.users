@@ -10,8 +10,64 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id      Int      @id @default(autoincrement())
-  name    String?  @db.VarChar(255)
-  email   String   @unique @db.VarChar(255)
+model Passenger {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email     String   @unique
+  firstName String
+  lastName  String
+  profile   Profile  @default(PASSENGER)
+  wallet    Wallet   @relation(fields: [walletId], references: [id])
+  walletId  Int      @unique
+}
+
+model Driver {
+  id        Int           @id @default(autoincrement())
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  email     String        @unique
+  firstName String
+  lastName  String
+  profile   Profile       @default(DRIVER)
+  wallet    Wallet        @relation(fields: [id], references: [id])
+  vehicle   DriverVehicle @relation(fields: [vehicleId], references: [id])
+  vehicleId Int           @unique
+}
+
+model Vehicle {
+  id            Int            @id @default(autoincrement())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  brand         String         @db.VarChar(255)
+  model         String         @db.VarChar(255)
+  image         String         @db.VarChar(255)
+  driverVehicle DriverVehicle?
+}
+
+model DriverVehicle {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  domain    String   @unique
+  modelYear String   @db.VarChar(255)
+  colorName String?  @db.VarChar(255)
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
+  vehicleId Int      @unique
+  driver    Driver?
+}
+
+model Wallet {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  adress     String
+  privateKey String
+  passenger  Passenger?
+  driver     Driver?
+}
+
+enum Profile {
+  PASSENGER
+  DRIVER
 }
