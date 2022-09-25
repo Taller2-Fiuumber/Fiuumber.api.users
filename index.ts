@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
-import { GetSomething } from './src/controllers/my-controller';
+import { GetSomething } from './src/controllers/user_controller';
 import { CONFIG } from './config';
 
 const app: Express = express();

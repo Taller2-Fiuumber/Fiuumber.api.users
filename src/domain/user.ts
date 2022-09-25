@@ -1,7 +1,5 @@
-import {v4 as uuidv4} from 'uuid';
-
 export abstract class User {
-  id: uuidv4;
+  id: number;
   email: string;
   firstName: string;
   lastName: string;
@@ -9,8 +7,8 @@ export abstract class User {
   blocked: boolean;
   abstract profile: string;
 
-  constructor(email: string, firstName: string, lastName: string, location: string) {
-    this.id = uuidv4();
+  constructor(id: number, email: string, firstName: string, lastName: string, location: string) {
+    this.id = id;
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;

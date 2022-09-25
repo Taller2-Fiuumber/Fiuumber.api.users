@@ -7,8 +7,8 @@ export class Driver extends User {
   wallet: Wallet;
   vehicle: DriverVehicle;
 
-  constructor(email: string, firstName: string, lastName: string, location: string, wallet: Wallet, vehicle: DriverVehicle) {
-    super(email, firstName, lastName, location);
+  constructor(id: number, email: string, firstName: string, lastName: string, location: string, wallet: Wallet, vehicle: DriverVehicle) {
+    super(id, email, firstName, lastName, location);
     this.profile = "driver";
     this.wallet = wallet;
     this.vehicle = vehicle;
