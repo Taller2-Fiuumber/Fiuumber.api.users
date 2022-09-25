@@ -19,7 +19,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: "npm start"
+    command: >
+      sh -c "npm run prisma:generate && npm start"
     ports:
       - "8080:8080"
     expose:
@@ -31,7 +32,6 @@ services:
     depends_on:
       - database
     environment:
-        DATABASE_URL: "postgres://postgres:example@0.0.0.0:5432/postgres"
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: example
         POSTGRES_DB: postgres

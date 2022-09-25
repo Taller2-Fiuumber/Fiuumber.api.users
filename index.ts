@@ -1,6 +1,6 @@
 import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
-import { GetSomething } from './src/controllers/user_controller';
+import { GetSomething, GetUsers } from './src/controllers/user_controller';
 import { CONFIG } from './config';
 
 const app: Express = express();
@@ -13,6 +13,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 app.get('/api/something', GetSomething);
+
+app.get('/api/users', GetUsers);
+
 
 app.get('/', (req: Request, res: Response) => res.send("Fiuumber Server"));
 
