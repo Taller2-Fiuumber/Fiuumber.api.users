@@ -19,8 +19,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    command: >
-      sh -c "npm run prisma:migrate && npm run build && npm start"
+    restart: always
+    command: sh
     ports:
       - "8080:8080"
     expose:

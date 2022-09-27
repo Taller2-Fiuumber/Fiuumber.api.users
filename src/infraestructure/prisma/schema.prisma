@@ -11,20 +11,20 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  email     String   @unique
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  email     String     @unique
   firstName String
   lastName  String
   profile   Profile
   driver    Driver?
-  passenger    Passenger?
+  passenger Passenger?
 }
 
 model Driver {
-  wallet    Wallet   @relation(fields: [walletId], references: [id])
-  walletId  Int      @unique
+  wallet    Wallet        @relation(fields: [walletId], references: [id])
+  walletId  Int           @unique
   user      User          @relation(fields: [userId], references: [id])
   userId    Int           @unique
   vehicle   DriverVehicle @relation(fields: [vehicleId], references: [id])
@@ -32,10 +32,10 @@ model Driver {
 }
 
 model Passenger {
-  wallet    Wallet   @relation(fields: [walletId], references: [id])
-  walletId  Int      @unique
-  user      User          @relation(fields: [userId], references: [id])
-  userId    Int           @unique
+  wallet   Wallet @relation(fields: [walletId], references: [id])
+  walletId Int    @unique
+  user     User   @relation(fields: [userId], references: [id])
+  userId   Int    @unique
 }
 
 model Vehicle {
@@ -61,13 +61,13 @@ model DriverVehicle {
 }
 
 model Wallet {
-  id         Int      @id @default(autoincrement())
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
   adress     String
   privateKey String
   driver     Driver?
-  passenger    Passenger?
+  passenger  Passenger?
 }
 
 enum Profile {
