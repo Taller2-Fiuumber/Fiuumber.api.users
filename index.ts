@@ -15,31 +15,31 @@ app.use(bodyParser.json())
 
 app.use(cors(corsOptions));
 
-app.get('/api/vehicles', controller.GetVehicles);
+app.get('/api/users-service/vehicles', controller.GetVehicles);
 
-app.post('/api/vehicle', controller.CreateVehicle);
+app.post('/api/users-service/vehicle', controller.CreateVehicle);
 
-app.put('/api/vehicle', controller.UpdateVehicle);
+app.put('/api/users-service/vehicle', controller.UpdateVehicle);
 
-app.get('/api/users', controller.GetUsers);
+app.get('/api/users-service/users', controller.GetUsers);
 
-app.get('/api/user', controller.GetUser);
+app.get('/api/users-service/user', controller.GetUser);
 
-app.get('/api/passengers', controller.GetPassengers);
+app.get('/api/users-service/passengers', controller.GetPassengers);
 
-app.get('/api/passenger', controller.GetPassenger);
+app.get('/api/users-service/passenger', controller.GetPassenger);
 
-app.get('/api/drivers', controller.GetDrivers);
+app.get('/api/users-service/drivers', controller.GetDrivers);
 
-app.get('/api/driver', controller.GetDriver);
+app.get('/api/users-service/driver', controller.GetDriver);
 
-app.post('/api/driver', controller.CreateDriver);
+app.post('/api/users-service/driver', controller.CreateDriver);
 
-app.post('/api/passenger', controller.CreatePassenger);
+app.post('/api/users-service/passenger', controller.CreatePassenger);
 
-app.put('/api/driver', controller.UpdateDriver);
+app.put('/api/users-service/driver', controller.UpdateDriver);
 
-app.put('/api/passenger', controller.UpdatePassenger);
+app.put('/api/users-service/passenger', controller.UpdatePassenger);
 
 app.get('/', async (req: Request, res: Response) => res.send("Fiuumber Server :)"));
 
