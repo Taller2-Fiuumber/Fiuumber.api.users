@@ -19,19 +19,21 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.dev
-    restart: always
-    command: sh
+    command: "sh"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
     ports:
       - "8080:8080"
     expose:
       - 8080
     volumes:
-        - .:/app
+        - ./:/app
     links:
       - database
     depends_on:
       - database
     environment:
+        DATABASE_URL: "postgres://postgres:example@database:5432/postgres"
         POSTGRES_USER: postgres
         POSTGRES_PASSWORD: example
         POSTGRES_DB: postgres
