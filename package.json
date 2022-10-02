@@ -11,8 +11,8 @@
         "build": "npx tsc",
         "start": "node dist/index.js",
         "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
-        "prisma:migrate": "prisma migrate deploy --schema=src/prisma/schema.prisma",
-        "prisma:generate": "prisma generate --schema=src/prisma/schema.prisma"
+        "prisma:migrate": "prisma migrate dev --schema=src/infraestructure/prisma/schema.prisma",
+        "prisma:generate": "prisma generate --schema=src/infraestructure/prisma/schema.prisma"
     },
     "author": "",
     "license": "ISC",
@@ -24,13 +24,14 @@
         "express": "^4.18.1",
         "install": "^0.13.0",
         "npm": "^8.19.2",
-        "prisma": "4.3.1"
-
+        "prisma": "^4.3.1",
+        "@types/uuid": "^8.3.4"
     },
     "devDependencies": {
         "@types/cors": "^2.8.12",
         "@types/express": "^4.17.13",
         "@types/node": "^18.7.14",
+        "@types/uuid": "^8.3.4",
         "@typescript-eslint/eslint-plugin": "^5.37.0",
         "@typescript-eslint/parser": "^5.37.0",
         "concurrently": "^7.3.0",

@@ -11,8 +11,3 @@ COPY . /app
 RUN npm install
 RUN npm run prisma:generate
 RUN npm run build
-
-# Expose is NOT supported by Heroku
-# $PORT is set by Heroku
-
-CMD ["npm", "start"]

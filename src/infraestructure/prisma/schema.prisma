@@ -1,0 +1,76 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  email     String     @unique
+  firstName String
+  lastName  String
+  profile   Profile
+  driver    Driver?
+  passenger Passenger?
+}
+
+model Driver {
+  wallet    Wallet        @relation(fields: [walletId], references: [id])
+  walletId  Int           @unique
+  user      User          @relation(fields: [userId], references: [id])
+  userId    Int           @unique
+  vehicle   DriverVehicle @relation(fields: [vehicleId], references: [id])
+  vehicleId Int           @unique
+}
+
+model Passenger {
+  wallet   Wallet @relation(fields: [walletId], references: [id])
+  walletId Int    @unique
+  user     User   @relation(fields: [userId], references: [id])
+  userId   Int    @unique
+}
+
+model Vehicle {
+  id            Int            @id @default(autoincrement())
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  brand         String         @db.VarChar(255)
+  model         String         @db.VarChar(255)
+  image         String         @db.VarChar(255)
+  driverVehicle DriverVehicle?
+}
+
+model DriverVehicle {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  domain    String   @unique
+  modelYear String   @db.VarChar(255)
+  colorName String?  @db.VarChar(255)
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
+  vehicleId Int      @unique
+  driver    Driver?
+}
+
+model Wallet {
+  id         Int        @id @default(autoincrement())
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  adress     String
+  privateKey String
+  driver     Driver?
+  passenger  Passenger?
+}
+
+enum Profile {
+  PASSENGER
+  DRIVER
+}

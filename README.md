@@ -1,51 +1,43 @@
 # 22C2-Fiuumber
-Template Express JS backend
 
+## Developer commands:
 
-Para instalar todo, desde el directorio raiz del proyecto ejecutar:
-```
-npm i
-```
-
-Ejecutar el proyecto:
-```
-npm run dev
-```
-
-Ingresar a la ubicación http:
-```
-http://localhost:4000/
-```
-
-Ejecutar tests:
-```
-npm test
-```
-
-Para instalar Docker:
-```
-sudo apt  install docker.io
-```
-
-Para PostgreSQL:
-https://www.postgresql.org/download/
-
-## Corrida Docker dev basico
-
-Build docker image:
+Get database and web conatiner running
 
 ``` bash
-docker build . -t fiummber-api:0.0.1
+➜  Fiuumber.api.users: docker-compose up -d
 ```
 
-Run server:
+Look for fiuumberapiusers_web conainter ID
 
 ``` bash
-docker run -dp 4000:4000 fiummber-api:0.0.1 --env-file .env.dev
+➜  Fiuumber.api.users: docker ps
+CONTAINER ID   IMAGE                  COMMAND                  CREATED          STATUS             PORTS                      NAMES
+edc3fe204ecf   fiuumberapiusers_web   "docker-entrypoint.s…"   40 minutes ago   Up 39 minutes      0.0.0.0:8080->8080/tcp     fiuumberapiusers_web_1
+5a5f30041e85   postgres:latest        "docker-entrypoint.s…"   46 minutes ago   Up 44 minutes      0.0.0.0:5432->5432/tcp     fiuumberapiusers_database_1
 ```
 
-Visualizar imagen:
+Run shell in container and happy coding!
+
 
 ``` bash
-http://localhost:4000/
+➜  Fiuumber.api.users : docker exec -it edc3fe204ecf sh
+
+
+/app # npm run build
+
+> back-template@1.0.0 build
+> npx tsc
+
+/app # npm run start
+
+> back-template@1.0.0 start
+> node dist/index.js
+
+⚡️[server]: Server is running at http://localhost:8080
+
+(happy coding...)
+
+/app # exit
+
 ```
