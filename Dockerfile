@@ -9,8 +9,11 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 RUN npm install
-RUN npm run build
+
 RUN npm run prisma:generate
 RUN npm run prisma:migrate
+
+RUN npm run build
+
 
 CMD ["npm", "start"]

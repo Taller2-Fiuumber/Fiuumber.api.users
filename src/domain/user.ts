@@ -3,11 +3,17 @@ export abstract class User {
   email: string;
   firstName: string;
   lastName: string;
-  location:  string;
+  location: string;
   blocked: boolean;
   abstract profile: string;
 
-  constructor(id: number, email: string, firstName: string, lastName: string, location: string) {
+  constructor(
+    id: number,
+    email: string,
+    firstName: string,
+    lastName: string,
+    location: string
+  ) {
     this.id = id;
     this.email = email;
     this.firstName = firstName;

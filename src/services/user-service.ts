@@ -1,5 +1,5 @@
 // import axios from 'axios';// For API consuming
-import { PrismaClient, User, Passenger, Vehicle, Driver} from "@prisma/client";
+import { PrismaClient, User, Passenger, Vehicle, Driver } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -7,19 +7,28 @@ export const getVehicles = async (): Promise<Vehicle[]> => {
   return await prisma.vehicle.findMany();
 };
 
-export const createVehicle = async (brand:string, model:string, image:string): Promise<Vehicle> => {
+export const createVehicle = async (
+  brand: string,
+  model: string,
+  image: string
+): Promise<Vehicle> => {
   const body = await prisma.vehicle.create({
     data: {
       brand,
       model,
       image,
-    }
-  })
+    },
+  });
 
   return body;
 };
 
-export const updateVehicle = async (id:number, brand:string, model:string, image:string): Promise<Vehicle> => {
+export const updateVehicle = async (
+  id: number,
+  brand: string,
+  model: string,
+  image: string
+): Promise<Vehicle> => {
   const body = await prisma.vehicle.update({
     where: {
       id,
@@ -29,12 +38,10 @@ export const updateVehicle = async (id:number, brand:string, model:string, image
       model,
       image,
     },
-  })
+  });
 
   return body;
 };
-
-
 
 export const getUsers = async (): Promise<User[]> => {
   return await prisma.user.findMany();
@@ -72,7 +79,19 @@ export const getPassenger = (userId: number): Promise<Passenger> => {
   });
 };
 
-export const createDriver = async (email:string, firstName:string, lastName:string, adress:string, privateKey:string, domain:string, modelYear:string, colorName:string, brand:string, model:string, image:string): Promise<Driver> => {
+export const createDriver = async (
+  email: string,
+  firstName: string,
+  lastName: string,
+  adress: string,
+  privateKey: string,
+  domain: string,
+  modelYear: string,
+  colorName: string,
+  brand: string,
+  model: string,
+  image: string
+): Promise<Driver> => {
   const profile = "DRIVER";
 
   const passenger = await prisma.driver.create({
@@ -101,17 +120,23 @@ export const createDriver = async (email:string, firstName:string, lastName:stri
               brand,
               model,
               image,
-            }
-          }
+            },
+          },
         },
       },
-    }
-  })
+    },
+  });
 
   return passenger;
 };
 
-export const createPassenger = (email:string, firstName:string, lastName:string, adress:string, privateKey:string): Promise<Passenger> => {
+export const createPassenger = (
+  email: string,
+  firstName: string,
+  lastName: string,
+  adress: string,
+  privateKey: string
+): Promise<Passenger> => {
   const profile = "PASSENGER";
 
   const passenger = prisma.passenger.create({
@@ -130,13 +155,26 @@ export const createPassenger = (email:string, firstName:string, lastName:string,
           privateKey,
         },
       },
-    }
-  })
+    },
+  });
 
   return passenger;
 };
 
-export const updateDriver = (userId: number, email:string, firstName:string, lastName:string, adress:string, privateKey:string, domain:string, modelYear:string, colorName:string, brand:string, model:string, image:string): Promise<Driver> => {
+export const updateDriver = (
+  userId: number,
+  email: string,
+  firstName: string,
+  lastName: string,
+  adress: string,
+  privateKey: string,
+  domain: string,
+  modelYear: string,
+  colorName: string,
+  brand: string,
+  model: string,
+  image: string
+): Promise<Driver> => {
   const profile = "DRIVER";
 
   const passenger = prisma.driver.update({
@@ -168,17 +206,24 @@ export const updateDriver = (userId: number, email:string, firstName:string, las
               brand,
               model,
               image,
-            }
-          }
+            },
+          },
         },
       },
-    }
-  })
+    },
+  });
 
   return passenger;
 };
 
-export const updatePassenger = (userId: number, email:string, firstName:string, lastName:string, adress:string, privateKey:string): Promise<Passenger> => {
+export const updatePassenger = (
+  userId: number,
+  email: string,
+  firstName: string,
+  lastName: string,
+  adress: string,
+  privateKey: string
+): Promise<Passenger> => {
   const profile = "PASSENGER";
 
   const passenger = prisma.passenger.update({
@@ -200,8 +245,8 @@ export const updatePassenger = (userId: number, email:string, firstName:string, 
           privateKey,
         },
       },
-    }
-  })
+    },
+  });
 
   return passenger;
 };
