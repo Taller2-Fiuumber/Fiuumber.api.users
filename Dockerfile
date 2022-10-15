@@ -10,4 +10,4 @@ COPY . /app
 
 RUN npm install
 
-ENTRYPOINT /script/start-app.sh
+ENTRYPOINT ./script/start-app.sh
