@@ -1,3 +1,5 @@
+#!/bin/bash
+
 npm install
 
 npx prisma generate --schema=src/infraestructure/prisma/schema.prisma
