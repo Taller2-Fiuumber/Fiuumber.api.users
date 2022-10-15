@@ -41,8 +41,20 @@ export const GetUsers = async (req: Request, res: Response) => {
 
 export const GetUser = async (req: Request, res: Response) => {
   try {
-    const { id } = req.body;
+    const id = Number.parseInt(req.params.id.toString());
     const body = await service.getUser(id);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetUserLogin = async (req: Request, res: Response) => {
+  if (!req.query.email || !req.query.password) res.status(500).send();
+  try {
+    const email: string = req.query.email?.toString() || '';
+    const password: string = req.query.password?.toString() || '';
+    const body = await service.getUserLogin(email, password);
     res.json(body).status(200);
   } catch (error) {
     res.status(500).send(error);
@@ -51,16 +63,20 @@ export const GetUser = async (req: Request, res: Response) => {
 
 export const CreatePassenger = async (req: Request, res: Response) => {
   try {
-    const { email, firstName, lastName, adress, privateKey } = req.body;
+    const { email, firstName, lastName, adress, privateKey, password } = req.body;
+    const encryptedPassword: string = password;
+    console.log("pp");
     const body = await service.createPassenger(
       email,
       firstName,
       lastName,
       adress,
-      privateKey
+      privateKey,
+      encryptedPassword,
     );
     res.json(body).status(200);
   } catch (error) {
+    console.log(error);
     res.status(500).send(error);
   }
 };
@@ -86,14 +102,16 @@ export const GetPassengers = async (req: Request, res: Response) => {
 
 export const UpdatePassenger = async (req: Request, res: Response) => {
   try {
-    const { userId, email, firstName, lastName, adress, privateKey } = req.body;
+    const { userId, email, firstName, lastName, adress, privateKey, password } = req.body;
+    const encryptedPassword: string = password;
     const body = await service.updatePassenger(
       userId,
       email,
       firstName,
       lastName,
       adress,
-      privateKey
+      privateKey,
+      encryptedPassword,
     );
     res.json(body).status(200);
   } catch (error) {
@@ -115,7 +133,9 @@ export const CreateDriver = async (req: Request, res: Response) => {
       brand,
       model,
       image,
+      password,
     } = req.body;
+    const encryptedPassword: string = password;
     const body = await service.createDriver(
       email,
       firstName,
@@ -127,7 +147,8 @@ export const CreateDriver = async (req: Request, res: Response) => {
       colorName,
       brand,
       model,
-      image
+      image,
+      encryptedPassword,
     );
     res.json(body).status(200);
   } catch (error) {
@@ -169,7 +190,9 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       brand,
       model,
       image,
+      password,
     } = req.body;
+    const encryptedPassword: string = password;
     const body = await service.updateDriver(
       userId,
       email,
@@ -182,7 +205,8 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       colorName,
       brand,
       model,
-      image
+      image,
+      encryptedPassword
     );
     res.json(body).status(200);
   } catch (error) {
