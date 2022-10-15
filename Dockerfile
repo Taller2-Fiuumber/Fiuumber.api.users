@@ -10,7 +10,7 @@ WORKDIR /app
 COPY . /app
 RUN npm install
 
-RUN npx prisma generate
+RUN npx prisma generate --schema=src/infraestructure/prisma/schema.prisma
 
 RUN npx prisma migrate deploy --schema=src/infraestructure/prisma/schema.prisma
 
