@@ -10,8 +10,7 @@ WORKDIR /app
 COPY . /app
 RUN npm install
 
-RUN npm run prisma:generate
-RUN npm run prisma:migrate
+RUN npx prisma migrate deploy
 
 RUN npm run build
 
