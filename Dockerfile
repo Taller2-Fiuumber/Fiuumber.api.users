@@ -15,5 +15,6 @@ RUN npx prisma migrate deploy --schema=src/infraestructure/prisma/schema.prisma
 
 RUN npm run build
 
+RUN echo ${DATABASE_URL}
 
 CMD ["npm", "start"]
