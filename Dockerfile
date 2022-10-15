@@ -11,5 +11,4 @@ COPY . /app
 RUN npm install
 
 RUN ["chmod", "+x", "./script/start-app.sh"]
-
-ENTRYPOINT ./script/start-app.sh
+ENTRYPOINT sh ./script/start-app.sh
