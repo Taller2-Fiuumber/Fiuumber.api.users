@@ -10,6 +10,4 @@ COPY . /app
 
 RUN npm install
 
-RUN npm run build
-
 CMD ["/script/start-app.sh"]
