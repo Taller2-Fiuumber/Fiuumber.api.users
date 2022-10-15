@@ -10,4 +10,4 @@ COPY . /app
 
 RUN npm install
 
-CMD ["sh /script/start-app.sh"]
+CMD /script/start-app.sh
