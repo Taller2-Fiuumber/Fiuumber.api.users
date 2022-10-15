@@ -7,13 +7,5 @@ ENV DATABASE_URL=${database_url}
 RUN mkdir /app
 WORKDIR /app
 COPY . /app
-RUN npm install
 
-RUN npx prisma generate --schema=src/infraestructure/prisma/schema.prisma
-
-RUN npx prisma migrate deploy --schema=src/infraestructure/prisma/schema.prisma
-
-RUN npm run build
-
-
-CMD ["npm", "start"]
+CMD ["/script/start-app.sh"]
