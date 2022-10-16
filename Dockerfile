@@ -10,5 +10,13 @@ COPY . /app
 
 RUN npm install
 
-RUN ["chmod", "+x", "./script/start-app.sh"]
-ENTRYPOINT sh ./script/start-app.sh
+RUN npm run build
+
+RUN npx prisma generate --schema=src/infraestructure/prisma/schema.prisma
+
+RUN npx prisma migrate deploy --schema=src/infraestructure/prisma/schema.prisma
+
+RUN adduser -D myuser
+USER myuser
+
+CMD npm run start
