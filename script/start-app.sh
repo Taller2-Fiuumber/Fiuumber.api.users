@@ -1,6 +1,6 @@
 #! /bin/bash
 
-npx prisma generate --schema=src/infraestructure/prisma/schema.prisma
+npx prisma db push --schema=src/infraestructure/prisma/schema.prisma
 
 npm run build
 
