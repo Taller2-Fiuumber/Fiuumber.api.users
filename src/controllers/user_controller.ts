@@ -1,5 +1,7 @@
+import { User } from "@prisma/client";
 import { Request, Response } from "express";
 import * as service from "../services/user-service";
+import { check, encrypt } from "../utils/useful-functions";
 
 export const GetVehicles = async (req: Request, res: Response) => {
   try {
@@ -54,8 +56,15 @@ export const GetUserLogin = async (req: Request, res: Response) => {
   try {
     const email: string = req.query.email?.toString() || '';
     const password: string = req.query.password?.toString() || '';
-    const body = await service.getUserLogin(email, password);
-    res.json(body).status(200);
+    const user: User | null = await service.getUserLogin(email);
+
+    if (!user || !(await check(password, user?.password))) {
+      res.json(null).status(200);
+      return;
+    }
+    
+    res.json(user).status(200);
+
   } catch (error) {
     res.status(500).send(error);
   }
@@ -64,8 +73,7 @@ export const GetUserLogin = async (req: Request, res: Response) => {
 export const CreatePassenger = async (req: Request, res: Response) => {
   try {
     const { email, firstName, lastName, adress, privateKey, password } = req.body;
-    const encryptedPassword: string = password;
-    console.log("pp");
+    const encryptedPassword: string = await encrypt(password);
     const body = await service.createPassenger(
       email,
       firstName,
@@ -103,7 +111,7 @@ export const GetPassengers = async (req: Request, res: Response) => {
 export const UpdatePassenger = async (req: Request, res: Response) => {
   try {
     const { userId, email, firstName, lastName, adress, privateKey, password } = req.body;
-    const encryptedPassword: string = password;
+    const encryptedPassword: string = await encrypt(password);
     const body = await service.updatePassenger(
       userId,
       email,
@@ -135,7 +143,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       image,
       password,
     } = req.body;
-    const encryptedPassword: string = password;
+    const encryptedPassword: string = await encrypt(password);
     const body = await service.createDriver(
       email,
       firstName,
@@ -192,7 +200,7 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       image,
       password,
     } = req.body;
-    const encryptedPassword: string = password;
+    const encryptedPassword: string = await encrypt(password);
     const body = await service.updateDriver(
       userId,
       email,

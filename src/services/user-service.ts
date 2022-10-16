@@ -48,9 +48,7 @@ export const getUsers = async (): Promise<User[]> => {
   return await prisma.user.findMany();
 };
 
-export const getUserLogin = async (email: string, password: string): Promise<User | null> => {
-  const hashedPassword: string = await encrypt(password);
-  console.log(hashedPassword);
+export const getUserLogin = async (email: string): Promise<User | null> => {
   return await prisma.user.findUnique({
     where: {
         email: email,
@@ -59,7 +57,7 @@ export const getUserLogin = async (email: string, password: string): Promise<Use
 };
 
 export const getPassengers = async (): Promise<Passenger[]> => {
-  return await prisma.passenger.findMany();
+  return await prisma.passenger.findMany({include: {user: true,},});
 };
 
 export const getDrivers = async (): Promise<Driver[]> => {
