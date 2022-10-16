@@ -10,11 +10,5 @@ COPY . /app
 
 RUN npm install
 
-RUN npx prisma db push --schema=src/infraestructure/prisma/schema.prisma
-
-RUN npm run build
-
-#npm run start
-#RUN ["chmod", "+x", "./script/start-app.sh"]
-
-ENTRYPOINT npm run start
+RUN ["chmod", "+x", "./script/start-app.sh"]
+ENTRYPOINT sh ./script/start-app.sh
