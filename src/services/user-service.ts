@@ -1,6 +1,5 @@
 // import axios from 'axios';// For API consuming
 import { PrismaClient, User, Passenger, Vehicle, Driver } from "@prisma/client";
-import { encrypt } from "../utils/useful-functions";
 
 const prisma = new PrismaClient();
 

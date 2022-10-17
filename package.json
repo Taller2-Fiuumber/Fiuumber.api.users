@@ -11,8 +11,10 @@
         "build": "npx tsc",
         "start": "node dist/index.js",
         "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\"",
+        "prisma:setup-dev": "npm run prisma:generate && npm run prisma:migrate && npm run prisma:seed",
         "prisma:migrate": "prisma migrate dev --schema=src/infraestructure/prisma/schema.prisma",
-        "prisma:generate": "prisma generate --schema=src/infraestructure/prisma/schema.prisma"
+        "prisma:generate": "prisma generate --schema=src/infraestructure/prisma/schema.prisma",
+        "prisma:seed": "ts-node src/infraestructure/prisma/seed.ts"
     },
     "author": "",
     "license": "ISC",
