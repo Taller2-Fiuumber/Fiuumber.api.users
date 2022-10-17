@@ -23,7 +23,9 @@ app.put('/api/users-service/vehicle', controller.UpdateVehicle);
 
 app.get('/api/users-service/users', controller.GetUsers);
 
-app.get('/api/users-service/user', controller.GetUser);
+app.get('/api/users-service/users/:id', controller.GetUser);
+
+app.get('/api/users-service/login', controller.GetUserLogin);
 
 app.get('/api/users-service/passengers', controller.GetPassengers);
 

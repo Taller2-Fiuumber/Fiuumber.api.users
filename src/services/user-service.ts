@@ -1,5 +1,6 @@
 // import axios from 'axios';// For API consuming
 import { PrismaClient, User, Passenger, Vehicle, Driver } from "@prisma/client";
+import { encrypt } from "../utils/useful-functions";
 
 const prisma = new PrismaClient();
 
@@ -47,8 +48,16 @@ export const getUsers = async (): Promise<User[]> => {
   return await prisma.user.findMany();
 };
 
+export const getUserLogin = async (email: string): Promise<User | null> => {
+  return await prisma.user.findUnique({
+    where: {
+        email: email,
+    },
+  });
+};
+
 export const getPassengers = async (): Promise<Passenger[]> => {
-  return await prisma.passenger.findMany();
+  return await prisma.passenger.findMany({include: {user: true,},});
 };
 
 export const getDrivers = async (): Promise<Driver[]> => {
@@ -90,7 +99,8 @@ export const createDriver = async (
   colorName: string,
   brand: string,
   model: string,
-  image: string
+  image: string,
+  password: string,
 ): Promise<Driver> => {
   const profile = "DRIVER";
 
@@ -102,6 +112,7 @@ export const createDriver = async (
           firstName,
           lastName,
           profile,
+          password,
         },
       },
       wallet: {
@@ -135,7 +146,8 @@ export const createPassenger = (
   firstName: string,
   lastName: string,
   adress: string,
-  privateKey: string
+  privateKey: string,
+  password: string,
 ): Promise<Passenger> => {
   const profile = "PASSENGER";
 
@@ -144,6 +156,7 @@ export const createPassenger = (
       user: {
         create: {
           email,
+          password,
           firstName,
           lastName,
           profile,
@@ -173,7 +186,8 @@ export const updateDriver = (
   colorName: string,
   brand: string,
   model: string,
-  image: string
+  image: string,
+  password: string,
 ): Promise<Driver> => {
   const profile = "DRIVER";
 
@@ -188,6 +202,7 @@ export const updateDriver = (
           firstName,
           lastName,
           profile,
+          password,
         },
       },
       wallet: {
@@ -222,7 +237,8 @@ export const updatePassenger = (
   firstName: string,
   lastName: string,
   adress: string,
-  privateKey: string
+  privateKey: string,
+  password: string,
 ): Promise<Passenger> => {
   const profile = "PASSENGER";
 
@@ -237,6 +253,7 @@ export const updatePassenger = (
           firstName,
           lastName,
           profile,
+          password,
         },
       },
       wallet: {
