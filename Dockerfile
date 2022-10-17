@@ -21,8 +21,3 @@ RUN npm run build
 
 RUN adduser -D myuser
 USER myuser
-
-CMD npm run start
-
-RUN ["chmod", "+x", "./script/start-app.sh"]
-ENTRYPOINT sh ./script/start-app.sh
