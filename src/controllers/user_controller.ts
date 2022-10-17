@@ -59,7 +59,7 @@ export const GetUserLogin = async (req: Request, res: Response) => {
     const user: User | null = await service.getUserLogin(email);
 
     if (!user || !(await check(password, user?.password))) {
-      res.json(null).status(200);
+      res.status(401).send();
       return;
     }
     
