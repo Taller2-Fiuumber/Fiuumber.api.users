@@ -1,7 +1,4 @@
-import { PrismaClient } from '@prisma/client';
-import { createDriver, createPassenger } from '../../services/user-service';
-
-const prisma = new PrismaClient();
+import { createPassenger } from '../../services/user-service';
 
 const createPassengers = async () => {
     console.log("Creating passengers...");
