@@ -72,14 +72,14 @@ export const GetUserLogin = async (req: Request, res: Response) => {
 
 export const CreatePassenger = async (req: Request, res: Response) => {
   try {
-    const { email, firstName, lastName, adress, privateKey, password } = req.body;
+    const { email, firstName, lastName, wallet, password } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.createPassenger(
       email,
       firstName,
       lastName,
-      adress,
-      privateKey,
+      wallet.adress,
+      wallet.privateKey,
       encryptedPassword,
     );
     res.json(body).status(200);
@@ -110,15 +110,15 @@ export const GetPassengers = async (req: Request, res: Response) => {
 
 export const UpdatePassenger = async (req: Request, res: Response) => {
   try {
-    const { userId, email, firstName, lastName, adress, privateKey, password } = req.body;
+    const { userId, email, firstName, lastName, wallet, password } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.updatePassenger(
       userId,
       email,
       firstName,
       lastName,
-      adress,
-      privateKey,
+      wallet.adress,
+      wallet.privateKey,
       encryptedPassword,
     );
     res.json(body).status(200);
@@ -133,8 +133,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       email,
       firstName,
       lastName,
-      adress,
-      privateKey,
+      wallet,
       domain,
       modelYear,
       colorName,
@@ -148,8 +147,8 @@ export const CreateDriver = async (req: Request, res: Response) => {
       email,
       firstName,
       lastName,
-      adress,
-      privateKey,
+      wallet.adress,
+      wallet.privateKey,
       domain,
       modelYear,
       colorName,
@@ -190,8 +189,7 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       email,
       firstName,
       lastName,
-      adress,
-      privateKey,
+      wallet,
       domain,
       modelYear,
       colorName,
@@ -206,8 +204,8 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       email,
       firstName,
       lastName,
-      adress,
-      privateKey,
+      wallet.adress,
+      wallet.privateKey,
       domain,
       modelYear,
       colorName,
