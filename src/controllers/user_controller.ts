@@ -56,6 +56,7 @@ export const GetUserLogin = async (req: Request, res: Response) => {
   try {
     const email: string = req.query.email?.toString() || '';
     const password: string = req.query.password?.toString() || '';
+    
     const user: User | null = await service.getUserLogin(email);
 
     if (!user || !(await check(password, user?.password))) {
@@ -79,20 +80,10 @@ export const CreatePassenger = async (req: Request, res: Response) => {
       username,
       password,
       adress,
-      privateKey,
-      walletPrivateKey,
+      wallet
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
-    const body = await service.createPassenger(
-      email,
-      firstName,
-      lastName,
-      username,
-      encryptedPassword,
-      adress,
-      privateKey,
-      walletPrivateKey,
-    );
+    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, adress, wallet.privateKey);
     res.json(body).status(200);
   } catch (error) {
     console.log(error);
@@ -129,8 +120,7 @@ export const UpdatePassenger = async (req: Request, res: Response) => {
       username,
       password,
       adress,
-      privateKey,
-      walletPrivateKey,
+      wallet,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.updatePassenger(
@@ -141,8 +131,7 @@ export const UpdatePassenger = async (req: Request, res: Response) => {
       username,
       encryptedPassword,
       adress,
-      privateKey,
-      walletPrivateKey,
+      wallet.privateKey,
     );
     res.json(body).status(200);
   } catch (error) {
@@ -159,8 +148,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       username,
       password,
       adress,
-      privateKey,
-      walletPrivateKey,
+      wallet,
       domain,
       modelYear,
       colorName,
@@ -176,8 +164,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       username,
       encryptedPassword,
       adress,
-      privateKey,
-      walletPrivateKey,
+      wallet.privateKey,
       domain,
       modelYear,
       colorName,
@@ -220,8 +207,7 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       username,
       password,
       adress,
-      privateKey,
-      walletPrivateKey,
+      wallet,
       domain,
       modelYear,
       colorName,
@@ -238,8 +224,7 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       username,
       encryptedPassword,
       adress,
-      privateKey,
-      walletPrivateKey,
+      wallet.privateKey,
       domain,
       modelYear,
       colorName,

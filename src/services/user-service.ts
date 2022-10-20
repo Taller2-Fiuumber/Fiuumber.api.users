@@ -1,4 +1,3 @@
-// import axios from 'axios';// For API consuming
 import { PrismaClient, User, Passenger, Vehicle, Driver } from "@prisma/client";
 
 const prisma = new PrismaClient();
@@ -94,7 +93,6 @@ export const createDriver = async (
   username: string,
   password: string,
   adress: string,
-  privateKey: string,
   walletPrivateKey: string,
   domain: string,
   modelYear: string,
@@ -115,7 +113,6 @@ export const createDriver = async (
           username,
           password,
           adress,
-          privateKey,
           profile,
         },
       },
@@ -151,7 +148,6 @@ export const createPassenger = (
   username: string,
   password: string,
   adress: string,
-  privateKey: string,
   walletPrivateKey:string
 ): Promise<Passenger> => {
   const profile = "PASSENGER";
@@ -166,7 +162,6 @@ export const createPassenger = (
           username,
           password,
           adress,
-          privateKey,
           profile,
         },
       },
@@ -195,7 +190,6 @@ export const updateDriver = (
   image: string,
   password: string,
   username: string,
-  privateKey: string,
   walletPrivateKey:string
 
 ): Promise<Driver> => {
@@ -214,7 +208,6 @@ export const updateDriver = (
           username,
           password,
           adress,
-          privateKey,
           profile,
         },
       },
@@ -251,7 +244,6 @@ export const updatePassenger = (
   username: string,
   password: string,
   adress: string,
-  privateKey: string,
   walletPrivateKey:string
 ): Promise<Passenger> => {
   const profile = "PASSENGER";
@@ -269,7 +261,6 @@ export const updatePassenger = (
           username,
           password,
           adress,
-          privateKey,
           profile,
         },
       },

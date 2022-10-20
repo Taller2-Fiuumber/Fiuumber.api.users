@@ -16,9 +16,8 @@ model User {
   updatedAt DateTime   @updatedAt
   email     String     @unique
   password  String     @default("")
-  privateKey String     @default("")
-  adress String
-  username  String
+  username  String     @default("")
+  adress    String     @default("")
   firstName String
   lastName  String
   profile   Profile
