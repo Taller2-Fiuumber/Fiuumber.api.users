@@ -72,6 +72,8 @@ export const GetUserLogin = async (req: Request, res: Response) => {
 
 export const CreatePassenger = async (req: Request, res: Response) => {
   try {
+    console.log(req.body)
+    console.log("PEPE")
     const { email, firstName, lastName, wallet, password } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.createPassenger(
