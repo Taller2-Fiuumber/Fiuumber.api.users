@@ -91,33 +91,37 @@ export const createDriver = async (
   email: string,
   firstName: string,
   lastName: string,
+  username: string,
+  password: string,
   adress: string,
   privateKey: string,
+  walletPrivateKey: string,
   domain: string,
   modelYear: string,
   colorName: string,
   brand: string,
   model: string,
   image: string,
-  password: string,
 ): Promise<Driver> => {
   const profile = "DRIVER";
 
-  const passenger = await prisma.driver.create({
+  const driver = await prisma.driver.create({
     data: {
       user: {
         create: {
           email,
           firstName,
           lastName,
-          profile,
+          username,
           password,
+          adress,
+          privateKey,
+          profile,
         },
       },
       wallet: {
         create: {
-          adress,
-          privateKey,
+          walletPrivateKey,
         },
       },
       vehicle: {
@@ -137,16 +141,18 @@ export const createDriver = async (
     },
   });
 
-  return passenger;
+  return driver;
 };
 
 export const createPassenger = (
   email: string,
   firstName: string,
   lastName: string,
+  username: string,
+  password: string,
   adress: string,
   privateKey: string,
-  password: string,
+  walletPrivateKey:string
 ): Promise<Passenger> => {
   const profile = "PASSENGER";
 
@@ -155,16 +161,18 @@ export const createPassenger = (
       user: {
         create: {
           email,
-          password,
           firstName,
           lastName,
+          username,
+          password,
+          adress,
+          privateKey,
           profile,
         },
       },
       wallet: {
         create: {
-          adress,
-          privateKey,
+          walletPrivateKey,
         },
       },
     },
@@ -179,7 +187,6 @@ export const updateDriver = (
   firstName: string,
   lastName: string,
   adress: string,
-  privateKey: string,
   domain: string,
   modelYear: string,
   colorName: string,
@@ -187,6 +194,10 @@ export const updateDriver = (
   model: string,
   image: string,
   password: string,
+  username: string,
+  privateKey: string,
+  walletPrivateKey:string
+
 ): Promise<Driver> => {
   const profile = "DRIVER";
 
@@ -200,14 +211,16 @@ export const updateDriver = (
           email,
           firstName,
           lastName,
-          profile,
+          username,
           password,
+          adress,
+          privateKey,
+          profile,
         },
       },
       wallet: {
         create: {
-          adress,
-          privateKey,
+          walletPrivateKey,
         },
       },
       vehicle: {
@@ -235,9 +248,11 @@ export const updatePassenger = (
   email: string,
   firstName: string,
   lastName: string,
+  username: string,
+  password: string,
   adress: string,
   privateKey: string,
-  password: string,
+  walletPrivateKey:string
 ): Promise<Passenger> => {
   const profile = "PASSENGER";
 
@@ -251,14 +266,16 @@ export const updatePassenger = (
           email,
           firstName,
           lastName,
-          profile,
+          username,
           password,
+          adress,
+          privateKey,
+          profile,
         },
       },
       wallet: {
         create: {
-          adress,
-          privateKey,
+          walletPrivateKey,
         },
       },
     },

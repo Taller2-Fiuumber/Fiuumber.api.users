@@ -7,8 +7,11 @@ WORKDIR /app
 COPY . /app
 RUN npm install
 RUN npm install -g ts-node typescript '@types/node'
-RUN npm run build
 
-ENV PORT 8080
+RUN npx prisma generate --schema=src/infraestructure/prisma/schema.prisma
+
+# RUN npm run build
+
+ENV PORT 8081
 
 EXPOSE ${PORT}

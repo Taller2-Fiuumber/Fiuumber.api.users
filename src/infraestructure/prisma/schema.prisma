@@ -16,6 +16,9 @@ model User {
   updatedAt DateTime   @updatedAt
   email     String     @unique
   password  String     @default("")
+  privateKey String     @default("")
+  adress String
+  username  String
   firstName String
   lastName  String
   profile   Profile
@@ -65,8 +68,7 @@ model Wallet {
   id         Int        @id @default(autoincrement())
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
-  adress     String
-  privateKey String
+  walletPrivateKey String
   driver     Driver?
   passenger  Passenger?
 }

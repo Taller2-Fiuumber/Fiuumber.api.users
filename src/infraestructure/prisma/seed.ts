@@ -13,9 +13,9 @@ const createPassengers = async () => {
 
     console.log("Creating passengers...");
     const encryptedPassword: string = await encrypt("juancho1234");
-    await createPassenger("juancho@fiuumber.com.ar", "Juan", "Perez", "Calle Falsa 123", "claveprivada$$", encryptedPassword);
+    await createPassenger("juancho@fiuumber.com.ar", "Juan", "Perez","unsername", "Calle Falsa 123", "claveprivada$$", encryptedPassword, "walletPrivateKey");
     const encryptedPassword2: string = await encrypt("elpapu1234");
-    await createPassenger("elpapu@fiuumber.com.ar", "El", "Papu", "Calle Falsa 124", "claveprivada$$", encryptedPassword2);
+    await createPassenger("elpapu@fiuumber.com.ar", "El", "Papu","unsername", "Calle Falsa 124", "claveprivada$$", encryptedPassword2, "walletPrivateKey");
 
 
 };

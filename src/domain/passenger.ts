@@ -6,15 +6,17 @@ export class Passenger extends User {
   wallet: Wallet;
 
   constructor(
-    id: number,
+    userId: number,
     email: string,
     firstName: string,
     lastName: string,
-    location: string,
+    adress: string,
     wallet: Wallet,
     password: string,
+    username: string,
+    privateKey: string
   ) {
-    super(id, email, firstName, lastName, location, password);
+    super(userId, email, firstName, lastName, adress, password, username, privateKey);
     this.profile = "passenger";
     this.wallet = wallet;
   }
