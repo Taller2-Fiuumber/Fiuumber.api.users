@@ -1,11 +1,9 @@
 export class Wallet {
   id: string;
-  adress: string;
-  privateKey: string;
+  walletPrivateKey: string;
 
-  constructor(id: string, adress: string, privateKey: string) {
+  constructor(id: string, walletPrivateKey: string) {
     this.id = id;
-    this.adress = adress;
-    this.privateKey = privateKey;
+    this.walletPrivateKey = walletPrivateKey;
   }
 }

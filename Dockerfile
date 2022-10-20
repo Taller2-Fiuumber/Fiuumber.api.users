@@ -10,14 +10,15 @@ COPY . /app
 
 RUN npm install
 
-# Para poder generar los datos mock en dev
-RUN npm install -g ts-node typescript '@types/node'
-
 RUN npx prisma generate --schema=src/infraestructure/prisma/schema.prisma
 
 RUN npx prisma migrate deploy --schema=src/infraestructure/prisma/schema.prisma
+
+RUN npm run prebuild
 
 RUN npm run build
 
 RUN adduser -D myuser
 USER myuser
+
+CMD npm run start

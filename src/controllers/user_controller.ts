@@ -56,13 +56,14 @@ export const GetUserLogin = async (req: Request, res: Response) => {
   try {
     const email: string = req.query.email?.toString() || '';
     const password: string = req.query.password?.toString() || '';
+    
     const user: User | null = await service.getUserLogin(email);
 
     if (!user || !(await check(password, user?.password))) {
       res.status(401).send();
       return;
     }
-    
+
     res.json(user).status(200);
 
   } catch (error) {
@@ -72,18 +73,17 @@ export const GetUserLogin = async (req: Request, res: Response) => {
 
 export const CreatePassenger = async (req: Request, res: Response) => {
   try {
-    console.log(req.body)
-    console.log("PEPE")
-    const { email, firstName, lastName, wallet, password } = req.body;
-    const encryptedPassword: string = await encrypt(password);
-    const body = await service.createPassenger(
+    const {
       email,
       firstName,
       lastName,
-      wallet.adress,
-      wallet.privateKey,
-      encryptedPassword,
-    );
+      username,
+      password,
+      adress,
+      wallet
+    } = req.body;
+    const encryptedPassword: string = await encrypt(password);
+    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, adress, wallet.privateKey);
     res.json(body).status(200);
   } catch (error) {
     console.log(error);
@@ -112,16 +112,26 @@ export const GetPassengers = async (req: Request, res: Response) => {
 
 export const UpdatePassenger = async (req: Request, res: Response) => {
   try {
-    const { userId, email, firstName, lastName, wallet, password } = req.body;
+    const {
+      userId,
+      email,
+      firstName,
+      lastName,
+      username,
+      password,
+      adress,
+      wallet,
+    } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.updatePassenger(
       userId,
       email,
       firstName,
       lastName,
-      wallet.adress,
-      wallet.privateKey,
+      username,
       encryptedPassword,
+      adress,
+      wallet.privateKey,
     );
     res.json(body).status(200);
   } catch (error) {
@@ -135,6 +145,9 @@ export const CreateDriver = async (req: Request, res: Response) => {
       email,
       firstName,
       lastName,
+      username,
+      password,
+      adress,
       wallet,
       domain,
       modelYear,
@@ -142,14 +155,15 @@ export const CreateDriver = async (req: Request, res: Response) => {
       brand,
       model,
       image,
-      password,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.createDriver(
       email,
       firstName,
       lastName,
-      wallet.adress,
+      username,
+      encryptedPassword,
+      adress,
       wallet.privateKey,
       domain,
       modelYear,
@@ -157,7 +171,6 @@ export const CreateDriver = async (req: Request, res: Response) => {
       brand,
       model,
       image,
-      encryptedPassword,
     );
     res.json(body).status(200);
   } catch (error) {
@@ -191,6 +204,9 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       email,
       firstName,
       lastName,
+      username,
+      password,
+      adress,
       wallet,
       domain,
       modelYear,
@@ -198,7 +214,6 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       brand,
       model,
       image,
-      password,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.updateDriver(
@@ -206,7 +221,9 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       email,
       firstName,
       lastName,
-      wallet.adress,
+      username,
+      encryptedPassword,
+      adress,
       wallet.privateKey,
       domain,
       modelYear,
@@ -214,7 +231,6 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       brand,
       model,
       image,
-      encryptedPassword
     );
     res.json(body).status(200);
   } catch (error) {
