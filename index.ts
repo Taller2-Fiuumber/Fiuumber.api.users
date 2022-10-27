@@ -38,6 +38,8 @@ app.put('/api/users-service/administrator', administrator_controller.UpdateAdmin
 
 app.delete('/api/users-service/administrator/:id', administrator_controller.DeleteAdministrator);
 
+app.get('/api/users-service/administrator/page/:skip&:take', administrator_controller.GetAdministratorPage);
+
 // Vehicle
 
 app.get('/api/users-service/vehicle', user_controller.GetVehicles);
@@ -50,6 +52,8 @@ app.put('/api/users-service/vehicle', user_controller.UpdateVehicle);
 
 app.delete('/api/users-service/vehicle/:id', user_controller.DeleteVehicle);
 
+app.get('/api/users-service/vehicle/page/:skip&:take', user_controller.GetVehiclePage);
+
 // User
 
 app.get('/api/users-service/user', user_controller.GetUsers);
@@ -59,6 +63,8 @@ app.get('/api/users-service/user/:id', user_controller.GetUser);
 app.get('/api/users-service/login', user_controller.GetUserLogin);
 
 app.delete('/api/users-service/user/:id', user_controller.DeleteUser);
+
+app.get('/api/users-service/user/page/:skip&:take', user_controller.GetUserPage);
 
 // Passenger
 
@@ -70,6 +76,8 @@ app.post('/api/users-service/passenger', user_controller.CreatePassenger);
 
 app.put('/api/users-service/passenger', user_controller.UpdatePassenger);
 
+app.get('/api/users-service/passenger/page/:skip&:take', user_controller.GetPassengerPage);
+
 // Driver
 
 app.get('/api/users-service/driver', user_controller.GetDrivers);
@@ -79,6 +87,8 @@ app.get('/api/users-service/driver/:id', user_controller.GetDriver);
 app.post('/api/users-service/driver', user_controller.CreateDriver);
 
 app.put('/api/users-service/driver', user_controller.UpdateDriver);
+
+app.get('/api/users-service/driver/page/:skip&:take', user_controller.GetDriverPage);
 
 // Listening...
 

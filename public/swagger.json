@@ -29,6 +29,208 @@
         "application/json"
     ],
     "paths": {
+        "/user/page/{skip}&{take}": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "name": "skip",
+                        "required": true,
+                        "description": "Number of users to skip",
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "take",
+                        "required": true,
+                        "description": "Nymber of users to take",
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    }
+                ],
+                "summary": "Get users with given ID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
+        "/vehicle/page/{skip}&{take}": {
+            "get": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "name": "skip",
+                        "required": true,
+                        "description": "Number of vehicles to skip",
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "take",
+                        "required": true,
+                        "description": "Nymber of vehicles to take",
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    }
+                ],
+                "summary": "Get vehicles with given ID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Vehicle"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Vehicle not found."
+                    }
+                }
+            }
+        },
+        "/driver/page/{skip}&{take}": {
+            "get": {
+                "tags": [
+                    "Driver"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "name": "skip",
+                        "required": true,
+                        "description": "Number of drivers to skip",
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "take",
+                        "required": true,
+                        "description": "Nymber of drivers to take",
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    }
+                ],
+                "summary": "Get drivers with given ID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Driver"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Drivers not found."
+                    }
+                }
+            }
+        },
+        "/passenger/page/{skip}&{take}": {
+
+            "get": {
+                "tags": [
+                    "Passenger"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "name": "skip",
+                        "required": true,
+                        "description": "Number of passengers to skip",
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "take",
+                        "required": true,
+                        "description": "Nymber of passengers to take",
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    }
+                ],
+                "summary": "Get administrator with given ID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Passenger"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Passengers not found."
+                    }
+                }
+            }
+        },
+        "/administrator/page/{skip}&{take}": {
+
+            "get": {
+                "tags": [
+                    "Administrator"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "name": "skip",
+                        "required": true,
+                        "description": "Number of administrators to skip",
+                        "schema": {
+                            "type": "integer",
+                            "example": 10
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "take",
+                        "required": true,
+                        "description": "Nymber of administrators to take",
+                        "schema": {
+                            "type": "integer",
+                            "example": 5
+                        }
+                    }
+                ],
+                "summary": "Get administrator with given ID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Administrator"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Administrator not found."
+                    }
+                }
+            }
+        },
         "/administrator/{id}": {
             "parameters": [{
                 "in": "path",
@@ -44,7 +246,7 @@
                 "tags": [
                     "Administrator"
                 ],
-                "summary": "Get vehicle with given ID",
+                "summary": "Get administrator with given ID",
                 "parameters": [{
                     "in": "path",
                     "name": "id",
@@ -90,7 +292,7 @@
                         }
                     },
                     "404": {
-                        "description": "Failed. User not found."
+                        "description": "Failed. Administrator not found."
                     }
                 }
             }
@@ -116,7 +318,7 @@
                 "tags": [
                     "Administrator"
                 ],
-                "summary": "Create a new vehicle in system",
+                "summary": "Create a new administrator in system",
                 "requestBody": {
                     "description": "Administrator Object",
                     "required": true,
@@ -149,7 +351,7 @@
                     "Administrator"
                 ],
                 "requestBody": {
-                    "description": "User Object",
+                    "description": "Administrator Object",
                     "required": true,
                     "content": {
                         "application/json": {
@@ -421,7 +623,7 @@
                 }
             },
             "put": {
-                "summary": "Update Passenger with given ID",
+                "summary": "Update passenger with given ID",
                 "tags": [
                     "Passenger"
                 ],
@@ -540,7 +742,7 @@
                 }
             },
             "put": {
-                "summary": "Update Driver with given ID",
+                "summary": "Update driver with given ID",
                 "tags": [
                     "Driver"
                 ],
@@ -586,12 +788,12 @@
                 "tags": [
                     "Driver"
                 ],
-                "summary": "Get user with given ID",
+                "summary": "Get driver with given ID",
                 "parameters": [{
                     "in": "path",
                     "name": "id",
                     "required": true,
-                    "description": "Passenger id",
+                    "description": "Driver id",
                     "schema": {
                         "type": "integer",
                         "example": 1

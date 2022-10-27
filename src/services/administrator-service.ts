@@ -74,3 +74,10 @@ export const deleteAdministrator = (
   });
   return administrator;
 };
+
+export const getAdministratorsPage = async (skip: number, take: number): Promise<Administrator[]> => {
+  return await prisma.administrator.findMany({
+    skip: skip,
+    take: take,
+  })
+};

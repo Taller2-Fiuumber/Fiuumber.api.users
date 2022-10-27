@@ -269,3 +269,52 @@ export const UpdateDriver = async (req: Request, res: Response) => {
     res.status(500).send(error);
   }
 };
+
+export const GetUserPage = async (req: Request, res: Response) => {
+  try {
+    const skip = Number.parseInt(req.params.skip.toString());
+    const take = Number.parseInt(req.params.take.toString());
+
+    const body = await service.getUserPage(skip, take);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetPassengerPage = async (req: Request, res: Response) => {
+  try {
+    const skip = Number.parseInt(req.params.skip.toString());
+    const take = Number.parseInt(req.params.take.toString());
+
+    const body = await service.getPassengerPage(skip, take);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetVehiclePage = async (req: Request, res: Response) => {
+  try {
+    const skip = Number.parseInt(req.params.skip.toString());
+    const take = Number.parseInt(req.params.take.toString());
+
+    const body = await service.getVehiclePage(skip, take);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetDriverPage = async (req: Request, res: Response) => {
+  try {
+    const skip = Number.parseInt(req.params.skip.toString());
+    const take = Number.parseInt(req.params.take.toString());
+
+    const body = await service.getDriverPage(skip, take);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+

@@ -22,6 +22,18 @@ export const GetAdministrator = async (req: Request, res: Response) => {
   }
 };
 
+export const GetAdministratorPage = async (req: Request, res: Response) => {
+  try {
+    const skip = Number.parseInt(req.params.skip.toString());
+    const take = Number.parseInt(req.params.take.toString());
+
+    const body = await service.getAdministratorsPage(skip, take);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 export const GetAdministratorLogin = async (req: Request, res: Response) => {
   if (!req.query.email || !req.query.password) res.status(500).send();
   try {
@@ -81,8 +93,6 @@ export const UpdateAdministrator = async (req: Request, res: Response) => {
     res.status(500).send(error);
   }
 };
-
-
 
 export const DeleteAdministrator = async (req: Request, res: Response) => {
   try {
