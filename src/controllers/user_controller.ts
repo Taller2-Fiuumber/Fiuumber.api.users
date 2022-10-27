@@ -12,8 +12,19 @@ export const GetVehicles = async (req: Request, res: Response) => {
   }
 };
 
+export const GetVehicle = async (req: Request, res: Response) => {
+  try {
+    const id = Number.parseInt(req.params.id.toString());
+    const body = await service.getVehicle(id);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 export const CreateVehicle = async (req: Request, res: Response) => {
   try {
+
     const { brand, model, image } = req.body;
     const body = await service.createVehicle(brand, model, image);
     res.json(body).status(200);
@@ -32,6 +43,17 @@ export const UpdateVehicle = async (req: Request, res: Response) => {
   }
 };
 
+export const DeleteVehicle = async (req: Request, res: Response) => {
+  try {
+    const id = Number.parseInt(req.params.id.toString());
+    const body = await service.deleteVehicle(id);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+
 export const GetUsers = async (req: Request, res: Response) => {
   try {
     const body = await service.getUsers();
@@ -44,7 +66,7 @@ export const GetUsers = async (req: Request, res: Response) => {
 export const GetUser = async (req: Request, res: Response) => {
   try {
     const id = Number.parseInt(req.params.id.toString());
-    const body = await service.getUser(id);
+    const body = await service.getUserById(id);
     res.json(body).status(200);
   } catch (error) {
     res.status(500).send(error);
@@ -56,8 +78,8 @@ export const GetUserLogin = async (req: Request, res: Response) => {
   try {
     const email: string = req.query.email?.toString() || '';
     const password: string = req.query.password?.toString() || '';
-    
-    const user: User | null = await service.getUserLogin(email);
+
+    const user: User | null = await service.getUserByEmail(email);
 
     if (!user || !(await check(password, user?.password))) {
       res.status(401).send();
@@ -71,19 +93,29 @@ export const GetUserLogin = async (req: Request, res: Response) => {
   }
 };
 
+export const DeleteUser = async (req: Request, res: Response) => {
+  try {
+    const id = Number.parseInt(req.params.id.toString());
+    const body = await service.deleteUserById(id);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 export const CreatePassenger = async (req: Request, res: Response) => {
   try {
     const {
       email,
       firstName,
       lastName,
-      username,
-      password,
       adress,
-      wallet
+      password,
+      username,
+      privateKey
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
-    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, adress, wallet.privateKey);
+    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, adress, privateKey);
     res.json(body).status(200);
   } catch (error) {
     console.log(error);
@@ -93,7 +125,7 @@ export const CreatePassenger = async (req: Request, res: Response) => {
 
 export const GetPassenger = async (req: Request, res: Response) => {
   try {
-    const { userId } = req.body;
+    const userId = Number.parseInt(req.params.id.toString());
     const body = await service.getPassenger(userId);
     res.json(body).status(200);
   } catch (error) {
@@ -120,7 +152,7 @@ export const UpdatePassenger = async (req: Request, res: Response) => {
       username,
       password,
       adress,
-      wallet,
+      privateKey,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.updatePassenger(
@@ -131,7 +163,7 @@ export const UpdatePassenger = async (req: Request, res: Response) => {
       username,
       encryptedPassword,
       adress,
-      wallet.privateKey,
+      privateKey,
     );
     res.json(body).status(200);
   } catch (error) {
@@ -148,7 +180,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       username,
       password,
       adress,
-      wallet,
+      privateKey,
       domain,
       modelYear,
       colorName,
@@ -164,7 +196,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       username,
       encryptedPassword,
       adress,
-      wallet.privateKey,
+      privateKey,
       domain,
       modelYear,
       colorName,
@@ -180,7 +212,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
 
 export const GetDriver = async (req: Request, res: Response) => {
   try {
-    const { userId } = req.body;
+    const userId = Number.parseInt(req.params.id.toString());
     const body = await service.getDriver(userId);
     res.json(body).status(200);
   } catch (error) {

@@ -1,5 +1,9 @@
 # 22C2-Fiuumber
 
+# Heroku app
+
+[Link](https://fiuumber-api-users.herokuapp.com/docs/ "Link a heroku")
+
 ## Developer commands:
 
 Get database and web conatiner running
@@ -21,23 +25,8 @@ Run shell in container and happy coding!
 
 
 ``` bash
-➜  Fiuumber.api.users : docker exec -it edc3fe204ecf sh
+➜  Fiuumber.api.users : docker exec -it fiuumberapiusers_web sh
 
-
-/app # npm run build
-
-> back-template@1.0.0 build
-> npx tsc
-
-/app # npm run start
-
-> back-template@1.0.0 start
-> node dist/index.js
-
-⚡️[server]: Server is running at http://localhost:8081
-
-(happy coding...)
-
-/app # exit
+/app # npm run dev
 
 ```

@@ -1,26 +1,819 @@
 {
-	"components": {
-		"examples": {},
-		"headers": {},
-		"parameters": {},
-		"requestBodies": {},
-		"responses": {},
-		"schemas": {},
-		"securitySchemes": {}
-	},
-	"info": {
-		"title": "back-template",
-		"version": "1.0.0",
-		"license": {
-			"name": "ISC"
-		},
-		"contact": {}
-	},
-	"openapi": "3.0.0",
-	"paths": {},
-	"servers": [
-		{
-			"url": "/"
-		}
-	]
+    "openapi": "3.0.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Fiuumber User API",
+        "description": "CRUD",
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "servers": [{
+            "url": "https://fiuumber-api-users.herokuapp.com/api/users-service",
+            "description": "Heroku"
+        },
+        {
+            "url": "http://localhost:8081/api/users-service",
+            "description": "Localhost in port 8081"
+        }
+    ],
+    "tags": [{
+        "name": "Fiuumber - Users",
+        "description": "API for users in the system"
+    }],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/administrator/{id}": {
+            "parameters": [{
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "description": "Administrator id",
+                "schema": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }],
+            "get": {
+                "tags": [
+                    "Administrator"
+                ],
+                "summary": "Get vehicle with given ID",
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "description": "Administrator id",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Administrator"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Administrator not found."
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete administrator with given ID",
+                "tags": [
+                    "Administrator"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "description": "Administrator id",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
+
+        "/administrator": {
+            "get": {
+                "tags": [
+                    "Administrator"
+                ],
+                "summary": "Get all administrator in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Administrator"
+                        }
+                    }
+                }
+            },
+
+            "post": {
+                "tags": [
+                    "Administrator"
+                ],
+                "summary": "Create a new vehicle in system",
+                "requestBody": {
+                    "description": "Administrator Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Administrator"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update administrator with given ID",
+                "tags": [
+                    "Administrator"
+                ],
+                "requestBody": {
+                    "description": "User Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Administrator"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Administrator"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    },
+                    "404": {
+                        "description": "Failed. Administrator not found."
+                    }
+                }
+            }
+        },
+        "/vehicle/{id}": {
+            "parameters": [{
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "description": "Vehicle id",
+                "schema": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }],
+            "get": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "summary": "Get vehicle with given ID",
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "description": "Vehicle id",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Vehicle"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Vehicle not found."
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete vehicle with given ID",
+                "tags": [
+                    "Vehicle"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "description": "Vehicle id",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Vehicle not found."
+                    }
+                }
+            }
+        },
+
+        "/vehicle": {
+            "get": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "summary": "Get all vehicles in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Vehicle"
+                        }
+                    }
+                }
+            },
+
+            "post": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "summary": "Create a new vehicle in system",
+                "requestBody": {
+                    "description": "Vehicle Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Vehicle"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all users in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/{id}": {
+            "parameters": [{
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "description": "User id",
+                "schema": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }],
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get user with given ID",
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "description": "User id",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Delete user with given ID",
+                "tags": [
+                    "User"
+                ],
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "description": "Passenger id",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
+
+        "/passenger": {
+            "get": {
+                "tags": [
+                    "Passenger"
+                ],
+                "summary": "Get all passengers in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Passenger"
+                        }
+                    }
+                }
+            },
+
+            "post": {
+                "tags": [
+                    "Passenger"
+                ],
+                "summary": "Create a new passenger in system",
+                "requestBody": {
+                    "description": "Passenger Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Passenger"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Passenger with given ID",
+                "tags": [
+                    "Passenger"
+                ],
+                "requestBody": {
+                    "description": "Passenger Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Passenger"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Passenger"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    },
+                    "404": {
+                        "description": "Failed. Passenger not found."
+                    }
+                }
+            }
+        },
+        "/passenger/{id}": {
+            "parameters": [{
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "description": "Passenger id",
+                "schema": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }],
+            "get": {
+                "tags": [
+                    "Passenger"
+                ],
+                "summary": "Get user with given ID",
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "description": "Passenger id",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Passenger"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Passenger not found."
+                    }
+                }
+            }
+        },
+
+        "/driver": {
+            "get": {
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "Get all drivers in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Driver"
+                        }
+                    }
+                }
+            },
+
+            "post": {
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "Create a new driver in system",
+                "requestBody": {
+                    "description": "Driver Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Driver"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/id"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            },
+            "put": {
+                "summary": "Update Driver with given ID",
+                "tags": [
+                    "Driver"
+                ],
+                "requestBody": {
+                    "description": "Driver Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Driver"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Driver"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    },
+                    "404": {
+                        "description": "Failed. Driver not found."
+                    }
+                }
+            }
+        },
+        "/driver/{id}": {
+            "parameters": [{
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "description": "Passenger id",
+                "schema": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }],
+            "get": {
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "Get user with given ID",
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "description": "Passenger id",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Driver"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Driver not found."
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "id": {
+            "properties": {
+                "uuid": {
+                    "type": "string"
+                }
+            }
+        },
+        "Administrator": {
+            "type": "object",
+            "properties": {
+                "adminId": {
+                    "type": "number",
+                    "example": 1
+                },
+                "email": {
+                    "type": "string",
+                    "example": "acai@fi.uba.ar"
+                },
+                "firstName": {
+                    "type": "string",
+                    "example": "Ana"
+                },
+                "lastName": {
+                    "type": "string",
+                    "example": "Cai"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "1234shhh"
+                },
+                "privateKey": {
+                    "type": "string",
+                    "example": "2324adjaisdidknas"
+                }
+            }
+        },
+        "Vehicle": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "example": 1
+                },
+                "brand": {
+                    "type": "string",
+                    "example": "ROLLS ROYCE"
+                },
+                "model": {
+                    "type": "string",
+                    "example": "PHANTOM"
+                },
+                "image": {
+                    "type": "string",
+                    "example": "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2020-onix-premier/colorizer/01-images/julio-20/2-onix-premier-seeker-met-5.png?imwidth=960"
+                }
+            }
+        },
+        "Wallet": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "walletPrivateKey": {
+                    "type": "string"
+                }
+            }
+        },
+        "User": {
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "type": "number",
+                    "example": 1
+                },
+                "email": {
+                    "type": "string",
+                    "example": "acai@fi.uba.ar"
+                },
+                "firstName": {
+                    "type": "boolean",
+                    "example": "Ana"
+                },
+                "lastName": {
+                    "type": "string",
+                    "example": "Cai"
+                },
+                "adress": {
+                    "type": "string",
+                    "example": "Tucuman 111"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "fasbf62823hd91d019dj12j1209j09j90"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "anichucai"
+                },
+                "privateKey": {
+                    "type": "string",
+                    "example": "fasbf62823hd@#@12223@#@3d019dj122@#@j1209j09j90"
+                }
+            }
+        },
+        "Passenger": {
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "type": "number",
+                    "example": 1
+                },
+                "email": {
+                    "type": "string",
+                    "example": "acai@fi.uba.ar"
+                },
+                "firstName": {
+                    "type": "boolean",
+                    "example": "Ana"
+                },
+                "lastName": {
+                    "type": "string",
+                    "example": "Cai"
+                },
+                "adress": {
+                    "type": "string",
+                    "example": "Tucuman 111"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "fasbf62823hd91d019dj12j1209j09j90"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "anichucai"
+                },
+                "privateKey": {
+                    "type": "string",
+                    "example": "fasbf62823hd@#@12223@#@3d019dj122@#@j1209j09j90"
+                }
+            }
+        },
+        "Driver": {
+            "type": "object",
+            "properties": {
+                "userId": {
+                    "type": "number",
+                    "example": 1
+                },
+                "email": {
+                    "type": "string",
+                    "example": "acai@fi.uba.ar"
+                },
+                "firstName": {
+                    "type": "boolean",
+                    "example": "Ana"
+                },
+                "lastName": {
+                    "type": "string",
+                    "example": "Cai"
+                },
+                "adress": {
+                    "type": "string",
+                    "example": "Tucuman 111"
+                },
+                "password": {
+                    "type": "string",
+                    "example": "fasbf62823hd91d019dj12j1209j09j90"
+                },
+                "username": {
+                    "type": "string",
+                    "example": "anichucai"
+                },
+                "privateKey": {
+                    "type": "string",
+                    "example": "fasbf62823hd@#@12223@#@3d019dj122@#@j1209j09j90"
+                },
+                "brand": {
+                    "type": "string",
+                    "example": "ROLLS ROYCE"
+                },
+                "model": {
+                    "type": "string",
+                    "example": "PHANTOM"
+                },
+                "image": {
+                    "type": "string",
+                    "example": "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2020-onix-premier/colorizer/01-images/julio-20/2-onix-premier-seeker-met-5.png?imwidth=960"
+                },
+                "domain": {
+                    "type": "string",
+                    "example": "218 GSS"
+                },
+                "modelYear": {
+                    "type": "string",
+                    "example": "2021"
+                },
+                "colorName": {
+                    "type": "string",
+                    "example": "blue"
+                }
+            }
+        }
+    }
 }
