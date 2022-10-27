@@ -6,6 +6,15 @@ export const getVehicles = async (): Promise<Vehicle[]> => {
   return await prisma.vehicle.findMany();
 };
 
+export const getVehicle = async (id: number): Promise<Vehicle> => {
+  return await prisma.vehicle.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+};
+
 export const createVehicle = async (
   brand: string,
   model: string,
@@ -42,17 +51,48 @@ export const updateVehicle = async (
   return body;
 };
 
-export const getUsers = async (): Promise<User[]> => {
-  return await prisma.user.findMany();
+export const deleteVehicle = (
+  id: number,
+): Promise<Vehicle> => {
+  const vehicle = prisma.vehicle.delete({
+    where: {
+      id,
+    }
+  });
+  return vehicle;
 };
 
-export const getUserLogin = async (email: string): Promise<User | null> => {
+export const getUserById = async (id: number): Promise<User> => {
+  return await prisma.user.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+};
+
+export const getUserByEmail = async (email: string): Promise<User | null> => {
   return await prisma.user.findUnique({
     where: {
         email: email,
     },
   });
 };
+
+export const getUsers = async (): Promise<User[]> => {
+  return await prisma.user.findMany();
+};
+
+export const deleteUserById = (
+  id: number,
+): Promise<User> => {
+  const user = prisma.user.delete({
+    where: {
+      id,
+    }
+  });
+  return user;
+};
+
 
 export const getPassengers = async (): Promise<Passenger[]> => {
   return await prisma.passenger.findMany({include: {user: true,},});
@@ -62,13 +102,6 @@ export const getDrivers = async (): Promise<Driver[]> => {
   return await prisma.driver.findMany();
 };
 
-export const getUser = async (id: number): Promise<User> => {
-  return await prisma.user.findUniqueOrThrow({
-    where: {
-      id,
-    },
-  });
-};
 
 export const getDriver = async (userId: number): Promise<Driver> => {
   return await prisma.driver.findUniqueOrThrow({
@@ -159,9 +192,9 @@ export const createPassenger = (
           email,
           firstName,
           lastName,
-          username,
-          password,
           adress,
+          password,
+          username,
           profile,
         },
       },
@@ -193,36 +226,34 @@ export const updateDriver = (
   walletPrivateKey:string
 
 ): Promise<Driver> => {
-  const profile = "DRIVER";
 
-  const passenger = prisma.driver.update({
+  return prisma.driver.update({
     where: {
       userId,
     },
     data: {
       user: {
-        create: {
+        update: {
           email,
           firstName,
           lastName,
           username,
           password,
           adress,
-          profile,
         },
       },
       wallet: {
-        create: {
+        update: {
           walletPrivateKey,
         },
       },
       vehicle: {
-        create: {
+        update: {
           domain,
           modelYear,
           colorName,
           vehicle: {
-            create: {
+            update: {
               brand,
               model,
               image,
@@ -233,11 +264,10 @@ export const updateDriver = (
     },
   });
 
-  return passenger;
 };
 
 export const updatePassenger = (
-  userId: number,
+  id: number,
   email: string,
   firstName: string,
   lastName: string,
@@ -246,31 +276,27 @@ export const updatePassenger = (
   adress: string,
   walletPrivateKey:string
 ): Promise<Passenger> => {
-  const profile = "PASSENGER";
 
-  const passenger = prisma.passenger.update({
+  return prisma.passenger.update({
     where: {
-      userId,
+      userId: id,
     },
     data: {
       user: {
-        create: {
+        update: {
           email,
           firstName,
           lastName,
-          username,
-          password,
           adress,
-          profile,
+          password,
+          username,
         },
       },
       wallet: {
-        create: {
+        update: {
           walletPrivateKey,
         },
       },
     },
   });
-
-  return passenger;
 };

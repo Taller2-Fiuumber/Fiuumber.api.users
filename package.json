@@ -14,9 +14,7 @@
         "prisma:setup-dev": "npm run prisma:generate && npm run prisma:migrate && npm run prisma:seed",
         "prisma:migrate": "prisma migrate dev --schema=src/infraestructure/prisma/schema.prisma",
         "prisma:generate": "prisma generate --schema=src/infraestructure/prisma/schema.prisma",
-        "prisma:seed": "ts-node src/infraestructure/prisma/seed.ts",
-        "prebuild": "npm run swagger",
-        "swagger": "tsoa spec --json"
+        "prisma:seed": "ts-node src/infraestructure/prisma/seed.ts"
     },
     "author": "",
     "license": "ISC",
@@ -31,6 +29,7 @@
         "install": "^0.13.0",
         "npm": "^8.19.2",
         "prisma": "^4.3.1",
+        "swagger-typescript-api": "^10.0.3",
         "swagger-ui-express": "^4.5.0",
         "tsoa": "^4.1.3"
     },

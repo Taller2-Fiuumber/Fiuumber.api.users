@@ -65,6 +65,19 @@ CREATE TABLE "Wallet" (
     CONSTRAINT "Wallet_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Administrator" (
+    "id" SERIAL NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+    "email" TEXT NOT NULL,
+    "password" TEXT NOT NULL DEFAULT '',
+    "firstName" TEXT NOT NULL,
+    "lastName" TEXT NOT NULL,
+
+    CONSTRAINT "Administrator_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
@@ -88,6 +101,9 @@ CREATE UNIQUE INDEX "DriverVehicle_domain_key" ON "DriverVehicle"("domain");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "DriverVehicle_vehicleId_key" ON "DriverVehicle"("vehicleId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Administrator_email_key" ON "Administrator"("email");
 
 -- AddForeignKey
 ALTER TABLE "Driver" ADD CONSTRAINT "Driver_walletId_fkey" FOREIGN KEY ("walletId") REFERENCES "Wallet"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
