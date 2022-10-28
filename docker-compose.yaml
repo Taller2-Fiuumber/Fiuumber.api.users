@@ -40,10 +40,13 @@ services:
         PORT: 8081
     networks:
       - default
-
+      - gateway
 networks:
   default:
     name: localdev
+  gateway:
+    name: gateway
+    external: true
 
 volumes:
   database_data:
