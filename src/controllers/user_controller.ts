@@ -112,10 +112,10 @@ export const CreatePassenger = async (req: Request, res: Response) => {
       adress,
       password,
       username,
-      privateKey
+      wallet
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
-    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, adress, privateKey);
+    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, adress, wallet.privateKey);
     res.json(body).status(200);
   } catch (error) {
     console.log(error);
