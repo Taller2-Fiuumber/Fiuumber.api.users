@@ -12,14 +12,14 @@ export class Driver extends User {
     email: string,
     firstName: string,
     lastName: string,
-    adress: string,
+    address: string,
     wallet: Wallet,
     vehicle: DriverVehicle,
     password: string,
     username: string,
     privateKey: string
   ) {
-    super(id, email, firstName, lastName, adress, password, username, privateKey);
+    super(id, email, firstName, lastName, address, password, username, privateKey);
     this.profile = "driver";
     this.wallet = wallet;
     this.vehicle = vehicle;
