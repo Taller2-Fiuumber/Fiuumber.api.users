@@ -843,10 +843,6 @@
                 "password": {
                     "type": "string",
                     "example": "1234shhh"
-                },
-                "privateKey": {
-                    "type": "string",
-                    "example": "2324adjaisdidknas"
                 }
             }
         },
@@ -913,9 +909,18 @@
                     "type": "string",
                     "example": "anichucai"
                 },
-                "privateKey": {
-                    "type": "string",
-                    "example": "fasbf62823hd@#@12223@#@3d019dj122@#@j1209j09j90"
+                "wallet": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string",
+                            "example": "111"
+                        },
+                        "walletPrivateKey": {
+                            "type": "string",
+                            "example": "1dsnh2337d82hdu2@$%@!%tewdfwdww"
+                        }
+                    }
                 }
             }
         },
@@ -950,9 +955,18 @@
                     "type": "string",
                     "example": "anichucai"
                 },
-                "privateKey": {
-                    "type": "string",
-                    "example": "fasbf62823hd@#@12223@#@3d019dj122@#@j1209j09j90"
+                "wallet": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string",
+                            "example": "111"
+                        },
+                        "walletPrivateKey": {
+                            "type": "string",
+                            "example": "1dsnh2337d82hdu2@$%@!%tewdfwdww"
+                        }
+                    }
                 }
             }
         },
