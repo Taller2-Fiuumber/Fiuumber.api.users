@@ -6,7 +6,7 @@ export abstract class User {
   blocked: boolean;
   username: string;
   password: string;
-  adress: string;
+  address: string;
   privateKey: string;
   abstract profile: string;
 
@@ -15,7 +15,7 @@ export abstract class User {
     email: string,
     firstName: string,
     lastName: string,
-    adress: string,
+    address: string,
     password: string,
     username: string,
     privateKey: string
@@ -25,7 +25,7 @@ export abstract class User {
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
-    this.adress = adress;
+    this.address = address;
     this.blocked = false;
     this.password = password;
     this.username = username;

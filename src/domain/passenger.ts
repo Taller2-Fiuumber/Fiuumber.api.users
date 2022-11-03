@@ -10,13 +10,13 @@ export class Passenger extends User {
     email: string,
     firstName: string,
     lastName: string,
-    adress: string,
+    address: string,
     wallet: Wallet,
     password: string,
     username: string,
     privateKey: string
   ) {
-    super(userId, email, firstName, lastName, adress, password, username, privateKey);
+    super(userId, email, firstName, lastName, address, password, username, privateKey);
     this.profile = "passenger";
     this.wallet = wallet;
   }

@@ -9,7 +9,7 @@ CREATE TABLE "User" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL DEFAULT '',
     "username" TEXT NOT NULL DEFAULT '',
-    "adress" TEXT NOT NULL DEFAULT '',
+    "address" TEXT NOT NULL DEFAULT '',
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "profile" "Profile" NOT NULL,

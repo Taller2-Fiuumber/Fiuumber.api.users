@@ -169,7 +169,7 @@ export const createDriver = async (
   lastName: string,
   username: string,
   password: string,
-  adress: string,
+  address: string,
   walletPrivateKey: string,
   domain: string,
   modelYear: string,
@@ -189,7 +189,7 @@ export const createDriver = async (
           lastName,
           username,
           password,
-          adress,
+          address,
           profile,
         },
       },
@@ -224,7 +224,7 @@ export const createPassenger = (
   lastName: string,
   username: string,
   password: string,
-  adress: string,
+  address: string,
   walletPrivateKey:string
 ): Promise<Passenger> => {
   const profile = "PASSENGER";
@@ -236,7 +236,7 @@ export const createPassenger = (
           email,
           firstName,
           lastName,
-          adress,
+          address,
           password,
           username,
           profile,
@@ -258,7 +258,7 @@ export const updateDriver = (
   email: string,
   firstName: string,
   lastName: string,
-  adress: string,
+  address: string,
   domain: string,
   modelYear: string,
   colorName: string,
@@ -283,7 +283,7 @@ export const updateDriver = (
           lastName,
           username,
           password,
-          adress,
+          address,
         },
       },
       wallet: {
@@ -317,7 +317,7 @@ export const updatePassenger = (
   lastName: string,
   username: string,
   password: string,
-  adress: string,
+  address: string,
   walletPrivateKey:string
 ): Promise<Passenger> => {
 
@@ -331,7 +331,7 @@ export const updatePassenger = (
           email,
           firstName,
           lastName,
-          adress,
+          address,
           password,
           username,
         },

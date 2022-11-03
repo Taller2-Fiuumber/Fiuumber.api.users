@@ -901,7 +901,7 @@
                     "type": "string",
                     "example": "Cai"
                 },
-                "adress": {
+                "address": {
                     "type": "string",
                     "example": "Tucuman 111"
                 },
@@ -938,7 +938,7 @@
                     "type": "string",
                     "example": "Cai"
                 },
-                "adress": {
+                "address": {
                     "type": "string",
                     "example": "Tucuman 111"
                 },
@@ -975,7 +975,7 @@
                     "type": "string",
                     "example": "Cai"
                 },
-                "adress": {
+                "address": {
                     "type": "string",
                     "example": "Tucuman 111"
                 },
