@@ -17,9 +17,8 @@ export class Driver extends User {
     vehicle: DriverVehicle,
     password: string,
     username: string,
-    privateKey: string
   ) {
-    super(id, email, firstName, lastName, address, password, username, privateKey);
+    super(id, email, firstName, lastName, address, password, username, wallet.walletPrivateKey);
     this.profile = "driver";
     this.wallet = wallet;
     this.vehicle = vehicle;

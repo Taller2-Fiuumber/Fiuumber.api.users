@@ -115,7 +115,7 @@ export const CreatePassenger = async (req: Request, res: Response) => {
       wallet
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
-    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, address, wallet.privateKey);
+    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, address, wallet.walletPrivateKey);
     res.json(body).status(200);
   } catch (error) {
     console.log(error);
@@ -163,7 +163,7 @@ export const UpdatePassenger = async (req: Request, res: Response) => {
       username,
       encryptedPassword,
       address,
-      wallet.privateKey,
+      wallet.walletPrivateKey,
     );
     res.json(body).status(200);
   } catch (error) {
@@ -196,7 +196,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       username,
       encryptedPassword,
       address,
-      wallet.privateKey,
+      wallet.walletPrivateKey,
       domain,
       modelYear,
       colorName,
@@ -256,7 +256,7 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       username,
       encryptedPassword,
       address,
-      wallet.privateKey,
+      wallet.walletPrivateKey,
       domain,
       modelYear,
       colorName,
