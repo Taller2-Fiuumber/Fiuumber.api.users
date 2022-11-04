@@ -1,6 +1,8 @@
-import { PrismaClient, User, Passenger, Vehicle, Driver } from "@prisma/client";
+import { PrismaClient, User, Passenger, Vehicle, Driver, Wallet, DriverVehicle } from "@prisma/client";
 
 const prisma = new PrismaClient();
+
+/*---------------------------------Vehicle-------------------------------------*/
 
 export const getVehicles = async (): Promise<Vehicle[]> => {
   return await prisma.vehicle.findMany();
@@ -13,6 +15,13 @@ export const getVehicle = async (id: number): Promise<Vehicle> => {
     },
   });
 
+};
+
+export const getVehiclePage = async (skip: number, take: number): Promise<Vehicle[]> => {
+  return await prisma.vehicle.findMany({
+    skip: skip,
+    take: take,
+  })
 };
 
 export const createVehicle = async (
@@ -62,27 +71,96 @@ export const deleteVehicle = (
   return vehicle;
 };
 
+/*---------------------------Driver Vehicle-------------------------------------*/
 
-export const getVehiclePage = async (skip: number, take: number): Promise<Vehicle[]> => {
-  return await prisma.vehicle.findMany({
+export const getDriverVehicles = async (): Promise<DriverVehicle[]> => {
+  return await prisma.driverVehicle.findMany()
+};
+
+export const getDriverVehicle = async (id: number): Promise<DriverVehicle> => {
+  return await prisma.driverVehicle.findUniqueOrThrow({
+    where: {
+      id,
+    },
+  });
+
+};
+
+export const getDriverVehiclePage = async (skip: number, take: number): Promise<DriverVehicle[]> => {
+  return await prisma.driverVehicle.findMany({
     skip: skip,
     take: take,
   })
 };
 
-export const getUserPage = async (skip: number, take: number): Promise<User[]> => {
-  return await prisma.user.findMany({
-    skip: skip,
-    take: take,
-  })
+export const createDriverVehicle = async (
+  domain: string,
+  modelYear: string,
+  colorName: string,
+  brand: string,
+  model: string,
+  image: string
+): Promise<DriverVehicle> => {
+  const body = await prisma.driverVehicle.create({
+    data: {
+      domain,
+      modelYear,
+      colorName,
+      vehicle: {
+        create: {
+          brand,
+          model,
+          image,
+        }
+      }
+    },
+  });
+
+  return body;
 };
 
-export const getPassengerPage = async (skip: number, take: number): Promise<Passenger[]> => {
-  return await prisma.passenger.findMany({
-    skip: skip,
-    take: take,
-  })
+export const updateDriverVehicle = async (
+  id: number,
+  domain: string,
+  modelYear: string,
+  colorName: string,
+  brand: string,
+  model: string,
+  image: string
+): Promise<DriverVehicle> => {
+  const body = await prisma.driverVehicle.update({
+    where: {
+      id,
+    },
+    data: {
+      domain,
+      modelYear,
+      colorName,
+      vehicle: {
+        update: {
+          brand,
+          model,
+          image,
+        }
+      }
+    },
+  });
+
+  return body;
 };
+
+export const deleteDriverVehicle = (
+  id: number,
+): Promise<DriverVehicle> => {
+  const vehicle = prisma.driverVehicle.delete({
+    where: {
+      id,
+    }
+  });
+  return vehicle;
+};
+
+/*--------------------------------------User-----------------------------------*/
 
 export const getUserById = async (id: number): Promise<User> => {
   return await prisma.user.findUniqueOrThrow({
@@ -104,7 +182,7 @@ export const getUsers = async (): Promise<User[]> => {
   return await prisma.user.findMany();
 };
 
-export const getUsersPage = async (skip: number, take: number): Promise<User[]> => {
+export const getUserPage = async (skip: number, take: number): Promise<User[]> => {
   return await prisma.user.findMany({
     skip: skip,
     take: take,
@@ -122,29 +200,10 @@ export const deleteUserById = (
   return user;
 };
 
+/*---------------------------------Passenger-----------------------------------*/
 
 export const getPassengers = async (): Promise<Passenger[]> => {
   return await prisma.passenger.findMany({include: {user: true,},});
-};
-
-export const getPassengersPage = async (skip: number, take: number): Promise<Passenger[]> => {
-  return await prisma.passenger.findMany({
-    skip: skip,
-    take: take,
-  })
-};
-
-export const getDrivers = async (): Promise<Driver[]> => {
-  return await prisma.driver.findMany();
-};
-
-
-export const getDriver = async (userId: number): Promise<Driver> => {
-  return await prisma.driver.findUniqueOrThrow({
-    where: {
-      userId,
-    },
-  });
 };
 
 export const getPassenger = (userId: number): Promise<Passenger> => {
@@ -155,13 +214,104 @@ export const getPassenger = (userId: number): Promise<Passenger> => {
   });
 };
 
+export const getPassengerPage = async (skip: number, take: number): Promise<Passenger[]> => {
+  return await prisma.passenger.findMany({
+    skip: skip,
+    take: take,
+  })
+};
+
+export const createPassenger = (
+  email: string,
+  firstName: string,
+  lastName: string,
+  username: string,
+  password: string,
+  address: string,
+  walletPrivateKey:string
+): Promise<Passenger> => {
+  const profile = "PASSENGER";
+
+  const passenger = prisma.passenger.create({
+    data: {
+      user: {
+        create: {
+          email,
+          firstName,
+          lastName,
+          address,
+          password,
+          username,
+          profile,
+        },
+      },
+      wallet: {
+        create: {
+          walletPrivateKey,
+        },
+      },
+    },
+  });
+
+  return passenger;
+};
+
+export const updatePassenger = (
+  id: number,
+  email: string,
+  firstName: string,
+  lastName: string,
+  username: string,
+  password: string,
+  address: string,
+  walletPrivateKey:string
+): Promise<Passenger> => {
+
+  return prisma.passenger.update({
+    where: {
+      userId: id,
+    },
+    data: {
+      user: {
+        update: {
+          email,
+          firstName,
+          lastName,
+          address,
+          password,
+          username,
+        },
+      },
+      wallet: {
+        update: {
+          walletPrivateKey,
+        },
+      },
+    },
+  });
+};
+
+/*---------------------------------Driver--------------------------------------*/
+
+export const getDrivers = async (): Promise<Driver[]> => {
+  return await prisma.driver.findMany();
+};
+
+export const getDriver = async (userId: number): Promise<Driver> => {
+  const driver =  await prisma.driver.findUniqueOrThrow({
+    where: {
+      userId,
+    },
+  });
+  return driver;
+};
+
 export const getDriverPage = async (skip: number, take: number): Promise<Driver[]> => {
   return await prisma.driver.findMany({
     skip: skip,
     take: take,
   })
 };
-
 
 export const createDriver = async (
   email: string,
@@ -218,41 +368,6 @@ export const createDriver = async (
   return driver;
 };
 
-export const createPassenger = (
-  email: string,
-  firstName: string,
-  lastName: string,
-  username: string,
-  password: string,
-  address: string,
-  walletPrivateKey:string
-): Promise<Passenger> => {
-  const profile = "PASSENGER";
-
-  const passenger = prisma.passenger.create({
-    data: {
-      user: {
-        create: {
-          email,
-          firstName,
-          lastName,
-          address,
-          password,
-          username,
-          profile,
-        },
-      },
-      wallet: {
-        create: {
-          walletPrivateKey,
-        },
-      },
-    },
-  });
-
-  return passenger;
-};
-
 export const updateDriver = (
   userId: number,
   email: string,
@@ -307,39 +422,4 @@ export const updateDriver = (
     },
   });
 
-};
-
-export const updatePassenger = (
-  id: number,
-  email: string,
-  firstName: string,
-  lastName: string,
-  username: string,
-  password: string,
-  address: string,
-  walletPrivateKey:string
-): Promise<Passenger> => {
-
-  return prisma.passenger.update({
-    where: {
-      userId: id,
-    },
-    data: {
-      user: {
-        update: {
-          email,
-          firstName,
-          lastName,
-          address,
-          password,
-          username,
-        },
-      },
-      wallet: {
-        update: {
-          walletPrivateKey,
-        },
-      },
-    },
-  });
 };

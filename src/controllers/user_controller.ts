@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 import * as service from "../services/user-service";
 import { check, encrypt } from "../utils/useful-functions";
 
+/*---------------------------------Vehicle-------------------------------------*/
+
 export const GetVehicles = async (req: Request, res: Response) => {
   try {
     const body = await service.getVehicles();
@@ -24,7 +26,6 @@ export const GetVehicle = async (req: Request, res: Response) => {
 
 export const CreateVehicle = async (req: Request, res: Response) => {
   try {
-
     const { brand, model, image } = req.body;
     const body = await service.createVehicle(brand, model, image);
     res.json(body).status(200);
@@ -53,6 +54,83 @@ export const DeleteVehicle = async (req: Request, res: Response) => {
   }
 };
 
+export const GetVehiclePage = async (req: Request, res: Response) => {
+  try {
+    const skip = Number.parseInt(req.params.skip.toString());
+    const take = Number.parseInt(req.params.take.toString());
+
+    const body = await service.getVehiclePage(skip, take);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+/*---------------------------------Driver Vehicles-----------------------------*/
+
+export const GetDriverVehicles = async (req: Request, res: Response) => {
+  try {
+    const body = await service.getDriverVehicles();
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetDriverVehicle = async (req: Request, res: Response) => {
+  try {
+    const id = Number.parseInt(req.params.id.toString());
+    const body = await service.getDriverVehicle(id);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const CreateDriverVehicle = async (req: Request, res: Response) => {
+  try {
+
+    const {domain, modelYear, colorName, brand, model, image } = req.body;
+    const body = await service.createDriverVehicle(domain, modelYear, colorName, brand, model, image);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const UpdateDriverVehicle = async (req: Request, res: Response) => {
+  try {
+    const { id, domain, modelYear, colorName, brand, model, image } = req.body;
+    const body = await service.updateDriverVehicle(id, domain, modelYear, colorName, brand, model, image);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const DeleteDriverVehicle = async (req: Request, res: Response) => {
+  try {
+    const id = Number.parseInt(req.params.id.toString());
+    const body = await service.deleteDriverVehicle(id);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetDriverVehiclePage = async (req: Request, res: Response) => {
+  try {
+    const skip = Number.parseInt(req.params.skip.toString());
+    const take = Number.parseInt(req.params.take.toString());
+
+    const body = await service.getDriverVehiclePage(skip, take);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+/*--------------------------------- Users--------------------------------------*/
 
 export const GetUsers = async (req: Request, res: Response) => {
   try {
@@ -102,6 +180,20 @@ export const DeleteUser = async (req: Request, res: Response) => {
     res.status(500).send(error);
   }
 };
+
+export const GetUserPage = async (req: Request, res: Response) => {
+  try {
+    const skip = Number.parseInt(req.params.skip.toString());
+    const take = Number.parseInt(req.params.take.toString());
+
+    const body = await service.getUserPage(skip, take);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+/*---------------------------------Passenger-----------------------------------*/
 
 export const CreatePassenger = async (req: Request, res: Response) => {
   try {
@@ -170,6 +262,20 @@ export const UpdatePassenger = async (req: Request, res: Response) => {
     res.status(500).send(error);
   }
 };
+
+export const GetPassengerPage = async (req: Request, res: Response) => {
+  try {
+    const skip = Number.parseInt(req.params.skip.toString());
+    const take = Number.parseInt(req.params.take.toString());
+
+    const body = await service.getPassengerPage(skip, take);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+/*---------------------------------Driver--------------------------------------*/
 
 export const CreateDriver = async (req: Request, res: Response) => {
   try {
@@ -260,42 +366,6 @@ export const UpdateDriver = async (req: Request, res: Response) => {
   }
 };
 
-export const GetUserPage = async (req: Request, res: Response) => {
-  try {
-    const skip = Number.parseInt(req.params.skip.toString());
-    const take = Number.parseInt(req.params.take.toString());
-
-    const body = await service.getUserPage(skip, take);
-    res.json(body).status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
-
-export const GetPassengerPage = async (req: Request, res: Response) => {
-  try {
-    const skip = Number.parseInt(req.params.skip.toString());
-    const take = Number.parseInt(req.params.take.toString());
-
-    const body = await service.getPassengerPage(skip, take);
-    res.json(body).status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
-
-export const GetVehiclePage = async (req: Request, res: Response) => {
-  try {
-    const skip = Number.parseInt(req.params.skip.toString());
-    const take = Number.parseInt(req.params.take.toString());
-
-    const body = await service.getVehiclePage(skip, take);
-    res.json(body).status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
-
 export const GetDriverPage = async (req: Request, res: Response) => {
   try {
     const skip = Number.parseInt(req.params.skip.toString());
@@ -307,4 +377,3 @@ export const GetDriverPage = async (req: Request, res: Response) => {
     res.status(500).send(error);
   }
 };
-
