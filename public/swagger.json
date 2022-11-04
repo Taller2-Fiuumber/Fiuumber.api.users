@@ -1001,34 +1001,58 @@
                     "type": "string",
                     "example": "anichucai"
                 },
-                "privateKey": {
-                    "type": "string",
-                    "example": "fasbf62823hd@#@12223@#@3d019dj122@#@j1209j09j90"
+                "wallet": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string",
+                            "example": "111"
+                        },
+                        "walletPrivateKey": {
+                            "type": "string",
+                            "example": "1dsnh2337d82hdu2@$%@!%tewdfwdww"
+                        }
+                    }
                 },
-                "brand": {
-                    "type": "string",
-                    "example": "ROLLS ROYCE"
-                },
-                "model": {
-                    "type": "string",
-                    "example": "PHANTOM"
-                },
-                "image": {
-                    "type": "string",
-                    "example": "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2020-onix-premier/colorizer/01-images/julio-20/2-onix-premier-seeker-met-5.png?imwidth=960"
-                },
-                "domain": {
-                    "type": "string",
-                    "example": "218 GSS"
-                },
-                "modelYear": {
-                    "type": "string",
-                    "example": "2021"
-                },
-                "colorName": {
-                    "type": "string",
-                    "example": "blue"
+                "vehicle": {
+                    "type": "object",
+                    "properties": {
+                        "domain": {
+                            "type": "string",
+                            "example": "218 GSS"
+                        },
+                        "modelYear": {
+                            "type": "string",
+                            "example": "2021"
+                        },
+                        "colorName": {
+                            "type": "string",
+                            "example": "blue"
+                        },
+                        "vehicle": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "example": "2353"
+                                },
+                                "brand": {
+                                    "type": "string",
+                                    "example": "ROLLS ROYCE"
+                                },
+                                "model": {
+                                    "type": "string",
+                                    "example": "PHANTOM"
+                                },
+                                "image": {
+                                    "type": "string",
+                                    "example": "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2020-onix-premier/colorizer/01-images/julio-20/2-onix-premier-seeker-met-5.png?imwidth=960"
+                                }
+                            }
+                        }
+                    }
                 }
+
             }
         }
     }
