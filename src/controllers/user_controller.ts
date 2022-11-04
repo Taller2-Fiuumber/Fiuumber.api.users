@@ -181,12 +181,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       password,
       address,
       wallet,
-      domain,
-      modelYear,
-      colorName,
-      brand,
-      model,
-      image,
+      vehicle,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.createDriver(
@@ -197,12 +192,12 @@ export const CreateDriver = async (req: Request, res: Response) => {
       encryptedPassword,
       address,
       wallet.walletPrivateKey,
-      domain,
-      modelYear,
-      colorName,
-      brand,
-      model,
-      image,
+      vehicle.domain,
+      vehicle.modelYear,
+      vehicle.colorName,
+      vehicle.vehicle.brand,
+      vehicle.vehicle.model,
+      vehicle.vehicle.image,
     );
     res.json(body).status(200);
   } catch (error) {
@@ -240,12 +235,7 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       password,
       address,
       wallet,
-      domain,
-      modelYear,
-      colorName,
-      brand,
-      model,
-      image,
+      vehicle,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.updateDriver(
@@ -257,12 +247,12 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       encryptedPassword,
       address,
       wallet.walletPrivateKey,
-      domain,
-      modelYear,
-      colorName,
-      brand,
-      model,
-      image,
+      vehicle.domain,
+      vehicle.modelYear,
+      vehicle.colorName,
+      vehicle.vehicle.brand,
+      vehicle.vehicle.model,
+      vehicle.vehicle.image,
     );
     res.json(body).status(200);
   } catch (error) {

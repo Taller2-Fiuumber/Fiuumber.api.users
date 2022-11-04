@@ -258,17 +258,16 @@ export const updateDriver = (
   email: string,
   firstName: string,
   lastName: string,
+  username: string,
+  password: string,
   address: string,
+  walletPrivateKey:string,
   domain: string,
   modelYear: string,
   colorName: string,
   brand: string,
   model: string,
   image: string,
-  password: string,
-  username: string,
-  walletPrivateKey:string
-
 ): Promise<Driver> => {
 
   return prisma.driver.update({
