@@ -40,19 +40,19 @@ app.delete('/api/users-service/administrator/:id', administrator_controller.Dele
 
 app.get('/api/users-service/administrator/page/:skip&:take', administrator_controller.GetAdministratorPage);
 
-// Vehicle
+// DriverVehicle
 
-app.get('/api/users-service/vehicle', user_controller.GetVehicles);
+app.get('/api/users-service/driver-vehicle', user_controller.GetDriverVehicles);
 
-app.get('/api/users-service/vehicle/:id', user_controller.GetVehicle);
+app.get('/api/users-service/driver-vehicle/:id', user_controller.GetDriverVehicle);
 
-app.post('/api/users-service/vehicle', user_controller.CreateVehicle);
+app.post('/api/users-service/driver-vehicle', user_controller.CreateDriverVehicle);
 
-app.put('/api/users-service/vehicle', user_controller.UpdateVehicle);
+app.put('/api/users-service/driver-vehicle', user_controller.UpdateDriverVehicle);
 
-app.delete('/api/users-service/vehicle/:id', user_controller.DeleteVehicle);
+app.delete('/api/users-service/driver-vehicle/:id', user_controller.DeleteDriverVehicle);
 
-app.get('/api/users-service/vehicle/page/:skip&:take', user_controller.GetVehiclePage);
+app.get('/api/users-service/driver-vehicle/page/:skip&:take', user_controller.GetDriverVehiclePage);
 
 // User
 
