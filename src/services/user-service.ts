@@ -1,5 +1,4 @@
-import { PrismaClient, User, Passenger, Vehicle, Driver, Wallet, DriverVehicle } from "@prisma/client";
-
+import { PrismaClient, User, Passenger, Vehicle, Driver, DriverVehicle } from "@prisma/client";
 const prisma = new PrismaClient();
 
 /*---------------------------------Vehicle-------------------------------------*/
@@ -74,13 +73,20 @@ export const deleteVehicle = (
 /*---------------------------Driver Vehicle-------------------------------------*/
 
 export const getDriverVehicles = async (): Promise<DriverVehicle[]> => {
-  return await prisma.driverVehicle.findMany()
+  return await prisma.driverVehicle.findMany({
+    include: {
+      vehicle: true,
+    },
+  })
 };
 
 export const getDriverVehicle = async (id: number): Promise<DriverVehicle> => {
   return await prisma.driverVehicle.findUniqueOrThrow({
     where: {
       id,
+    },
+    include: {
+      vehicle: true,
     },
   });
 
@@ -90,6 +96,9 @@ export const getDriverVehiclePage = async (skip: number, take: number): Promise<
   return await prisma.driverVehicle.findMany({
     skip: skip,
     take: take,
+    include: {
+      vehicle: true,
+    },
   })
 };
 
@@ -203,21 +212,36 @@ export const deleteUserById = (
 /*---------------------------------Passenger-----------------------------------*/
 
 export const getPassengers = async (): Promise<Passenger[]> => {
-  return await prisma.passenger.findMany({include: {user: true,},});
+  return await prisma.passenger.findMany({
+      include: {
+        user: true,
+        wallet: true,
+      },
+    });
 };
 
 export const getPassenger = (userId: number): Promise<Passenger> => {
+
   return prisma.passenger.findUniqueOrThrow({
     where: {
       userId,
     },
+    include: {
+      user: true,
+      wallet: true,
+    },
   });
+
 };
 
 export const getPassengerPage = async (skip: number, take: number): Promise<Passenger[]> => {
   return await prisma.passenger.findMany({
     skip: skip,
     take: take,
+    include: {
+      user: true,
+      wallet: true,
+    },
   })
 };
 
@@ -294,13 +318,32 @@ export const updatePassenger = (
 /*---------------------------------Driver--------------------------------------*/
 
 export const getDrivers = async (): Promise<Driver[]> => {
-  return await prisma.driver.findMany();
+  return await prisma.driver.findMany({
+    include: {
+      user: true,
+      wallet: true,
+      driverVehicle: {
+        include: {
+          vehicle: true,
+        }
+      },
+    },
+  });
 };
 
 export const getDriver = async (userId: number): Promise<Driver> => {
   const driver =  await prisma.driver.findUniqueOrThrow({
     where: {
       userId,
+    },
+    include: {
+      user: true,
+      wallet: true,
+      driverVehicle: {
+        include: {
+          vehicle: true,
+        }
+      },
     },
   });
   return driver;
@@ -310,6 +353,15 @@ export const getDriverPage = async (skip: number, take: number): Promise<Driver[
   return await prisma.driver.findMany({
     skip: skip,
     take: take,
+    include: {
+      user: true,
+      wallet: true,
+      driverVehicle: {
+        include: {
+          vehicle: true,
+        }
+      },
+    },
   })
 };
 
