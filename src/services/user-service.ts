@@ -400,7 +400,7 @@ export const createDriver = async (
           walletPrivateKey,
         },
       },
-      vehicle: {
+      driverVehicle: {
         create: {
           domain,
           modelYear,
@@ -457,7 +457,7 @@ export const updateDriver = (
           walletPrivateKey,
         },
       },
-      vehicle: {
+      driverVehicle: {
         update: {
           domain,
           modelYear,
