@@ -1,17 +1,17 @@
 export abstract class Administrator {
-  adminId: number;
+  id: number;
   email: string;
   firstName: string;
   lastName: string;
   password: string;
   constructor(
-    adminId: number,
+    id: number,
     email: string,
     firstName: string,
     lastName: string,
     password: string,
   ) {
-    this.adminId = adminId;
+    this.id = id;
     this.email = email;
     this.firstName = firstName;
     this.lastName = lastName;
