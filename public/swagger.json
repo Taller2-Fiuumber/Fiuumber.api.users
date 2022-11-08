@@ -29,6 +29,86 @@
         "application/json"
     ],
     "paths": {
+        "/users/login?email={email}&password={password}": {
+            "get": {
+                "tags": [
+                    "Login"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "name": "password",
+                        "required": true,
+                        "description": "Password",
+                        "schema": {
+                            "type": "string",
+                            "example": "12345678"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "email",
+                        "required": true,
+                        "description": "Email",
+                        "schema": {
+                            "type": "string",
+                            "example": "acai@fi.uba.ar"
+                        }
+                    }
+                ],
+                "summary": "Login user with mail and password",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
+        "/administrators/login?email={email}&password={password}": {
+            "get": {
+                "tags": [
+                    "Login"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "name": "password",
+                        "required": true,
+                        "description": "Password",
+                        "schema": {
+                            "type": "string",
+                            "example": "1234shhh"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "email",
+                        "required": true,
+                        "description": "Email",
+                        "schema": {
+                            "type": "string",
+                            "example": "acai@fi.uba.ar"
+                        }
+                    }
+                ],
+                "summary": "Login administrator with mail and password",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Administrator"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
         "/user/page/{skip}&{take}": {
             "get": {
                 "tags": [
@@ -979,7 +1059,7 @@
         "Administrator": {
             "type": "object",
             "properties": {
-                "adminId": {
+                "id": {
                     "type": "number",
                     "example": 1
                 },

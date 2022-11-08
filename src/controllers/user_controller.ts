@@ -152,6 +152,8 @@ export const GetUser = async (req: Request, res: Response) => {
 };
 
 export const GetUserLogin = async (req: Request, res: Response) => {
+  console.log("req query", req.query)
+
   if (!req.query.email || !req.query.password) res.status(500).send();
   try {
     const email: string = req.query.email?.toString() || '';

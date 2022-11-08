@@ -40,6 +40,8 @@ app.delete('/api/users-service/administrator/:id', administrator_controller.Dele
 
 app.get('/api/users-service/administrator/page/:skip&:take', administrator_controller.GetAdministratorPage);
 
+app.get('/api/users-service/administrators/login', administrator_controller.GetAdministratorLogin);
+
 // DriverVehicle
 
 app.get('/api/users-service/driver-vehicle', user_controller.GetDriverVehicles);
@@ -60,7 +62,7 @@ app.get('/api/users-service/user', user_controller.GetUsers);
 
 app.get('/api/users-service/user/:id', user_controller.GetUser);
 
-app.get('/api/users-service/login', user_controller.GetUserLogin);
+app.get('/api/users-service/users/login', user_controller.GetUserLogin);
 
 app.delete('/api/users-service/user/:id', user_controller.DeleteUser);
 
