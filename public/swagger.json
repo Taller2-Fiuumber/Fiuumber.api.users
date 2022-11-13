@@ -29,6 +29,66 @@
         "application/json"
     ],
     "paths": {
+        "/user/{id}/blocked": {
+            "post": {
+                "tags": [
+                    "Block Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "id",
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "summary": "Block user by userId",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Block Users"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "id",
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "summary": "Unblock user by userId",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
         "/users/login?email={email}&password={password}": {
             "get": {
                 "tags": [
@@ -1198,6 +1258,10 @@
                             "example": "1dsnh2337d82hdu2@$%@!%tewdfwdww"
                         }
                     }
+                },
+                "blocked": {
+                    "type": "boolean",
+                    "example": false
                 }
             }
         },
@@ -1244,6 +1308,10 @@
                             "example": "1dsnh2337d82hdu2@$%@!%tewdfwdww"
                         }
                     }
+                },
+                "blocked": {
+                    "type": "boolean",
+                    "example": false
                 }
             }
         },
@@ -1290,6 +1358,10 @@
                             "example": "1dsnh2337d82hdu2@$%@!%tewdfwdww"
                         }
                     }
+                },
+                "blocked": {
+                    "type": "boolean",
+                    "example": false
                 },
                 "vehicle": {
                     "type": "object",

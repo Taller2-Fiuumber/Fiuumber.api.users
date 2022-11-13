@@ -2,12 +2,12 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import * as user_controller from './src/controllers/user_controller';
 import * as administrator_controller from './src/controllers/administrator_controller';
+import * as block_controller from './src/controllers/block_controller';
 
 import { CONFIG } from './config';
 import bodyParser from "body-parser";
 import swaggerUi from 'swagger-ui-express'
 import swaggerDocument from './public/swagger.json';
-import { DeleteUser } from './src/controllers/user_controller';
 
 const app: Express = express();
 
@@ -67,6 +67,13 @@ app.get('/api/users-service/users/login', user_controller.GetUserLogin);
 app.delete('/api/users-service/user/:id', user_controller.DeleteUser);
 
 app.get('/api/users-service/user/page/:skip&:take', user_controller.GetUserPage);
+
+
+// Blocked User
+
+app.post('/api/users-service/user/:id/blocked', block_controller.BlockStatusUserById);
+
+app.delete('/api/users-service/user/:id/blocked', block_controller.UnblockUserById);
 
 // Passenger
 

@@ -18,8 +18,7 @@ export abstract class User {
     address: string,
     password: string,
     username: string,
-    privateKey: string
-
+    privateKey: string,
   ) {
     this.userId = userId;
     this.email = email;
