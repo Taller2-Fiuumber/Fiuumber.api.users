@@ -3,6 +3,16 @@ import { Request, Response } from "express";
 import * as service from "../services/administrator-service";
 import { check, encrypt } from "../utils/useful-functions";
 
+export const GetAmountOfAdministrators = async (req: Request, res: Response) => {
+  try {
+    const n = await service.amountOfAdministrators();
+    res.json({"amount": n}).status(200);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+};
+
 export const GetAdministrators = async (req: Request, res: Response) => {
   try {
     const body = await service.getAdministrators();

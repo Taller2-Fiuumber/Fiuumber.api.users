@@ -28,6 +28,8 @@ app.get('/', async (req: Request, res: Response) => res.send("Fiuumber API Users
 
 // Administrator
 
+app.get('/api/users-service/administrators/count', administrator_controller.GetAmountOfAdministrators);
+
 app.get('/api/users-service/administrator', administrator_controller.GetAdministrators);
 
 app.get('/api/users-service/administrator/:id', administrator_controller.GetAdministrator);
@@ -77,6 +79,8 @@ app.delete('/api/users-service/user/:id/blocked', block_controller.UnblockUserBy
 
 // Passenger
 
+app.get('/api/users-service/passengers/count', user_controller.GetAmountOfPassengers);
+
 app.get('/api/users-service/passenger', user_controller.GetPassengers);
 
 app.get('/api/users-service/passenger/:id', user_controller.GetPassenger);
@@ -88,6 +92,8 @@ app.put('/api/users-service/passenger', user_controller.UpdatePassenger);
 app.get('/api/users-service/passenger/page/:skip&:take', user_controller.GetPassengerPage);
 
 // Driver
+
+app.get('/api/users-service/drivers/count', user_controller.GetAmountOfDriver);
 
 app.get('/api/users-service/driver', user_controller.GetDrivers);
 

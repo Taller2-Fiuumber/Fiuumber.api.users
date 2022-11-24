@@ -869,7 +869,54 @@
                 }
             }
         },
-
+        "/passengers/count": {
+            "get": {
+                "tags": [
+                    "Passenger"
+                ],
+                "summary": "Get amount of passengers in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    }
+                }
+            }
+        },
+        "/drivers/count": {
+            "get": {
+                "tags": [
+                    "Driver"
+                ],
+                "summary": "Get amount of drivers in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    }
+                }
+            }
+        },
+        "/administrators/count": {
+            "get": {
+                "tags": [
+                    "Administrator"
+                ],
+                "summary": "Get all administrators in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    }
+                }
+            }
+        },
         "/passenger": {
             "get": {
                 "tags": [
@@ -1264,6 +1311,9 @@
                     "example": false
                 }
             }
+        },
+        "count": {
+            "type": "number"
         },
         "Passenger": {
             "type": "object",
