@@ -211,6 +211,10 @@ export const deleteUserById = (
 
 /*---------------------------------Passenger-----------------------------------*/
 
+export const amountOfPassengers = async (): Promise<number> => {
+  return await prisma.passenger.count()
+}
+
 export const getPassengers = async (): Promise<Passenger[]> => {
   return await prisma.passenger.findMany({
       include: {
@@ -316,6 +320,10 @@ export const updatePassenger = (
 };
 
 /*---------------------------------Driver--------------------------------------*/
+
+export const amountOfDrivers = async (): Promise<number> => {
+  return await prisma.driver.count()
+}
 
 export const getDrivers = async (): Promise<Driver[]> => {
   return await prisma.driver.findMany({

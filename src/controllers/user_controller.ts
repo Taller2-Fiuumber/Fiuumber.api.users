@@ -197,6 +197,16 @@ export const GetUserPage = async (req: Request, res: Response) => {
 
 /*---------------------------------Passenger-----------------------------------*/
 
+export const GetAmountOfPassengers = async (req: Request, res: Response) => {
+  try {
+    const n = await service.amountOfPassengers();
+    res.json({"amount": n}).status(200);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+};
+
 export const CreatePassenger = async (req: Request, res: Response) => {
   try {
     const {
@@ -278,6 +288,16 @@ export const GetPassengerPage = async (req: Request, res: Response) => {
 };
 
 /*---------------------------------Driver--------------------------------------*/
+
+export const GetAmountOfDriver = async (req: Request, res: Response) => {
+  try {
+    const n = await service.amountOfDrivers();
+    res.json({"amount": n}).status(200);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send(error);
+  }
+};
 
 export const CreateDriver = async (req: Request, res: Response) => {
   try {

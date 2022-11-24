@@ -2,6 +2,9 @@ import { PrismaClient, Administrator } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
+export const amountOfAdministrators = async (): Promise<number> => {
+  return await prisma.administrator.count()
+}
 
 export const getAdministratorById = async (id: number): Promise<Administrator | null> => {
   return await prisma.administrator.findUnique({
