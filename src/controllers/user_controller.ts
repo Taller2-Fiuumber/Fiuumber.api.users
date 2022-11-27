@@ -399,3 +399,20 @@ export const GetDriverPage = async (req: Request, res: Response) => {
     res.status(500).send(error);
   }
 };
+
+export const SetNotificationsToken = async (req: Request, res: Response) => {
+  try {
+    const { token } = req.body;
+    const userId = Number.parseInt(req.params.id.toString());
+
+    if (!token){
+      res.status(400).send({message: 'A token must be provided'});
+      return;
+    } 
+
+    const body = await service.setNotificationsToken(userId, token);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};

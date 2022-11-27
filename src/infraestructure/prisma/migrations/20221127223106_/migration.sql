@@ -10,8 +10,10 @@ CREATE TABLE "User" (
     "password" TEXT NOT NULL DEFAULT '',
     "username" TEXT NOT NULL DEFAULT '',
     "address" TEXT NOT NULL DEFAULT '',
+    "blocked" BOOLEAN NOT NULL DEFAULT false,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
+    "notificationsToken" TEXT,
     "profile" "Profile" NOT NULL,
 
     CONSTRAINT "User_pkey" PRIMARY KEY ("id")

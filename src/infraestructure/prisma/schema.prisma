@@ -17,10 +17,11 @@ model User {
   email     String     @unique
   password  String     @default("")
   username  String     @default("")
-  address    String     @default("")
+  address    String    @default("")
   blocked    Boolean @default(false)
   firstName String
   lastName  String
+  notificationsToken  String?
   profile   Profile
   driver    Driver?
   passenger Passenger?

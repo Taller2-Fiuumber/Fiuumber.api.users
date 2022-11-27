@@ -107,6 +107,8 @@ app.get('/api/users-service/driver/page/:skip&:take', user_controller.GetDriverP
 
 // Listening...
 
+app.post('/api/users-service/user/:id/notifications-token', user_controller.SetNotificationsToken);
+
 app.listen(CONFIG.app.port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${CONFIG.app.port}`);
 });
