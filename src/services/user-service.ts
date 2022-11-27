@@ -483,3 +483,10 @@ export const updateDriver = (
   });
 
 };
+
+export const setNotificationsToken = (userId: number, token: string) => {
+  return prisma.user.update({
+    where: { id: userId },
+    data: { notificationsToken: token }
+  })
+};
