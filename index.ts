@@ -112,6 +112,20 @@ app.put('/api/users-service/driver', user_controller.UpdateDriver);
 
 app.get('/api/users-service/driver/page/:skip&:take', user_controller.GetDriverPage);
 
+// Metrics
+
+app.get('/api/users-service/users/singIn/count-per-year', user_controller.GetAmountOfLoginUsersByYear);
+
+app.get('/api/users-service/users/singIn/count-per-year-and-month', user_controller.GetAmountOfLoginUsersByMonthAndYear);
+
+app.get('/api/users-service/users/singIn/count-per-day', user_controller.GetAmountOfLoginUsersByDay);
+
+app.get('/api/users-service/users/singUp/count-per-year', user_controller.GetAmountOfCreatedUsersByDay);
+
+app.get('/api/users-service/users/singUp/count-per-year-and-month', user_controller.GetAmountOfCreatedUsersByYear);
+
+app.get('/api/users-service/users/singUp/count-per-day', user_controller.GetAmountOfCreatedUsersByMonthAndYear);
+
 // Listening...
 
 app.post('/api/users-service/user/:id/notifications-token', user_controller.SetNotificationsToken);

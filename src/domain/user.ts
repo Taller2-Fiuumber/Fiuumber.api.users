@@ -8,6 +8,10 @@ export abstract class User {
   password: string;
   address: string;
   privateKey: string;
+  createdAt: Date;
+  updatedAt: Date;
+  lastLogin: Date;
+
   abstract profile: string;
 
   constructor(
@@ -19,6 +23,9 @@ export abstract class User {
     password: string,
     username: string,
     privateKey: string,
+    createdAt: Date,
+    updatedAt: Date,
+    lastLogin: Date,
   ) {
     this.userId = userId;
     this.email = email;
@@ -29,6 +36,9 @@ export abstract class User {
     this.password = password;
     this.username = username;
     this.privateKey = privateKey;
+    this.lastLogin = lastLogin;
+    this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
 
   }
 }

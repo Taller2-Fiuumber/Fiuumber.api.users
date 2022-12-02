@@ -1210,6 +1210,107 @@
                     }
                 }
             }
+        },
+        "/users/singUp/count-per-year?year={year}": {
+            "get": {
+                "tags": [
+                    "Metricas"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "name": "year",
+                        "required": true,
+                        "description": "Number of users to skip",
+                        "schema": {
+                            "type": "integer",
+                            "example": 2022
+                        }
+                    }
+                ],
+                "summary": "Get users with given ID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
+        "/users/singIn/count-per-year?year={year}": {
+            "get": {
+                "tags": [
+                    "Metricas"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "name": "year",
+                        "required": true,
+                        "description": "Number of users to skip",
+                        "schema": {
+                            "type": "integer",
+                            "example": 2022
+                        }
+                    }
+                ],
+                "summary": "Get users with given ID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
+        "/users/singIn/count-per-year-and-month?year={year}&month={month}": {
+            "get": {
+                "tags": [
+                    "Metricas"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "year",
+                        "required": true,
+                        "description": "Number of users to skip",
+                        "schema": {
+                            "type": "integer",
+                            "example": 2022
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "month",
+                        "required": true,
+                        "description": "Number of users to skip",
+                        "schema": {
+                            "type": "integer",
+                            "example": 2
+                        }
+                    }
+                ],
+                "summary": "Get users with given ID",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
         }
     },
     "definitions": {

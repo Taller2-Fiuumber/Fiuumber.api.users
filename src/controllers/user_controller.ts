@@ -408,9 +408,76 @@ export const SetNotificationsToken = async (req: Request, res: Response) => {
     if (!token){
       res.status(400).send({message: 'A token must be provided'});
       return;
-    } 
+    }
 
     const body = await service.setNotificationsToken(userId, token);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+/*---------------------------------Metrics-----------------------------------*/
+
+export const GetAmountOfCreatedUsersByDay = async (req: Request, res: Response) => {
+  try {
+    const day =new Date(req.query.day?.toString() || Date.now());
+    const body = await service.getAmountOfCreatedUsersByDay(day);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetAmountOfCreatedUsersByYear = async (req: Request, res: Response) => {
+  try {
+
+    const year = Number.parseInt(req.query.year?.toString() || '2022');
+    const body = await service.getAmountOfCreatedUsersByYear(year);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetAmountOfCreatedUsersByMonthAndYear = async (req: Request, res: Response) => {
+  try {
+    const year = Number.parseInt(req.query.year?.toString() || '2022');
+    const month = Number.parseInt(req.query.month?.toString() || '12');
+
+    const body = await service.getAmountOfCreatedUsersByMonthAndYear(month, year);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetAmountOfLoginUsersByDay = async (req: Request, res: Response) => {
+  try {
+    const day =new Date(req.query.day?.toString() || Date.now());
+    const body = await service.getAmountOfLoginUsersByDay(day);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetAmountOfLoginUsersByYear = async (req: Request, res: Response) => {
+  try {
+    const year = Number.parseInt(req.query.year?.toString() || '2022');
+    const body = await service.getAmountOfLoginUsersByYear(year);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetAmountOfLoginUsersByMonthAndYear = async (req: Request, res: Response) => {
+  try {
+    const year = Number.parseInt(req.query.year?.toString() || '2022');
+    const month = Number.parseInt(req.query.month?.toString() || '12');
+
+    const body = await service.getAmountOfLoginUsersByMonthAndYear(month, year);
     res.json(body).status(200);
   } catch (error) {
     res.status(500).send(error);

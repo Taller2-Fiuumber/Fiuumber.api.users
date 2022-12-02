@@ -180,6 +180,16 @@ export const getUserById = async (id: number): Promise<User> => {
 };
 
 export const getUserByEmail = async (email: string): Promise<User | null> => {
+  const lastLogin = new Date(Date.now());
+  await prisma.user.update({
+    where: {
+      email,
+    },
+    data: {
+      lastLogin,
+    },
+  });
+
   return await prisma.user.findUnique({
     where: {
         email: email,
@@ -278,6 +288,10 @@ export const createPassenger = (
           walletPrivateKey,
         },
       },
+    },
+    include: {
+      user: true,
+      wallet: true,
     },
   });
 
@@ -423,6 +437,15 @@ export const createDriver = async (
         },
       },
     },
+    include: {
+      user: true,
+      wallet: true,
+      driverVehicle: {
+        include: {
+          vehicle: true,
+        }
+      },
+    },
   });
 
   return driver;
@@ -490,3 +513,98 @@ export const setNotificationsToken = (userId: number, token: string) => {
     data: { notificationsToken: token }
   })
 };
+
+// -------------------------------- Metrics -----------------------------------
+
+export const getAmountOfCreatedUsersByDay = async (day: Date): Promise<number> => {
+  const aggregations = await prisma.user.aggregate({
+    _count: {
+      id: true,
+    },
+    where: {
+      createdAt: day,
+    },
+  })
+
+  return aggregations._count.id;
+}
+
+export const getAmountOfCreatedUsersByYear = async (year: number): Promise<number> => {
+  const aggregations = await prisma.user.aggregate({
+    _count: {
+      id: true,
+    },
+    where: {
+      createdAt: {
+        lte: new Date(`${year}-12-31`),
+        gte: new Date(`${year}-01-01`),
+      },
+    },
+  })
+
+  return aggregations._count.id;
+}
+
+export const getAmountOfCreatedUsersByMonthAndYear = async (month: number, year: number): Promise<number> => {
+
+  const aggregations = await prisma.user.aggregate({
+    _count: {
+      id: true,
+    },
+    where: {
+      createdAt: {
+        lte: `${year}-${month}-31`,
+        gte: `${year}-${month}-01`,
+      },
+    },
+  })
+
+  return aggregations._count.id;
+}
+
+
+export const getAmountOfLoginUsersByDay = async (day: Date): Promise<number> => {
+  const aggregations = await prisma.user.aggregate({
+    _count: {
+      id: true,
+    },
+    where: {
+      lastLogin: day,
+    },
+  })
+
+  return aggregations._count.id;
+}
+
+export const getAmountOfLoginUsersByYear = async (year: number): Promise<number> => {
+  const aggregations = await prisma.user.aggregate({
+    _count: {
+      id: true,
+    },
+    where: {
+      lastLogin: {
+        lte: new Date(`${year}-12-31`),
+        gte: new Date(`${year}-01-01`),
+      },
+    },
+  })
+
+  return aggregations._count.id;
+}
+
+export const getAmountOfLoginUsersByMonthAndYear = async (month: number, year: number): Promise<number> => {
+
+  const aggregations = await prisma.user.aggregate({
+    _count: {
+      id: true,
+    },
+    where: {
+      lastLogin: {
+        lte: `${year}-${month}-31`,
+        gte: `${year}-${month}-01`,
+      },
+    },
+  })
+
+  return aggregations._count.id;
+}
