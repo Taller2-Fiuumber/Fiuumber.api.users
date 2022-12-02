@@ -73,6 +73,13 @@ app.get('/api/users-service/user/page/:skip&:take', user_controller.GetUserPage)
 
 // Blocked User
 
+app.get('/api/users-service/user/blocked/amount', block_controller.GetAmountOfBlockedUsers);
+
+app.get('/api/users-service/user/driver/blocked/amount', block_controller.GetAmountOfBlockedDrivers);
+
+app.get('/api/users-service/user/passenger/blocked/amount', block_controller.GetAmountOfBlockedPassengers);
+
+
 app.post('/api/users-service/user/:id/blocked', block_controller.BlockStatusUserById);
 
 app.delete('/api/users-service/user/:id/blocked', block_controller.UnblockUserById);
