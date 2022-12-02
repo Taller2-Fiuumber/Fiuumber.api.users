@@ -26,4 +26,29 @@ export const UnblockUserById = async (req: Request, res: Response) => {
   }
 };
 
+export const GetAmountOfBlockedUsers = async (req: Request, res: Response) => {
+  try {
+    const body = await service.getAmountOfBlockedUsers();
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
 
+export const GetAmountOfBlockedDrivers = async (req: Request, res: Response) => {
+  try {
+    const body = await service.getAmountOfBlockedDrivers();
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetAmountOfBlockedPassengers = async (req: Request, res: Response) => {
+  try {
+    const body = await service.getAmountOfBlockedUsers();
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};

@@ -29,6 +29,63 @@
         "application/json"
     ],
     "paths": {
+        "/user/blocked/amount": {
+            "get": {
+                "tags": [
+                    "Block Users"
+                ],
+                "summary": "Amount of block users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
+        "/user/driver/blocked/amount": {
+            "get": {
+                "tags": [
+                    "Block Users"
+                ],
+                "summary": "Amount of block users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
+        "/user/passenger/blocked/amount": {
+            "get": {
+                "tags": [
+                    "Block Users"
+                ],
+                "summary": "Amount of block users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
         "/user/{id}/blocked": {
             "post": {
                 "tags": [
