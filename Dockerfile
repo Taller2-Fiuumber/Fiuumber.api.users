@@ -59,4 +59,4 @@ RUN npm run build
 
 EXPOSE 8125/udp 8126/tcp
 
-CMD ["/scripts/entrypoint.sh"]
+CMD ["./scripts/entrypoint.sh"]
