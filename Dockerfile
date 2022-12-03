@@ -55,11 +55,8 @@ RUN npx prisma migrate deploy --schema=src/infraestructure/prisma/schema.prisma
 
 RUN npm run build
 
-# Run as non-root user
-RUN adduser -D myuser
-USER myuser
-
 # Expose DogStatsD and trace-agent ports
+
 EXPOSE 8125/udp 8126/tcp
 
 CMD ["/scripts/entrypoint.sh"]
