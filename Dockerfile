@@ -1,19 +1,17 @@
 # syntax=docker/dockerfile:1
-FROM node:18 as builder
+FROM node:18
 
 # For more info about datadog visit: https://docs.datadoghq.com/agent/basic_agent_usage/heroku/#using-heroku-with-docker-images
 
-# Set env variables
+# Set arg
 ARG database_url
-ENV DATABASE_URL=${database_url}
-
 ARG dd_api_key
+
+# Set env
+ENV DATABASE_URL=${database_url}
 ENV DD_API_KEY=${dd_api_key}
-
 ENV DD_DYNO_HOST=false
-
 ENV DD_APM_ENABLED=true
-
 ENV DD_DOGSTATSD_NON_LOCAL_TRAFFIC=true
 
 # Copy files

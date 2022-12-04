@@ -7,7 +7,7 @@ export abstract class User {
   username: string;
   password: string;
   address: string;
-  privateKey: string;
+  walletAddress: string;
   abstract profile: string;
 
   constructor(
@@ -18,7 +18,7 @@ export abstract class User {
     address: string,
     password: string,
     username: string,
-    privateKey: string,
+    walletAddress: string,
   ) {
     this.userId = userId;
     this.email = email;
@@ -28,7 +28,7 @@ export abstract class User {
     this.blocked = false;
     this.password = password;
     this.username = username;
-    this.privateKey = privateKey;
+    this.walletAddress = walletAddress;
 
   }
 }
