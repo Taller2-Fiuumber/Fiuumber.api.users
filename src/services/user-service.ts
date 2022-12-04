@@ -526,8 +526,8 @@ export const getAmountOfLoginsByNumberOfDays = async (
   let dict = [];
   for (let i = 0; i < numberOfDays; i++) {
     date.setDate(date.getDate() - 1);
-    let date1 = new Date();
-    let date2 = new Date();
+    const date1 = new Date();
+    const date2 = new Date();
 
     date1.setDate(date.getDate());
     date2.setDate(date.getDate());
@@ -547,7 +547,7 @@ export const getAmountOfLoginsByNumberOfDays = async (
         },
       },
     });
-    dict.push({
+    dict = dict.push({
       key: date.toLocaleDateString("en-UK"),
       value: aggregations._count.id,
     });
@@ -562,8 +562,8 @@ export const getAmountOfSignInByNumberOfDays = async (
   let dict = [];
   for (let i = 0; i < numberOfDays; i++) {
     date.setDate(date.getDate() - 1);
-    let date1 = new Date();
-    let date2 = new Date();
+    const date1 = new Date();
+    const date2 = new Date();
 
     date1.setDate(date.getDate());
     date2.setDate(date.getDate());
@@ -583,7 +583,7 @@ export const getAmountOfSignInByNumberOfDays = async (
         },
       },
     });
-    dict.push({
+    dict = dict.push({
       key: date.toLocaleDateString("en-UK"),
       value: aggregations._count.id,
     });
@@ -598,8 +598,8 @@ export const getAmountOfLoginsByNumberOfDaysGoogle = async (
   let dict = [];
   for (let i = 0; i < numberOfDays; i++) {
     date.setDate(date.getDate() - 1);
-    let date1 = new Date();
-    let date2 = new Date();
+    const date1 = new Date();
+    const date2 = new Date();
 
     date1.setDate(date.getDate());
     date2.setDate(date.getDate());
@@ -619,7 +619,7 @@ export const getAmountOfLoginsByNumberOfDaysGoogle = async (
         },
       },
     });
-    dict.push({
+    dict = dict.push({
       key: date.toLocaleDateString("en-UK"),
       value: aggregations._count.id,
     });
@@ -634,8 +634,8 @@ export const getAmountOfSignInByNumberOfDaysGoogle = async (
   let dict = [];
   for (let i = 0; i < numberOfDays; i++) {
     date.setDate(date.getDate() - 1);
-    let date1 = new Date();
-    let date2 = new Date();
+    const date1 = new Date();
+    const date2 = new Date();
 
     date1.setDate(date.getDate());
     date2.setDate(date.getDate());
@@ -655,7 +655,7 @@ export const getAmountOfSignInByNumberOfDaysGoogle = async (
         },
       },
     });
-    dict.push({
+    dict = dict.push({
       key: date.toLocaleDateString("en-UK"),
       value: aggregations._count.id,
     });

@@ -468,7 +468,7 @@ export const GetAmountOfLoginsByNumberOfDays = async (
 ) => {
   try {
     let date_f = new Date();
-    let day_string = req.query.day?.toString();
+    const day_string = req.query.day?.toString();
     if (day_string != undefined) {
       const [day, month, year] = day_string.split("/");
       const day_united_states_of_america = [month, day, year].join("/");
@@ -495,7 +495,7 @@ export const GetAmountOfSignInByNumberOfDays = async (
 ) => {
   try {
     let date_f = new Date();
-    let day_string = req.query.day?.toString();
+    const day_string = req.query.day?.toString();
     if (day_string != undefined) {
       const [day, month, year] = day_string.split("/");
       const day_united_states_of_america = [month, day, year].join("/");
@@ -523,7 +523,7 @@ export const GetAmountOfLoginsByNumberOfDaysGoogle = async (
 ) => {
   try {
     let date_f = new Date();
-    let day_string = req.query.day?.toString();
+    const day_string = req.query.day?.toString();
     if (day_string != undefined) {
       const [day, month, year] = day_string.split("/");
       const day_united_states_of_america = [month, day, year].join("/");
@@ -550,7 +550,7 @@ export const GetAmountOfSignInByNumberOfDaysGoogle = async (
 ) => {
   try {
     let date_f = new Date();
-    let day_string = req.query.day?.toString();
+    const day_string = req.query.day?.toString();
     if (day_string != undefined) {
       const [day, month, year] = day_string.split("/");
       const day_united_states_of_america = [month, day, year].join("/");
