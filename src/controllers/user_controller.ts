@@ -483,3 +483,23 @@ export const GetAmountOfLoginUsersByMonthAndYear = async (req: Request, res: Res
     res.status(500).send(error);
   }
 };
+
+export const GetAmountOfLoginsPerDayLastWeek = async (req:Request, res: Response) => {
+  try {
+    let date_f = new Date();
+    let day_string = req.query.day?.toString()
+    if(day_string != undefined) {
+      const [day, month, year] = day_string.split('/');
+      const day_united_states_of_america = [month, day, year].join('/');
+      date_f = new Date(day_united_states_of_america);
+    } else {
+      date_f = new Date(Date.now());
+    }
+    const number_of_days = Number.parseInt(req.query.numberOfDays?.toString() || '7');
+    const body = await service.getAmountOfLoginsPerDayLastWeek(date_f, number_of_days);
+    res.json(body).status(200);
+  }
+  catch(error) {
+    res.status(500).send(error);
+  }
+};

@@ -608,3 +608,22 @@ export const getAmountOfLoginUsersByMonthAndYear = async (month: number, year: n
 
   return aggregations._count.id;
 }
+
+export const getAmountOfLoginsPerDayLastWeek = async (date: Date, numberOfDays: number): Promise<{ key: string; value: number; }[]> => {
+
+  let dict = [];
+  for (let i = 0; i<numberOfDays; i++){
+    date.setDate(date.getDate() - 1);
+
+    const aggregations = await prisma.user.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        lastLogin: `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`, //2022-12-04T03:02:14.233Z
+      },
+    })
+    dict.push({key: date.toLocaleDateString("en-UK"), value: aggregations._count.id})
+  }
+  return dict;
+}

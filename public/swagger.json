@@ -1271,6 +1271,48 @@
                 }
             }
         },
+        "/users/singIn/count-per-day-last-days?day={day}&numberOfDays={numberOfDays}": {
+
+            "get": {
+                "tags": [
+                    "Metricas"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "day",
+                        "required": true,
+                        "description": "Last day of range",
+                        "schema": {
+                            "type": "string",
+                            "example": "21/04/22"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "numberOfDays",
+                        "required": true,
+                        "description": "Number of days in range",
+                        "schema": {
+                            "type": "integer",
+                            "example": 7
+                        }
+                    }
+                ],
+                "summary": "Get count of logins in a week ending at last day",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed."
+                    }
+                }
+            }
+        },
         "/users/singIn/count-per-year-and-month?year={year}&month={month}": {
             "get": {
                 "tags": [
@@ -1313,6 +1355,7 @@
             }
         }
     },
+
     "definitions": {
         "id": {
             "properties": {

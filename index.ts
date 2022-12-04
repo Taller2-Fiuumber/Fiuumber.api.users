@@ -126,6 +126,8 @@ app.get('/api/users-service/users/singUp/count-per-year-and-month', user_control
 
 app.get('/api/users-service/users/singUp/count-per-day', user_controller.GetAmountOfCreatedUsersByMonthAndYear);
 
+app.get('/api/users-service/users/singIn/count-per-day-last-days', user_controller.GetAmountOfLoginsPerDayLastWeek);
+
 // Listening...
 
 app.post('/api/users-service/user/:id/notifications-token', user_controller.SetNotificationsToken);
