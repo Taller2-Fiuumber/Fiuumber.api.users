@@ -523,7 +523,7 @@ export const getAmountOfLoginsByNumberOfDays = async (
   date: Date,
   numberOfDays: number
 ): Promise<{ key: string; value: number }[]> => {
-  let dict = [];
+  const dict = [];
   for (let i = 0; i < numberOfDays; i++) {
     date.setDate(date.getDate() - 1);
     const date1 = new Date();
@@ -547,7 +547,7 @@ export const getAmountOfLoginsByNumberOfDays = async (
         },
       },
     });
-    dict = dict.push({
+    dict.push({
       key: date.toLocaleDateString("en-UK"),
       value: aggregations._count.id,
     });
@@ -559,7 +559,7 @@ export const getAmountOfSignInByNumberOfDays = async (
   date: Date,
   numberOfDays: number
 ): Promise<{ key: string; value: number }[]> => {
-  let dict = [];
+  const dict = [];
   for (let i = 0; i < numberOfDays; i++) {
     date.setDate(date.getDate() - 1);
     const date1 = new Date();
@@ -583,7 +583,7 @@ export const getAmountOfSignInByNumberOfDays = async (
         },
       },
     });
-    dict = dict.push({
+    dict.push({
       key: date.toLocaleDateString("en-UK"),
       value: aggregations._count.id,
     });
@@ -595,7 +595,7 @@ export const getAmountOfLoginsByNumberOfDaysGoogle = async (
   date: Date,
   numberOfDays: number
 ): Promise<{ key: string; value: number }[]> => {
-  let dict = [];
+  const dict = [];
   for (let i = 0; i < numberOfDays; i++) {
     date.setDate(date.getDate() - 1);
     const date1 = new Date();
@@ -619,7 +619,7 @@ export const getAmountOfLoginsByNumberOfDaysGoogle = async (
         },
       },
     });
-    dict = dict.push({
+    dict.push({
       key: date.toLocaleDateString("en-UK"),
       value: aggregations._count.id,
     });
@@ -631,7 +631,7 @@ export const getAmountOfSignInByNumberOfDaysGoogle = async (
   date: Date,
   numberOfDays: number
 ): Promise<{ key: string; value: number }[]> => {
-  let dict = [];
+  const dict = [];
   for (let i = 0; i < numberOfDays; i++) {
     date.setDate(date.getDate() - 1);
     const date1 = new Date();
@@ -655,7 +655,7 @@ export const getAmountOfSignInByNumberOfDaysGoogle = async (
         },
       },
     });
-    dict = dict.push({
+    dict.push({
       key: date.toLocaleDateString("en-UK"),
       value: aggregations._count.id,
     });
