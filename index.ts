@@ -116,18 +116,6 @@ app.get('/api/users-service/driver/page/:skip&:take', user_controller.GetDriverP
 
 // Metrics
 
-// app.get('/api/users-service/users/singIn/count-per-year', user_controller.GetAmountOfLoginUsersByYear);
-
-// app.get('/api/users-service/users/singIn/count-per-year-and-month', user_controller.GetAmountOfLoginUsersByMonthAndYear);
-
-// app.get('/api/users-service/users/singIn/count-per-day', user_controller.GetAmountOfLoginUsersByDay);
-
-// app.get('/api/users-service/users/singUp/count-per-year', user_controller.GetAmountOfCreatedUsersByDay);
-
-// app.get('/api/users-service/users/singUp/count-per-year-and-month', user_controller.GetAmountOfCreatedUsersByYear);
-
-// app.get('/api/users-service/users/singUp/count-per-day', user_controller.GetAmountOfCreatedUsersByMonthAndYear);
-
 app.get('/api/users-service/users/logIn/count-per-day-last-days', user_controller.GetAmountOfLoginsByNumberOfDays);
 
 app.get('/api/users-service/users/signIn/count-per-day-last-days', user_controller.GetAmountOfSignInByNumberOfDays);

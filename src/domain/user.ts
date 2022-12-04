@@ -23,15 +23,11 @@ export abstract class User {
     address: string,
     password: string,
     username: string,
-<<<<<<< HEAD
-    privateKey: string,
+    walletAddress: string,
     createdAt: Date,
     updatedAt: Date,
     lastLogin: Date,
     accountType: string,
-=======
-    walletAddress: string,
->>>>>>> main
   ) {
     this.userId = userId;
     this.email = email;
@@ -41,15 +37,11 @@ export abstract class User {
     this.blocked = false;
     this.password = password;
     this.username = username;
-<<<<<<< HEAD
-    this.privateKey = privateKey;
+    this.walletAddress = walletAddress;
     this.lastLogin = lastLogin;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.accountType = accountType;
-=======
-    this.walletAddress = walletAddress;
->>>>>>> main
 
   }
 }

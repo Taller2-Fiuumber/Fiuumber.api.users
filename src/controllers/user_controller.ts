@@ -235,11 +235,11 @@ export const CreatePassenger = async (req: Request, res: Response) => {
       address,
       password,
       username,
-      wallet,
+      walletAddress,
       accountType
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
-    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, address, wallet.walletPrivateKey,accountType);
+    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, address, walletAddress, accountType);
     res.json(body).status(200);
   } catch (error) {
     console.log(error);
@@ -276,7 +276,7 @@ export const UpdatePassenger = async (req: Request, res: Response) => {
       username,
       password,
       address,
-      wallet,
+      walletAddress,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.updatePassenger(
@@ -287,7 +287,7 @@ export const UpdatePassenger = async (req: Request, res: Response) => {
       username,
       encryptedPassword,
       address,
-      wallet.walletPrivateKey,
+      walletAddress,
     );
     res.json(body).status(200);
   } catch (error) {
@@ -328,7 +328,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       username,
       password,
       address,
-      wallet,
+      walletAddress,
       vehicle,
       accountType,
     } = req.body;
@@ -340,7 +340,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       username,
       encryptedPassword,
       address,
-      wallet.walletPrivateKey,
+      walletAddress,
       vehicle.domain,
       vehicle.modelYear,
       vehicle.colorName,
@@ -384,7 +384,7 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       username,
       password,
       address,
-      wallet,
+      walletAddress,
       vehicle,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
@@ -396,7 +396,7 @@ export const UpdateDriver = async (req: Request, res: Response) => {
       username,
       encryptedPassword,
       address,
-      wallet.walletPrivateKey,
+      walletAddress,
       vehicle.domain,
       vehicle.modelYear,
       vehicle.colorName,
@@ -440,71 +440,6 @@ export const SetNotificationsToken = async (req: Request, res: Response) => {
 };
 
 /*---------------------------------Metrics-----------------------------------*/
-
-// export const GetAmountOfCreatedUsersByDay = async (req: Request, res: Response) => {
-//   try {
-//     const day =new Date(req.query.day?.toString() || Date.now());
-//     const body = await service.getAmountOfCreatedUsersByDay(day);
-//     res.json(body).status(200);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// };
-
-// export const GetAmountOfCreatedUsersByYear = async (req: Request, res: Response) => {
-//   try {
-
-//     const year = Number.parseInt(req.query.year?.toString() || '2022');
-//     const body = await service.getAmountOfCreatedUsersByYear(year);
-//     res.json(body).status(200);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// };
-
-// export const GetAmountOfCreatedUsersByMonthAndYear = async (req: Request, res: Response) => {
-//   try {
-//     const year = Number.parseInt(req.query.year?.toString() || '2022');
-//     const month = Number.parseInt(req.query.month?.toString() || '12');
-
-//     const body = await service.getAmountOfCreatedUsersByMonthAndYear(month, year);
-//     res.json(body).status(200);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// };
-
-// export const GetAmountOfLoginUsersByDay = async (req: Request, res: Response) => {
-//   try {
-//     const day =new Date(req.query.day?.toString() || Date.now());
-//     const body = await service.getAmountOfLoginUsersByDay(day);
-//     res.json(body).status(200);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// };
-
-// export const GetAmountOfLoginUsersByYear = async (req: Request, res: Response) => {
-//   try {
-//     const year = Number.parseInt(req.query.year?.toString() || '2022');
-//     const body = await service.getAmountOfLoginUsersByYear(year);
-//     res.json(body).status(200);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// };
-
-// export const GetAmountOfLoginUsersByMonthAndYear = async (req: Request, res: Response) => {
-//   try {
-//     const year = Number.parseInt(req.query.year?.toString() || '2022');
-//     const month = Number.parseInt(req.query.month?.toString() || '12');
-
-//     const body = await service.getAmountOfLoginUsersByMonthAndYear(month, year);
-//     res.json(body).status(200);
-//   } catch (error) {
-//     res.status(500).send(error);
-//   }
-// };
 
 export const GetAmountOfLoginsByNumberOfDays = async (req:Request, res: Response) => {
   try {
