@@ -1,4 +1,4 @@
-import { PrismaClient, User, Passenger, Vehicle, Driver, DriverVehicle } from "@prisma/client";
+import { PrismaClient, User, Passenger, Vehicle, Driver, DriverVehicle, AccountType} from "@prisma/client";
 const prisma = new PrismaClient();
 
 /*---------------------------------Vehicle-------------------------------------*/
@@ -179,6 +179,19 @@ export const getUserById = async (id: number): Promise<User> => {
   });
 };
 
+export const getLoginUserWithGoogle = async (id: number): Promise<User> => {
+  
+  const lastLogin = new Date(Date.now());
+  return await prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      lastLogin,
+    },
+  });   
+};
+
 export const getUserByEmail = async (email: string): Promise<User | null> => {
   const lastLogin = new Date(Date.now());
   await prisma.user.update({
@@ -266,7 +279,8 @@ export const createPassenger = (
   username: string,
   password: string,
   address: string,
-  walletPrivateKey:string
+  walletPrivateKey:string,
+  accountType:AccountType
 ): Promise<Passenger> => {
   const profile = "PASSENGER";
 
@@ -281,6 +295,7 @@ export const createPassenger = (
           password,
           username,
           profile,
+          accountType,
         },
       },
       wallet: {
@@ -401,6 +416,7 @@ export const createDriver = async (
   brand: string,
   model: string,
   image: string,
+  accountType: AccountType,
 ): Promise<Driver> => {
   const profile = "DRIVER";
 
@@ -415,6 +431,7 @@ export const createDriver = async (
           password,
           address,
           profile,
+          accountType,
         },
       },
       wallet: {
@@ -628,6 +645,7 @@ export const getAmountOfLoginsByNumberOfDays = async (date: Date, numberOfDays: 
         id: true,
       },
       where: {
+        accountType:"EMAIL",
         lastLogin: {
           lte: date2,
           gte: date1,
@@ -659,6 +677,71 @@ export const getAmountOfSignInByNumberOfDays = async (date: Date, numberOfDays: 
         id: true,
       },
       where: {
+        accountType:"EMAIL",
+        createdAt: {
+          lte: date2,
+          gte: date1,
+        }
+      },
+    })
+    dict.push({key: date.toLocaleDateString("en-UK"), value: aggregations._count.id})
+  }
+  return dict;
+}
+
+
+export const getAmountOfLoginsByNumberOfDaysGoogle = async (date: Date, numberOfDays: number): Promise<{ key: string; value: number; }[]> => {
+
+  let dict = [];
+  for (let i = 0; i<numberOfDays; i++){
+    date.setDate(date.getDate() - 1);
+    let date1 = new Date();
+    let date2 = new Date();
+
+    date1.setDate(date.getDate());
+    date2.setDate(date.getDate());
+
+    date1.setUTCHours(0,0,0,0);
+    date2.setUTCHours(23,59,59,999);
+ 
+    const aggregations = await prisma.user.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        accountType:"GOOGLE",
+        lastLogin: {
+          lte: date2,
+          gte: date1,
+        }
+      },
+    })
+    dict.push({key: date.toLocaleDateString("en-UK"), value: aggregations._count.id})
+  }
+  return dict;
+}
+
+export const getAmountOfSignInByNumberOfDaysGoogle = async (date: Date, numberOfDays: number): Promise<{ key: string; value: number; }[]> => {
+
+
+  let dict = [];
+  for (let i = 0; i<numberOfDays; i++){
+    date.setDate(date.getDate() - 1);
+    let date1 = new Date();
+    let date2 = new Date();
+
+    date1.setDate(date.getDate());
+    date2.setDate(date.getDate());
+
+    date1.setUTCHours(0,0,0,0);
+    date2.setUTCHours(23,59,59,999);
+ 
+    const aggregations = await prisma.user.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        accountType:"GOOGLE",
         createdAt: {
           lte: date2,
           gte: date1,

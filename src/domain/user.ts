@@ -11,6 +11,7 @@ export abstract class User {
   createdAt: Date;
   updatedAt: Date;
   lastLogin: Date;
+  accountType: string;
 
   abstract profile: string;
 
@@ -26,6 +27,7 @@ export abstract class User {
     createdAt: Date,
     updatedAt: Date,
     lastLogin: Date,
+    accountType: string,
   ) {
     this.userId = userId;
     this.email = email;
@@ -39,6 +41,7 @@ export abstract class User {
     this.lastLogin = lastLogin;
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
+    this.accountType = accountType;
 
   }
 }

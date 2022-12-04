@@ -66,6 +66,8 @@ app.get('/api/users-service/user/:id', user_controller.GetUser);
 
 app.get('/api/users-service/users/login', user_controller.GetUserLogin);
 
+app.get('/api/users-service/users/loginGoogle', user_controller.GetUserLoginGoogle);
+
 app.delete('/api/users-service/user/:id', user_controller.DeleteUser);
 
 app.get('/api/users-service/user/page/:skip&:take', user_controller.GetUserPage);
@@ -129,6 +131,10 @@ app.get('/api/users-service/driver/page/:skip&:take', user_controller.GetDriverP
 app.get('/api/users-service/users/logIn/count-per-day-last-days', user_controller.GetAmountOfLoginsByNumberOfDays);
 
 app.get('/api/users-service/users/signIn/count-per-day-last-days', user_controller.GetAmountOfSignInByNumberOfDays);
+
+app.get('/api/users-service/users/logInGoogle/count-per-day-last-days', user_controller.GetAmountOfLoginsByNumberOfDaysGoogle);
+
+app.get('/api/users-service/users/signInGoogle/count-per-day-last-days', user_controller.GetAmountOfSignInByNumberOfDaysGoogle);
 
 
 // Listening...

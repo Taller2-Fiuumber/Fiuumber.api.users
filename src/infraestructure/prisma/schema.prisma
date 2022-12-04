@@ -15,6 +15,7 @@ model User {
   createdAt DateTime   @default(now())
   updatedAt DateTime   @updatedAt
   lastLogin DateTime   @default(now())
+  accountType AccountType  @default(EMAIL)
   email     String     @unique
   password  String     @default("")
   username  String     @default("")
@@ -80,6 +81,10 @@ enum Profile {
   DRIVER
 }
 
+enum AccountType {
+  GOOGLE
+  EMAIL
+}
 
 model Administrator {
   id        Int        @id @default(autoincrement())

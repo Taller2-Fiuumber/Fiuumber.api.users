@@ -195,6 +195,25 @@ export const GetUserPage = async (req: Request, res: Response) => {
   }
 };
 
+
+export const GetUserLoginGoogle = async (req: Request, res: Response) => {
+  console.log("req query", req.query)
+
+  if (!req.query.id) {
+    res.status(500).send();
+  }else{
+    try {
+
+      const user: User | null = await service.getLoginUserWithGoogle(Number.parseInt(req.query.id.toString()));
+
+      res.json(user).status(200);
+
+    } catch (error) {
+      res.status(500).send(error);
+    }
+ }
+};
+
 /*---------------------------------Passenger-----------------------------------*/
 
 export const GetAmountOfPassengers = async (req: Request, res: Response) => {
@@ -216,10 +235,11 @@ export const CreatePassenger = async (req: Request, res: Response) => {
       address,
       password,
       username,
-      wallet
+      wallet,
+      accountType
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
-    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, address, wallet.walletPrivateKey);
+    const body = await service.createPassenger(email, firstName, lastName, username, encryptedPassword, address, wallet.walletPrivateKey,accountType);
     res.json(body).status(200);
   } catch (error) {
     console.log(error);
@@ -310,6 +330,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       address,
       wallet,
       vehicle,
+      accountType,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.createDriver(
@@ -326,6 +347,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
       vehicle.vehicle.brand,
       vehicle.vehicle.model,
       vehicle.vehicle.image,
+      accountType,
     );
     res.json(body).status(200);
   } catch (error) {
@@ -518,6 +540,47 @@ export const GetAmountOfSignInByNumberOfDays = async (req:Request, res: Response
 
     const number_of_days = Number.parseInt(req.query.numberOfDays?.toString() || '7');
     const body = await service.getAmountOfSignInByNumberOfDays(date_f, number_of_days);
+    res.json(body).status(200);
+  }
+  catch(error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetAmountOfLoginsByNumberOfDaysGoogle = async (req:Request, res: Response) => {
+  try {
+    let date_f = new Date();
+    let day_string = req.query.day?.toString()
+    if(day_string != undefined) {
+      const [day, month, year] = day_string.split('/');
+      const day_united_states_of_america = [month, day, year].join('/');
+      date_f = new Date(day_united_states_of_america);
+    } else {
+      date_f = new Date(Date.now());
+    }
+    const number_of_days = Number.parseInt(req.query.numberOfDays?.toString() || '7');
+    const body = await service.getAmountOfLoginsByNumberOfDaysGoogle(date_f, number_of_days);
+    res.json(body).status(200);
+  }
+  catch(error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetAmountOfSignInByNumberOfDaysGoogle = async (req:Request, res: Response) => {
+  try {
+    let date_f = new Date();
+    let day_string = req.query.day?.toString()
+    if(day_string != undefined) {
+      const [day, month, year] = day_string.split('/');
+      const day_united_states_of_america = [month, day, year].join('/');
+      date_f = new Date(day_united_states_of_america);
+    } else {
+      date_f = new Date(Date.now());
+    }
+
+    const number_of_days = Number.parseInt(req.query.numberOfDays?.toString() || '7');
+    const body = await service.getAmountOfSignInByNumberOfDaysGoogle(date_f, number_of_days);
     res.json(body).status(200);
   }
   catch(error) {

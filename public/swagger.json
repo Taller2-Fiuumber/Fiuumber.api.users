@@ -1294,6 +1294,91 @@
                     }
                 }
             }
+        },
+
+        "/users/logInGoogle/count-per-day-last-days?day={day}&numberOfDays={numberOfDays}": {
+
+            "get": {
+                "tags": [
+                    "Metricas"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "day",
+                        "required": true,
+                        "description": "Last day of range",
+                        "schema": {
+                            "type": "string",
+                            "example": "10/12/22"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "numberOfDays",
+                        "required": true,
+                        "description": "Number of days in range",
+                        "schema": {
+                            "type": "integer",
+                            "example": 7
+                        }
+                    }
+                ],
+                "summary": "Get count of logins with Google in a range ending at last day",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed."
+                    }
+                }
+            }
+        },
+        "/users/signInGoogle/count-per-day-last-days?day={day}&numberOfDays={numberOfDays}": {
+
+            "get": {
+                "tags": [
+                    "Metricas"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "day",
+                        "required": true,
+                        "description": "Last day of range",
+                        "schema": {
+                            "type": "string",
+                            "example": "10/12/22"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "numberOfDays",
+                        "required": true,
+                        "description": "Number of days in range",
+                        "schema": {
+                            "type": "integer",
+                            "example": 7
+                        }
+                    }
+                ],
+                "summary": "Get count of signins with Google in a range ending at last day",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed."
+                    }
+                }
+            }
         }
     },
 

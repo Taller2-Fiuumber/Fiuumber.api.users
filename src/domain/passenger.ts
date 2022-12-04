@@ -17,9 +17,10 @@ export class Passenger extends User {
     privateKey: string,
     createdAt: Date,
     updatedAt: Date,
-    lastLogin: Date
+    lastLogin: Date,
+    accountType: string
   ) {
-    super(userId, email, firstName, lastName, address, password, username, privateKey, createdAt, updatedAt, lastLogin);
+    super(userId, email, firstName, lastName, address, password, username, privateKey, createdAt, updatedAt, lastLogin,accountType);
     this.profile = "passenger";
     this.wallet = wallet;
   }
