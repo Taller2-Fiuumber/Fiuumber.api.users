@@ -3,10 +3,13 @@ import { Request, Response } from "express";
 import * as service from "../services/administrator-service";
 import { check, encrypt } from "../utils/useful-functions";
 
-export const GetAmountOfAdministrators = async (req: Request, res: Response) => {
+export const GetAmountOfAdministrators = async (
+  req: Request,
+  res: Response
+) => {
   try {
     const n = await service.amountOfAdministrators();
-    res.json({"amount": n}).status(200);
+    res.json({ amount: n }).status(200);
   } catch (error) {
     console.log(error);
     res.status(500).send(error);
@@ -47,10 +50,11 @@ export const GetAdministratorPage = async (req: Request, res: Response) => {
 export const GetAdministratorLogin = async (req: Request, res: Response) => {
   if (!req.query.email || !req.query.password) res.status(500).send();
   try {
-    const email: string = req.query.email?.toString() || '';
-    const password: string = req.query.password?.toString() || '';
+    const email: string = req.query.email?.toString() || "";
+    const password: string = req.query.password?.toString() || "";
 
-    const administrator: Administrator | null = await service.getAdministratorByEmail(email);
+    const administrator: Administrator | null =
+      await service.getAdministratorByEmail(email);
 
     if (!administrator || !(await check(password, administrator?.password))) {
       res.status(401).send();
@@ -58,7 +62,6 @@ export const GetAdministratorLogin = async (req: Request, res: Response) => {
     }
 
     res.json(administrator).status(200);
-
   } catch (error) {
     res.status(500).send(error);
   }
@@ -66,14 +69,14 @@ export const GetAdministratorLogin = async (req: Request, res: Response) => {
 
 export const CreateAdministrator = async (req: Request, res: Response) => {
   try {
-    const {
+    const { email, firstName, lastName, password } = req.body;
+    const encryptedPassword: string = await encrypt(password);
+    const body = await service.createAdministrator(
       email,
       firstName,
       lastName,
-      password
-    } = req.body;
-    const encryptedPassword: string = await encrypt(password);
-    const body = await service.createAdministrator(email, firstName, lastName, encryptedPassword);
+      encryptedPassword
+    );
     res.json(body).status(200);
   } catch (error) {
     console.log(error);
@@ -83,13 +86,7 @@ export const CreateAdministrator = async (req: Request, res: Response) => {
 
 export const UpdateAdministrator = async (req: Request, res: Response) => {
   try {
-    const {
-      id,
-      email,
-      firstName,
-      lastName,
-      password,
-    } = req.body;
+    const { id, email, firstName, lastName, password } = req.body;
     const encryptedPassword: string = await encrypt(password);
     const body = await service.updateAdministrator(
       id,

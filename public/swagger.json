@@ -186,6 +186,36 @@
                 }
             }
         },
+        "/users/loginGoogle?id={id}": {
+            "get": {
+                "tags": [
+                    "Login"
+                ],
+                "parameters": [{
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "User id",
+                        "schema": {
+                            "type": "string",
+                            "example": "2"
+                        }
+                    }
+                ],
+                "summary": "Login user Google and id",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
         "/administrators/login?email={email}&password={password}": {
             "get": {
                 "tags": [
@@ -1210,8 +1240,178 @@
                     }
                 }
             }
+        },
+        "/users/logIn/count-per-day-last-days?day={day}&numberOfDays={numberOfDays}": {
+
+            "get": {
+                "tags": [
+                    "Metricas"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "day",
+                        "required": true,
+                        "description": "Last day of range",
+                        "schema": {
+                            "type": "string",
+                            "example": "10/12/22"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "numberOfDays",
+                        "required": true,
+                        "description": "Number of days in range",
+                        "schema": {
+                            "type": "integer",
+                            "example": 7
+                        }
+                    }
+                ],
+                "summary": "Get count of logins in a range ending at last day",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed."
+                    }
+                }
+            }
+        },
+        "/users/signIn/count-per-day-last-days?day={day}&numberOfDays={numberOfDays}": {
+
+            "get": {
+                "tags": [
+                    "Metricas"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "day",
+                        "required": true,
+                        "description": "Last day of range",
+                        "schema": {
+                            "type": "string",
+                            "example": "10/12/22"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "numberOfDays",
+                        "required": true,
+                        "description": "Number of days in range",
+                        "schema": {
+                            "type": "integer",
+                            "example": 7
+                        }
+                    }
+                ],
+                "summary": "Get count of signins in a range ending at last day",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed."
+                    }
+                }
+            }
+        },
+
+        "/users/logInGoogle/count-per-day-last-days?day={day}&numberOfDays={numberOfDays}": {
+
+            "get": {
+                "tags": [
+                    "Metricas"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "day",
+                        "required": true,
+                        "description": "Last day of range",
+                        "schema": {
+                            "type": "string",
+                            "example": "10/12/22"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "numberOfDays",
+                        "required": true,
+                        "description": "Number of days in range",
+                        "schema": {
+                            "type": "integer",
+                            "example": 7
+                        }
+                    }
+                ],
+                "summary": "Get count of logins with Google in a range ending at last day",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed."
+                    }
+                }
+            }
+        },
+        "/users/signInGoogle/count-per-day-last-days?day={day}&numberOfDays={numberOfDays}": {
+
+            "get": {
+                "tags": [
+                    "Metricas"
+                ],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "day",
+                        "required": true,
+                        "description": "Last day of range",
+                        "schema": {
+                            "type": "string",
+                            "example": "10/12/22"
+                        }
+                    },
+                    {
+                        "in": "path",
+                        "name": "numberOfDays",
+                        "required": true,
+                        "description": "Number of days in range",
+                        "schema": {
+                            "type": "integer",
+                            "example": 7
+                        }
+                    }
+                ],
+                "summary": "Get count of signins with Google in a range ending at last day",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/count"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed."
+                    }
+                }
+            }
         }
     },
+
     "definitions": {
         "id": {
             "properties": {
@@ -1346,7 +1546,11 @@
                 "blocked": {
                     "type": "boolean",
                     "example": false
-                }
+                },
+                "accountType": {
+                    "type": "string",
+                    "example": "EMAIL"
+                },
             }
         },
         "count": {
@@ -1390,7 +1594,11 @@
                 "blocked": {
                     "type": "boolean",
                     "example": false
-                }
+                },
+                "accountType": {
+                    "type": "string",
+                    "example": "EMAIL"
+                },
             }
         },
         "Driver": {
@@ -1432,6 +1640,10 @@
                     "type": "boolean",
                     "example": false
                 },
+                "accountType": {
+                    "type": "string",
+                    "example": "GOOGLE"
+                },
                 "vehicle": {
                     "type": "object",
                     "properties": {
@@ -1465,7 +1677,7 @@
                                 "image": {
                                     "type": "string",
                                     "example": "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2020-onix-premier/colorizer/01-images/julio-20/2-onix-premier-seeker-met-5.png?imwidth=960"
-                                }
+                                },
                             }
                         }
                     }

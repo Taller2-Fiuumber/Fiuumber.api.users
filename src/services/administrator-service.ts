@@ -3,25 +3,28 @@ import { PrismaClient, Administrator } from "@prisma/client";
 const prisma = new PrismaClient();
 
 export const amountOfAdministrators = async (): Promise<number> => {
-  return await prisma.administrator.count()
-}
+  return await prisma.administrator.count();
+};
 
-export const getAdministratorById = async (id: number): Promise<Administrator | null> => {
+export const getAdministratorById = async (
+  id: number
+): Promise<Administrator | null> => {
   return await prisma.administrator.findUnique({
     where: {
-        id: id,
+      id: id,
     },
   });
 };
 
-export const getAdministratorByEmail = async (email: string): Promise<Administrator | null> => {
+export const getAdministratorByEmail = async (
+  email: string
+): Promise<Administrator | null> => {
   return await prisma.administrator.findUnique({
     where: {
-        email: email,
+      email: email,
     },
   });
 };
-
 
 export const getAdministrators = async (): Promise<Administrator[]> => {
   return await prisma.administrator.findMany();
@@ -31,9 +34,8 @@ export const createAdministrator = (
   email: string,
   firstName: string,
   lastName: string,
-  password: string,
+  password: string
 ): Promise<Administrator> => {
-
   const administrator = prisma.administrator.create({
     data: {
       email,
@@ -50,7 +52,7 @@ export const updateAdministrator = (
   email: string,
   firstName: string,
   lastName: string,
-  password: string,
+  password: string
 ): Promise<Administrator> => {
   const administrator = prisma.administrator.update({
     where: {
@@ -66,21 +68,21 @@ export const updateAdministrator = (
   return administrator;
 };
 
-
-export const deleteAdministrator = (
-  id: number,
-): Promise<Administrator> => {
+export const deleteAdministrator = (id: number): Promise<Administrator> => {
   const administrator = prisma.administrator.delete({
     where: {
       id,
-    }
+    },
   });
   return administrator;
 };
 
-export const getAdministratorsPage = async (skip: number, take: number): Promise<Administrator[]> => {
+export const getAdministratorsPage = async (
+  skip: number,
+  take: number
+): Promise<Administrator[]> => {
   return await prisma.administrator.findMany({
     skip: skip,
     take: take,
-  })
+  });
 };

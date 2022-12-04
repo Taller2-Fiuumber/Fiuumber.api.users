@@ -1,4 +1,4 @@
-import { PrismaClient, User} from "@prisma/client";
+import { PrismaClient, User } from "@prisma/client";
 const prisma = new PrismaClient();
 
 /*--------------------------------------User-----------------------------------*/
@@ -9,12 +9,12 @@ export const getAmountOfBlockedUsers = async (): Promise<number> => {
       id: true,
     },
     where: {
-      blocked: true
+      blocked: true,
     },
-  })
+  });
 
   return aggregations._count.id;
-}
+};
 
 export const getAmountOfBlockedDrivers = async (): Promise<number> => {
   const aggregations = await prisma.user.aggregate({
@@ -23,12 +23,12 @@ export const getAmountOfBlockedDrivers = async (): Promise<number> => {
     },
     where: {
       blocked: true,
-      profile: "DRIVER"
+      profile: "DRIVER",
     },
-  })
+  });
 
   return aggregations._count.id;
-}
+};
 
 export const getAmountOfBlockedPassengers = async (): Promise<number> => {
   const aggregations = await prisma.user.aggregate({
@@ -37,19 +37,19 @@ export const getAmountOfBlockedPassengers = async (): Promise<number> => {
     },
     where: {
       blocked: true,
-      profile: "PASSENGER"
+      profile: "PASSENGER",
     },
-  })
+  });
 
   return aggregations._count.id;
-}
+};
 
 export const blockUserById = async (id: number): Promise<User> => {
   const blocked = true;
 
   return prisma.user.update({
     where: {
-     id,
+      id,
     },
     data: {
       blocked,
@@ -62,7 +62,7 @@ export const unblockUserById = async (id: number): Promise<User> => {
 
   return prisma.user.update({
     where: {
-     id,
+      id,
     },
     data: {
       blocked,

@@ -9,7 +9,7 @@ export abstract class Administrator {
     email: string,
     firstName: string,
     lastName: string,
-    password: string,
+    password: string
   ) {
     this.id = id;
     this.email = email;

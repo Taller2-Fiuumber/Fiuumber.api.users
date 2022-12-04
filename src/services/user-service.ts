@@ -1,4 +1,12 @@
-import { PrismaClient, User, Passenger, Vehicle, Driver, DriverVehicle } from "@prisma/client";
+import {
+  PrismaClient,
+  User,
+  Passenger,
+  Vehicle,
+  Driver,
+  DriverVehicle,
+  AccountType,
+} from "@prisma/client";
 const prisma = new PrismaClient();
 
 /*---------------------------------Vehicle-------------------------------------*/
@@ -13,14 +21,16 @@ export const getVehicle = async (id: number): Promise<Vehicle> => {
       id,
     },
   });
-
 };
 
-export const getVehiclePage = async (skip: number, take: number): Promise<Vehicle[]> => {
+export const getVehiclePage = async (
+  skip: number,
+  take: number
+): Promise<Vehicle[]> => {
   return await prisma.vehicle.findMany({
     skip: skip,
     take: take,
-  })
+  });
 };
 
 export const createVehicle = async (
@@ -59,13 +69,11 @@ export const updateVehicle = async (
   return body;
 };
 
-export const deleteVehicle = (
-  id: number,
-): Promise<Vehicle> => {
+export const deleteVehicle = (id: number): Promise<Vehicle> => {
   const vehicle = prisma.vehicle.delete({
     where: {
       id,
-    }
+    },
   });
   return vehicle;
 };
@@ -77,7 +85,7 @@ export const getDriverVehicles = async (): Promise<DriverVehicle[]> => {
     include: {
       vehicle: true,
     },
-  })
+  });
 };
 
 export const getDriverVehicle = async (id: number): Promise<DriverVehicle> => {
@@ -89,17 +97,19 @@ export const getDriverVehicle = async (id: number): Promise<DriverVehicle> => {
       vehicle: true,
     },
   });
-
 };
 
-export const getDriverVehiclePage = async (skip: number, take: number): Promise<DriverVehicle[]> => {
+export const getDriverVehiclePage = async (
+  skip: number,
+  take: number
+): Promise<DriverVehicle[]> => {
   return await prisma.driverVehicle.findMany({
     skip: skip,
     take: take,
     include: {
       vehicle: true,
     },
-  })
+  });
 };
 
 export const createDriverVehicle = async (
@@ -120,8 +130,8 @@ export const createDriverVehicle = async (
           brand,
           model,
           image,
-        }
-      }
+        },
+      },
     },
   });
 
@@ -150,21 +160,19 @@ export const updateDriverVehicle = async (
           brand,
           model,
           image,
-        }
-      }
+        },
+      },
     },
   });
 
   return body;
 };
 
-export const deleteDriverVehicle = (
-  id: number,
-): Promise<DriverVehicle> => {
+export const deleteDriverVehicle = (id: number): Promise<DriverVehicle> => {
   const vehicle = prisma.driverVehicle.delete({
     where: {
       id,
-    }
+    },
   });
   return vehicle;
 };
@@ -179,10 +187,32 @@ export const getUserById = async (id: number): Promise<User> => {
   });
 };
 
+export const getLoginUserWithGoogle = async (id: number): Promise<User> => {
+  const lastLogin = new Date(Date.now());
+  return await prisma.user.update({
+    where: {
+      id,
+    },
+    data: {
+      lastLogin,
+    },
+  });
+};
+
 export const getUserByEmail = async (email: string): Promise<User | null> => {
+  const lastLogin = new Date(Date.now());
+  await prisma.user.update({
+    where: {
+      email,
+    },
+    data: {
+      lastLogin,
+    },
+  });
+
   return await prisma.user.findUnique({
     where: {
-        email: email,
+      email: email,
     },
   });
 };
@@ -191,20 +221,21 @@ export const getUsers = async (): Promise<User[]> => {
   return await prisma.user.findMany();
 };
 
-export const getUserPage = async (skip: number, take: number): Promise<User[]> => {
+export const getUserPage = async (
+  skip: number,
+  take: number
+): Promise<User[]> => {
   return await prisma.user.findMany({
     skip: skip,
     take: take,
-  })
+  });
 };
 
-export const deleteUserById = (
-  id: number,
-): Promise<User> => {
+export const deleteUserById = (id: number): Promise<User> => {
   const user = prisma.user.delete({
     where: {
       id,
-    }
+    },
   });
   return user;
 };
@@ -212,19 +243,18 @@ export const deleteUserById = (
 /*---------------------------------Passenger-----------------------------------*/
 
 export const amountOfPassengers = async (): Promise<number> => {
-  return await prisma.passenger.count()
-}
+  return await prisma.passenger.count();
+};
 
 export const getPassengers = async (): Promise<Passenger[]> => {
   return await prisma.passenger.findMany({
-      include: {
-        user: true,
-      },
-    });
+    include: {
+      user: true,
+    },
+  });
 };
 
 export const getPassenger = (userId: number): Promise<Passenger> => {
-
   return prisma.passenger.findUniqueOrThrow({
     where: {
       userId,
@@ -233,18 +263,19 @@ export const getPassenger = (userId: number): Promise<Passenger> => {
       user: true,
     },
   });
-
 };
 
-export const getPassengerPage = async (skip: number, take: number): Promise<Passenger[]> => {
+export const getPassengerPage = async (
+  skip: number,
+  take: number
+): Promise<Passenger[]> => {
   return await prisma.passenger.findMany({
     skip: skip,
     take: take,
     include: {
       user: true,
-
     },
-  })
+  });
 };
 
 export const createPassenger = (
@@ -254,7 +285,8 @@ export const createPassenger = (
   username: string,
   password: string,
   address: string,
-  walletAddress:string
+  walletAddress: string,
+  accountType: AccountType
 ): Promise<Passenger> => {
   const profile = "PASSENGER";
 
@@ -270,8 +302,12 @@ export const createPassenger = (
           username,
           profile,
           walletAddress,
+          accountType,
         },
-      }
+      },
+    },
+    include: {
+      user: true,
     },
   });
 
@@ -288,7 +324,6 @@ export const updatePassenger = (
   address: string,
   walletAddress: string
 ): Promise<Passenger> => {
-
   return prisma.passenger.update({
     where: {
       userId: id,
@@ -304,7 +339,7 @@ export const updatePassenger = (
           username,
           walletAddress,
         },
-      }
+      },
     },
   });
 };
@@ -312,8 +347,8 @@ export const updatePassenger = (
 /*---------------------------------Driver--------------------------------------*/
 
 export const amountOfDrivers = async (): Promise<number> => {
-  return await prisma.driver.count()
-}
+  return await prisma.driver.count();
+};
 
 export const getDrivers = async (): Promise<Driver[]> => {
   return await prisma.driver.findMany({
@@ -323,14 +358,14 @@ export const getDrivers = async (): Promise<Driver[]> => {
       driverVehicle: {
         include: {
           vehicle: true,
-        }
+        },
       },
     },
   });
 };
 
 export const getDriver = async (userId: number): Promise<Driver> => {
-  const driver =  await prisma.driver.findUniqueOrThrow({
+  const driver = await prisma.driver.findUniqueOrThrow({
     where: {
       userId,
     },
@@ -340,14 +375,17 @@ export const getDriver = async (userId: number): Promise<Driver> => {
       driverVehicle: {
         include: {
           vehicle: true,
-        }
+        },
       },
     },
   });
   return driver;
 };
 
-export const getDriverPage = async (skip: number, take: number): Promise<Driver[]> => {
+export const getDriverPage = async (
+  skip: number,
+  take: number
+): Promise<Driver[]> => {
   return await prisma.driver.findMany({
     skip: skip,
     take: take,
@@ -357,10 +395,10 @@ export const getDriverPage = async (skip: number, take: number): Promise<Driver[
       driverVehicle: {
         include: {
           vehicle: true,
-        }
+        },
       },
     },
-  })
+  });
 };
 
 export const createDriver = async (
@@ -377,6 +415,7 @@ export const createDriver = async (
   brand: string,
   model: string,
   image: string,
+  accountType: AccountType
 ): Promise<Driver> => {
   const profile = "DRIVER";
 
@@ -392,6 +431,7 @@ export const createDriver = async (
           address,
           profile,
           walletAddress,
+          accountType,
         },
       },
       driverVehicle: {
@@ -409,6 +449,14 @@ export const createDriver = async (
         },
       },
     },
+    include: {
+      user: true,
+      driverVehicle: {
+        include: {
+          vehicle: true,
+        },
+      },
+    },
   });
 
   return driver;
@@ -422,15 +470,14 @@ export const updateDriver = (
   username: string,
   password: string,
   address: string,
-  walletAddress:string,
+  walletAddress: string,
   domain: string,
   modelYear: string,
   colorName: string,
   brand: string,
   model: string,
-  image: string,
+  image: string
 ): Promise<Driver> => {
-
   return prisma.driver.update({
     where: {
       userId,
@@ -463,12 +510,155 @@ export const updateDriver = (
       },
     },
   });
-
 };
 
 export const setNotificationsToken = (userId: number, token: string) => {
   return prisma.user.update({
     where: { id: userId },
-    data: { notificationsToken: token }
-  })
+    data: { notificationsToken: token },
+  });
+};
+
+export const getAmountOfLoginsByNumberOfDays = async (
+  date: Date,
+  numberOfDays: number
+): Promise<{ key: string; value: number }[]> => {
+  let dict = [];
+  for (let i = 0; i < numberOfDays; i++) {
+    date.setDate(date.getDate() - 1);
+    const date1 = new Date();
+    const date2 = new Date();
+
+    date1.setDate(date.getDate());
+    date2.setDate(date.getDate());
+
+    date1.setUTCHours(0, 0, 0, 0);
+    date2.setUTCHours(23, 59, 59, 999);
+
+    const aggregations = await prisma.user.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        accountType: "EMAIL",
+        lastLogin: {
+          lte: date2,
+          gte: date1,
+        },
+      },
+    });
+    dict = dict.push({
+      key: date.toLocaleDateString("en-UK"),
+      value: aggregations._count.id,
+    });
+  }
+  return dict;
+};
+
+export const getAmountOfSignInByNumberOfDays = async (
+  date: Date,
+  numberOfDays: number
+): Promise<{ key: string; value: number }[]> => {
+  let dict = [];
+  for (let i = 0; i < numberOfDays; i++) {
+    date.setDate(date.getDate() - 1);
+    const date1 = new Date();
+    const date2 = new Date();
+
+    date1.setDate(date.getDate());
+    date2.setDate(date.getDate());
+
+    date1.setUTCHours(0, 0, 0, 0);
+    date2.setUTCHours(23, 59, 59, 999);
+
+    const aggregations = await prisma.user.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        accountType: "EMAIL",
+        createdAt: {
+          lte: date2,
+          gte: date1,
+        },
+      },
+    });
+    dict = dict.push({
+      key: date.toLocaleDateString("en-UK"),
+      value: aggregations._count.id,
+    });
+  }
+  return dict;
+};
+
+export const getAmountOfLoginsByNumberOfDaysGoogle = async (
+  date: Date,
+  numberOfDays: number
+): Promise<{ key: string; value: number }[]> => {
+  let dict = [];
+  for (let i = 0; i < numberOfDays; i++) {
+    date.setDate(date.getDate() - 1);
+    const date1 = new Date();
+    const date2 = new Date();
+
+    date1.setDate(date.getDate());
+    date2.setDate(date.getDate());
+
+    date1.setUTCHours(0, 0, 0, 0);
+    date2.setUTCHours(23, 59, 59, 999);
+
+    const aggregations = await prisma.user.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        accountType: "GOOGLE",
+        lastLogin: {
+          lte: date2,
+          gte: date1,
+        },
+      },
+    });
+    dict = dict.push({
+      key: date.toLocaleDateString("en-UK"),
+      value: aggregations._count.id,
+    });
+  }
+  return dict;
+};
+
+export const getAmountOfSignInByNumberOfDaysGoogle = async (
+  date: Date,
+  numberOfDays: number
+): Promise<{ key: string; value: number }[]> => {
+  let dict = [];
+  for (let i = 0; i < numberOfDays; i++) {
+    date.setDate(date.getDate() - 1);
+    const date1 = new Date();
+    const date2 = new Date();
+
+    date1.setDate(date.getDate());
+    date2.setDate(date.getDate());
+
+    date1.setUTCHours(0, 0, 0, 0);
+    date2.setUTCHours(23, 59, 59, 999);
+
+    const aggregations = await prisma.user.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        accountType: "GOOGLE",
+        createdAt: {
+          lte: date2,
+          gte: date1,
+        },
+      },
+    });
+    dict = dict.push({
+      key: date.toLocaleDateString("en-UK"),
+      value: aggregations._count.id,
+    });
+  }
+  return dict;
 };
