@@ -1,9 +1,7 @@
 import { User } from "./user";
-import { Wallet } from "./wallet";
 
 export class Passenger extends User {
   profile: string;
-  wallet: Wallet;
 
   constructor(
     userId: number,
@@ -11,13 +9,11 @@ export class Passenger extends User {
     firstName: string,
     lastName: string,
     address: string,
-    wallet: Wallet,
     password: string,
     username: string,
-    privateKey: string
+    walletAddress: string,
   ) {
-    super(userId, email, firstName, lastName, address, password, username, privateKey);
+    super(userId, email, firstName, lastName, address, password, username, walletAddress);
     this.profile = "passenger";
-    this.wallet = wallet;
   }
 }

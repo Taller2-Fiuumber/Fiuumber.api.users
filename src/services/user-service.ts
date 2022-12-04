@@ -219,7 +219,6 @@ export const getPassengers = async (): Promise<Passenger[]> => {
   return await prisma.passenger.findMany({
       include: {
         user: true,
-        wallet: true,
       },
     });
 };
@@ -232,7 +231,6 @@ export const getPassenger = (userId: number): Promise<Passenger> => {
     },
     include: {
       user: true,
-      wallet: true,
     },
   });
 
@@ -244,7 +242,7 @@ export const getPassengerPage = async (skip: number, take: number): Promise<Pass
     take: take,
     include: {
       user: true,
-      wallet: true,
+
     },
   })
 };
@@ -256,7 +254,7 @@ export const createPassenger = (
   username: string,
   password: string,
   address: string,
-  walletPrivateKey:string
+  walletAddress:string
 ): Promise<Passenger> => {
   const profile = "PASSENGER";
 
@@ -271,13 +269,9 @@ export const createPassenger = (
           password,
           username,
           profile,
+          walletAddress,
         },
-      },
-      wallet: {
-        create: {
-          walletPrivateKey,
-        },
-      },
+      }
     },
   });
 
@@ -292,7 +286,7 @@ export const updatePassenger = (
   username: string,
   password: string,
   address: string,
-  walletPrivateKey:string
+  walletAddress: string
 ): Promise<Passenger> => {
 
   return prisma.passenger.update({
@@ -308,13 +302,9 @@ export const updatePassenger = (
           address,
           password,
           username,
+          walletAddress,
         },
-      },
-      wallet: {
-        update: {
-          walletPrivateKey,
-        },
-      },
+      }
     },
   });
 };
@@ -329,7 +319,7 @@ export const getDrivers = async (): Promise<Driver[]> => {
   return await prisma.driver.findMany({
     include: {
       user: true,
-      wallet: true,
+
       driverVehicle: {
         include: {
           vehicle: true,
@@ -346,7 +336,7 @@ export const getDriver = async (userId: number): Promise<Driver> => {
     },
     include: {
       user: true,
-      wallet: true,
+
       driverVehicle: {
         include: {
           vehicle: true,
@@ -363,7 +353,7 @@ export const getDriverPage = async (skip: number, take: number): Promise<Driver[
     take: take,
     include: {
       user: true,
-      wallet: true,
+
       driverVehicle: {
         include: {
           vehicle: true,
@@ -380,7 +370,7 @@ export const createDriver = async (
   username: string,
   password: string,
   address: string,
-  walletPrivateKey: string,
+  walletAddress: string,
   domain: string,
   modelYear: string,
   colorName: string,
@@ -401,11 +391,7 @@ export const createDriver = async (
           password,
           address,
           profile,
-        },
-      },
-      wallet: {
-        create: {
-          walletPrivateKey,
+          walletAddress,
         },
       },
       driverVehicle: {
@@ -436,7 +422,7 @@ export const updateDriver = (
   username: string,
   password: string,
   address: string,
-  walletPrivateKey:string,
+  walletAddress:string,
   domain: string,
   modelYear: string,
   colorName: string,
@@ -458,11 +444,7 @@ export const updateDriver = (
           username,
           password,
           address,
-        },
-      },
-      wallet: {
-        update: {
-          walletPrivateKey,
+          walletAddress,
         },
       },
       driverVehicle: {
