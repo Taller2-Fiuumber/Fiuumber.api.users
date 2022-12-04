@@ -1211,67 +1211,7 @@
                 }
             }
         },
-        "/users/singUp/count-per-year?year={year}": {
-            "get": {
-                "tags": [
-                    "Metricas"
-                ],
-                "parameters": [{
-                        "in": "path",
-                        "name": "year",
-                        "required": true,
-                        "description": "Number of users to skip",
-                        "schema": {
-                            "type": "integer",
-                            "example": 2022
-                        }
-                    }
-                ],
-                "summary": "Get users with given ID",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/count"
-                        }
-                    },
-                    "404": {
-                        "description": "Failed. User not found."
-                    }
-                }
-            }
-        },
-        "/users/singIn/count-per-year?year={year}": {
-            "get": {
-                "tags": [
-                    "Metricas"
-                ],
-                "parameters": [{
-                        "in": "path",
-                        "name": "year",
-                        "required": true,
-                        "description": "Number of users to skip",
-                        "schema": {
-                            "type": "integer",
-                            "example": 2022
-                        }
-                    }
-                ],
-                "summary": "Get users with given ID",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "$ref": "#/definitions/count"
-                        }
-                    },
-                    "404": {
-                        "description": "Failed. User not found."
-                    }
-                }
-            }
-        },
-        "/users/singIn/count-per-day-last-days?day={day}&numberOfDays={numberOfDays}": {
+        "/users/logIn/count-per-day-last-days?day={day}&numberOfDays={numberOfDays}": {
 
             "get": {
                 "tags": [
@@ -1285,7 +1225,7 @@
                         "description": "Last day of range",
                         "schema": {
                             "type": "string",
-                            "example": "21/04/22"
+                            "example": "10/12/22"
                         }
                     },
                     {
@@ -1299,7 +1239,7 @@
                         }
                     }
                 ],
-                "summary": "Get count of logins in a week ending at last day",
+                "summary": "Get count of logins in a range ending at last day",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1313,7 +1253,8 @@
                 }
             }
         },
-        "/users/singIn/count-per-year-and-month?year={year}&month={month}": {
+        "/users/signIn/count-per-day-last-days?day={day}&numberOfDays={numberOfDays}": {
+
             "get": {
                 "tags": [
                     "Metricas"
@@ -1321,26 +1262,26 @@
                 "parameters": [
                     {
                         "in": "path",
-                        "name": "year",
+                        "name": "day",
                         "required": true,
-                        "description": "Number of users to skip",
+                        "description": "Last day of range",
                         "schema": {
-                            "type": "integer",
-                            "example": 2022
+                            "type": "string",
+                            "example": "10/12/22"
                         }
                     },
                     {
                         "in": "path",
-                        "name": "month",
+                        "name": "numberOfDays",
                         "required": true,
-                        "description": "Number of users to skip",
+                        "description": "Number of days in range",
                         "schema": {
                             "type": "integer",
-                            "example": 2
+                            "example": 7
                         }
                     }
                 ],
-                "summary": "Get users with given ID",
+                "summary": "Get count of signins in a range ending at last day",
                 "responses": {
                     "200": {
                         "description": "OK",
@@ -1349,7 +1290,7 @@
                         }
                     },
                     "404": {
-                        "description": "Failed. User not found."
+                        "description": "Failed."
                     }
                 }
             }

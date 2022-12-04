@@ -516,111 +516,153 @@ export const setNotificationsToken = (userId: number, token: string) => {
 
 // -------------------------------- Metrics -----------------------------------
 
-export const getAmountOfCreatedUsersByDay = async (day: Date): Promise<number> => {
-  const aggregations = await prisma.user.aggregate({
-    _count: {
-      id: true,
-    },
-    where: {
-      createdAt: day,
-    },
-  })
+// export const getAmountOfCreatedUsersByDay = async (day: Date): Promise<number> => {
+//   const aggregations = await prisma.user.aggregate({
+//     _count: {
+//       id: true,
+//     },
+//     where: {
+//       createdAt: day,
+//     },
+//   })
 
-  return aggregations._count.id;
-}
+//   return aggregations._count.id;
+// }
 
-export const getAmountOfCreatedUsersByYear = async (year: number): Promise<number> => {
-  const aggregations = await prisma.user.aggregate({
-    _count: {
-      id: true,
-    },
-    where: {
-      createdAt: {
-        lte: new Date(`${year}-12-31`),
-        gte: new Date(`${year}-01-01`),
-      },
-    },
-  })
+// export const getAmountOfCreatedUsersByYear = async (year: number): Promise<number> => {
+//   const aggregations = await prisma.user.aggregate({
+//     _count: {
+//       id: true,
+//     },
+//     where: {
+//       createdAt: {
+//         lte: new Date(`${year}-12-31`),
+//         gte: new Date(`${year}-01-01`),
+//       },
+//     },
+//   })
 
-  return aggregations._count.id;
-}
+//   return aggregations._count.id;
+// }
 
-export const getAmountOfCreatedUsersByMonthAndYear = async (month: number, year: number): Promise<number> => {
+// export const getAmountOfCreatedUsersByMonthAndYear = async (month: number, year: number): Promise<number> => {
 
-  const aggregations = await prisma.user.aggregate({
-    _count: {
-      id: true,
-    },
-    where: {
-      createdAt: {
-        lte: `${year}-${month}-31`,
-        gte: `${year}-${month}-01`,
-      },
-    },
-  })
+//   const aggregations = await prisma.user.aggregate({
+//     _count: {
+//       id: true,
+//     },
+//     where: {
+//       createdAt: {
+//         lte: `${year}-${month}-31`,
+//         gte: `${year}-${month}-01`,
+//       },
+//     },
+//   })
 
-  return aggregations._count.id;
-}
+//   return aggregations._count.id;
+// }
 
 
-export const getAmountOfLoginUsersByDay = async (day: Date): Promise<number> => {
-  const aggregations = await prisma.user.aggregate({
-    _count: {
-      id: true,
-    },
-    where: {
-      lastLogin: day,
-    },
-  })
+// export const getAmountOfLoginUsersByDay = async (day: Date): Promise<number> => {
+//   const aggregations = await prisma.user.aggregate({
+//     _count: {
+//       id: true,
+//     },
+//     where: {
+//       lastLogin: day,
+//     },
+//   })
 
-  return aggregations._count.id;
-}
+//   return aggregations._count.id;
+// }
 
-export const getAmountOfLoginUsersByYear = async (year: number): Promise<number> => {
-  const aggregations = await prisma.user.aggregate({
-    _count: {
-      id: true,
-    },
-    where: {
-      lastLogin: {
-        lte: new Date(`${year}-12-31`),
-        gte: new Date(`${year}-01-01`),
-      },
-    },
-  })
+// export const getAmountOfLoginUsersByYear = async (year: number): Promise<number> => {
+//   const aggregations = await prisma.user.aggregate({
+//     _count: {
+//       id: true,
+//     },
+//     where: {
+//       lastLogin: {
+//         lte: new Date(`${year}-12-31`),
+//         gte: new Date(`${year}-01-01`),
+//       },
+//     },
+//   })
 
-  return aggregations._count.id;
-}
+//   return aggregations._count.id;
+// }
 
-export const getAmountOfLoginUsersByMonthAndYear = async (month: number, year: number): Promise<number> => {
+// export const getAmountOfLoginUsersByMonthAndYear = async (month: number, year: number): Promise<number> => {
 
-  const aggregations = await prisma.user.aggregate({
-    _count: {
-      id: true,
-    },
-    where: {
-      lastLogin: {
-        lte: `${year}-${month}-31`,
-        gte: `${year}-${month}-01`,
-      },
-    },
-  })
+//   const aggregations = await prisma.user.aggregate({
+//     _count: {
+//       id: true,
+//     },
+//     where: {
+//       lastLogin: {
+//         lte: `${year}-${month}-31`,
+//         gte: `${year}-${month}-01`,
+//       },
+//     },
+//   })
 
-  return aggregations._count.id;
-}
+//   return aggregations._count.id;
+// }
 
-export const getAmountOfLoginsPerDayLastWeek = async (date: Date, numberOfDays: number): Promise<{ key: string; value: number; }[]> => {
+export const getAmountOfLoginsByNumberOfDays = async (date: Date, numberOfDays: number): Promise<{ key: string; value: number; }[]> => {
 
   let dict = [];
   for (let i = 0; i<numberOfDays; i++){
     date.setDate(date.getDate() - 1);
+    let date1 = new Date();
+    let date2 = new Date();
 
+    date1.setDate(date.getDate());
+    date2.setDate(date.getDate());
+
+    date1.setUTCHours(0,0,0,0);
+    date2.setUTCHours(23,59,59,999);
+ 
     const aggregations = await prisma.user.aggregate({
       _count: {
         id: true,
       },
       where: {
-        lastLogin: `${date.getFullYear()}-${date.getMonth()}-${date.getDay()}`, //2022-12-04T03:02:14.233Z
+        lastLogin: {
+          lte: date2,
+          gte: date1,
+        }
+      },
+    })
+    dict.push({key: date.toLocaleDateString("en-UK"), value: aggregations._count.id})
+  }
+  return dict;
+}
+
+export const getAmountOfSignInByNumberOfDays = async (date: Date, numberOfDays: number): Promise<{ key: string; value: number; }[]> => {
+
+
+  let dict = [];
+  for (let i = 0; i<numberOfDays; i++){
+    date.setDate(date.getDate() - 1);
+    let date1 = new Date();
+    let date2 = new Date();
+
+    date1.setDate(date.getDate());
+    date2.setDate(date.getDate());
+
+    date1.setUTCHours(0,0,0,0);
+    date2.setUTCHours(23,59,59,999);
+ 
+    const aggregations = await prisma.user.aggregate({
+      _count: {
+        id: true,
+      },
+      where: {
+        createdAt: {
+          lte: date2,
+          gte: date1,
+        }
       },
     })
     dict.push({key: date.toLocaleDateString("en-UK"), value: aggregations._count.id})

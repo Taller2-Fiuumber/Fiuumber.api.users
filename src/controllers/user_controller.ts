@@ -419,72 +419,72 @@ export const SetNotificationsToken = async (req: Request, res: Response) => {
 
 /*---------------------------------Metrics-----------------------------------*/
 
-export const GetAmountOfCreatedUsersByDay = async (req: Request, res: Response) => {
-  try {
-    const day =new Date(req.query.day?.toString() || Date.now());
-    const body = await service.getAmountOfCreatedUsersByDay(day);
-    res.json(body).status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+// export const GetAmountOfCreatedUsersByDay = async (req: Request, res: Response) => {
+//   try {
+//     const day =new Date(req.query.day?.toString() || Date.now());
+//     const body = await service.getAmountOfCreatedUsersByDay(day);
+//     res.json(body).status(200);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// };
 
-export const GetAmountOfCreatedUsersByYear = async (req: Request, res: Response) => {
-  try {
+// export const GetAmountOfCreatedUsersByYear = async (req: Request, res: Response) => {
+//   try {
 
-    const year = Number.parseInt(req.query.year?.toString() || '2022');
-    const body = await service.getAmountOfCreatedUsersByYear(year);
-    res.json(body).status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+//     const year = Number.parseInt(req.query.year?.toString() || '2022');
+//     const body = await service.getAmountOfCreatedUsersByYear(year);
+//     res.json(body).status(200);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// };
 
-export const GetAmountOfCreatedUsersByMonthAndYear = async (req: Request, res: Response) => {
-  try {
-    const year = Number.parseInt(req.query.year?.toString() || '2022');
-    const month = Number.parseInt(req.query.month?.toString() || '12');
+// export const GetAmountOfCreatedUsersByMonthAndYear = async (req: Request, res: Response) => {
+//   try {
+//     const year = Number.parseInt(req.query.year?.toString() || '2022');
+//     const month = Number.parseInt(req.query.month?.toString() || '12');
 
-    const body = await service.getAmountOfCreatedUsersByMonthAndYear(month, year);
-    res.json(body).status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+//     const body = await service.getAmountOfCreatedUsersByMonthAndYear(month, year);
+//     res.json(body).status(200);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// };
 
-export const GetAmountOfLoginUsersByDay = async (req: Request, res: Response) => {
-  try {
-    const day =new Date(req.query.day?.toString() || Date.now());
-    const body = await service.getAmountOfLoginUsersByDay(day);
-    res.json(body).status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+// export const GetAmountOfLoginUsersByDay = async (req: Request, res: Response) => {
+//   try {
+//     const day =new Date(req.query.day?.toString() || Date.now());
+//     const body = await service.getAmountOfLoginUsersByDay(day);
+//     res.json(body).status(200);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// };
 
-export const GetAmountOfLoginUsersByYear = async (req: Request, res: Response) => {
-  try {
-    const year = Number.parseInt(req.query.year?.toString() || '2022');
-    const body = await service.getAmountOfLoginUsersByYear(year);
-    res.json(body).status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+// export const GetAmountOfLoginUsersByYear = async (req: Request, res: Response) => {
+//   try {
+//     const year = Number.parseInt(req.query.year?.toString() || '2022');
+//     const body = await service.getAmountOfLoginUsersByYear(year);
+//     res.json(body).status(200);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// };
 
-export const GetAmountOfLoginUsersByMonthAndYear = async (req: Request, res: Response) => {
-  try {
-    const year = Number.parseInt(req.query.year?.toString() || '2022');
-    const month = Number.parseInt(req.query.month?.toString() || '12');
+// export const GetAmountOfLoginUsersByMonthAndYear = async (req: Request, res: Response) => {
+//   try {
+//     const year = Number.parseInt(req.query.year?.toString() || '2022');
+//     const month = Number.parseInt(req.query.month?.toString() || '12');
 
-    const body = await service.getAmountOfLoginUsersByMonthAndYear(month, year);
-    res.json(body).status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
+//     const body = await service.getAmountOfLoginUsersByMonthAndYear(month, year);
+//     res.json(body).status(200);
+//   } catch (error) {
+//     res.status(500).send(error);
+//   }
+// };
 
-export const GetAmountOfLoginsPerDayLastWeek = async (req:Request, res: Response) => {
+export const GetAmountOfLoginsByNumberOfDays = async (req:Request, res: Response) => {
   try {
     let date_f = new Date();
     let day_string = req.query.day?.toString()
@@ -496,7 +496,28 @@ export const GetAmountOfLoginsPerDayLastWeek = async (req:Request, res: Response
       date_f = new Date(Date.now());
     }
     const number_of_days = Number.parseInt(req.query.numberOfDays?.toString() || '7');
-    const body = await service.getAmountOfLoginsPerDayLastWeek(date_f, number_of_days);
+    const body = await service.getAmountOfLoginsByNumberOfDays(date_f, number_of_days);
+    res.json(body).status(200);
+  }
+  catch(error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetAmountOfSignInByNumberOfDays = async (req:Request, res: Response) => {
+  try {
+    let date_f = new Date();
+    let day_string = req.query.day?.toString()
+    if(day_string != undefined) {
+      const [day, month, year] = day_string.split('/');
+      const day_united_states_of_america = [month, day, year].join('/');
+      date_f = new Date(day_united_states_of_america);
+    } else {
+      date_f = new Date(Date.now());
+    }
+
+    const number_of_days = Number.parseInt(req.query.numberOfDays?.toString() || '7');
+    const body = await service.getAmountOfSignInByNumberOfDays(date_f, number_of_days);
     res.json(body).status(200);
   }
   catch(error) {
