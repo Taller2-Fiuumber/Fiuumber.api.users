@@ -21,7 +21,7 @@ export class Driver extends User {
     accountType: string
   ) {
     super(
-      id,
+      userId,
       email,
       firstName,
       lastName,
