@@ -180,7 +180,7 @@ export const getUserById = async (id: number): Promise<User> => {
 };
 
 export const getLoginUserWithGoogle = async (id: number): Promise<User> => {
-  
+
   const lastLogin = new Date(Date.now());
   return await prisma.user.update({
     where: {
@@ -189,7 +189,7 @@ export const getLoginUserWithGoogle = async (id: number): Promise<User> => {
     data: {
       lastLogin,
     },
-  });   
+  });
 };
 
 export const getUserByEmail = async (email: string): Promise<User | null> => {
@@ -242,7 +242,6 @@ export const getPassengers = async (): Promise<Passenger[]> => {
   return await prisma.passenger.findMany({
       include: {
         user: true,
-        wallet: true,
       },
     });
 };
@@ -255,7 +254,6 @@ export const getPassenger = (userId: number): Promise<Passenger> => {
     },
     include: {
       user: true,
-      wallet: true,
     },
   });
 
@@ -267,7 +265,7 @@ export const getPassengerPage = async (skip: number, take: number): Promise<Pass
     take: take,
     include: {
       user: true,
-      wallet: true,
+
     },
   })
 };
@@ -279,8 +277,8 @@ export const createPassenger = (
   username: string,
   password: string,
   address: string,
-  walletPrivateKey:string,
-  accountType:AccountType
+  walletAddress: string,
+  accountType: AccountType
 ): Promise<Passenger> => {
   const profile = "PASSENGER";
 
@@ -295,18 +293,13 @@ export const createPassenger = (
           password,
           username,
           profile,
+          walletAddress,
           accountType,
         },
-      },
-      wallet: {
-        create: {
-          walletPrivateKey,
-        },
-      },
+      }
     },
     include: {
       user: true,
-      wallet: true,
     },
   });
 
@@ -321,7 +314,7 @@ export const updatePassenger = (
   username: string,
   password: string,
   address: string,
-  walletPrivateKey:string
+  walletAddress: string
 ): Promise<Passenger> => {
 
   return prisma.passenger.update({
@@ -337,13 +330,9 @@ export const updatePassenger = (
           address,
           password,
           username,
+          walletAddress,
         },
-      },
-      wallet: {
-        update: {
-          walletPrivateKey,
-        },
-      },
+      }
     },
   });
 };
@@ -358,7 +347,7 @@ export const getDrivers = async (): Promise<Driver[]> => {
   return await prisma.driver.findMany({
     include: {
       user: true,
-      wallet: true,
+
       driverVehicle: {
         include: {
           vehicle: true,
@@ -375,7 +364,7 @@ export const getDriver = async (userId: number): Promise<Driver> => {
     },
     include: {
       user: true,
-      wallet: true,
+
       driverVehicle: {
         include: {
           vehicle: true,
@@ -392,7 +381,7 @@ export const getDriverPage = async (skip: number, take: number): Promise<Driver[
     take: take,
     include: {
       user: true,
-      wallet: true,
+
       driverVehicle: {
         include: {
           vehicle: true,
@@ -409,7 +398,7 @@ export const createDriver = async (
   username: string,
   password: string,
   address: string,
-  walletPrivateKey: string,
+  walletAddress: string,
   domain: string,
   modelYear: string,
   colorName: string,
@@ -431,12 +420,8 @@ export const createDriver = async (
           password,
           address,
           profile,
+          walletAddress,
           accountType,
-        },
-      },
-      wallet: {
-        create: {
-          walletPrivateKey,
         },
       },
       driverVehicle: {
@@ -456,7 +441,6 @@ export const createDriver = async (
     },
     include: {
       user: true,
-      wallet: true,
       driverVehicle: {
         include: {
           vehicle: true,
@@ -476,7 +460,7 @@ export const updateDriver = (
   username: string,
   password: string,
   address: string,
-  walletPrivateKey:string,
+  walletAddress:string,
   domain: string,
   modelYear: string,
   colorName: string,
@@ -498,11 +482,7 @@ export const updateDriver = (
           username,
           password,
           address,
-        },
-      },
-      wallet: {
-        update: {
-          walletPrivateKey,
+          walletAddress,
         },
       },
       driverVehicle: {
@@ -531,101 +511,6 @@ export const setNotificationsToken = (userId: number, token: string) => {
   })
 };
 
-// -------------------------------- Metrics -----------------------------------
-
-// export const getAmountOfCreatedUsersByDay = async (day: Date): Promise<number> => {
-//   const aggregations = await prisma.user.aggregate({
-//     _count: {
-//       id: true,
-//     },
-//     where: {
-//       createdAt: day,
-//     },
-//   })
-
-//   return aggregations._count.id;
-// }
-
-// export const getAmountOfCreatedUsersByYear = async (year: number): Promise<number> => {
-//   const aggregations = await prisma.user.aggregate({
-//     _count: {
-//       id: true,
-//     },
-//     where: {
-//       createdAt: {
-//         lte: new Date(`${year}-12-31`),
-//         gte: new Date(`${year}-01-01`),
-//       },
-//     },
-//   })
-
-//   return aggregations._count.id;
-// }
-
-// export const getAmountOfCreatedUsersByMonthAndYear = async (month: number, year: number): Promise<number> => {
-
-//   const aggregations = await prisma.user.aggregate({
-//     _count: {
-//       id: true,
-//     },
-//     where: {
-//       createdAt: {
-//         lte: `${year}-${month}-31`,
-//         gte: `${year}-${month}-01`,
-//       },
-//     },
-//   })
-
-//   return aggregations._count.id;
-// }
-
-
-// export const getAmountOfLoginUsersByDay = async (day: Date): Promise<number> => {
-//   const aggregations = await prisma.user.aggregate({
-//     _count: {
-//       id: true,
-//     },
-//     where: {
-//       lastLogin: day,
-//     },
-//   })
-
-//   return aggregations._count.id;
-// }
-
-// export const getAmountOfLoginUsersByYear = async (year: number): Promise<number> => {
-//   const aggregations = await prisma.user.aggregate({
-//     _count: {
-//       id: true,
-//     },
-//     where: {
-//       lastLogin: {
-//         lte: new Date(`${year}-12-31`),
-//         gte: new Date(`${year}-01-01`),
-//       },
-//     },
-//   })
-
-//   return aggregations._count.id;
-// }
-
-// export const getAmountOfLoginUsersByMonthAndYear = async (month: number, year: number): Promise<number> => {
-
-//   const aggregations = await prisma.user.aggregate({
-//     _count: {
-//       id: true,
-//     },
-//     where: {
-//       lastLogin: {
-//         lte: `${year}-${month}-31`,
-//         gte: `${year}-${month}-01`,
-//       },
-//     },
-//   })
-
-//   return aggregations._count.id;
-// }
-
 export const getAmountOfLoginsByNumberOfDays = async (date: Date, numberOfDays: number): Promise<{ key: string; value: number; }[]> => {
 
   let dict = [];
@@ -639,7 +524,7 @@ export const getAmountOfLoginsByNumberOfDays = async (date: Date, numberOfDays: 
 
     date1.setUTCHours(0,0,0,0);
     date2.setUTCHours(23,59,59,999);
- 
+
     const aggregations = await prisma.user.aggregate({
       _count: {
         id: true,
@@ -671,7 +556,7 @@ export const getAmountOfSignInByNumberOfDays = async (date: Date, numberOfDays: 
 
     date1.setUTCHours(0,0,0,0);
     date2.setUTCHours(23,59,59,999);
- 
+
     const aggregations = await prisma.user.aggregate({
       _count: {
         id: true,
@@ -703,7 +588,7 @@ export const getAmountOfLoginsByNumberOfDaysGoogle = async (date: Date, numberOf
 
     date1.setUTCHours(0,0,0,0);
     date2.setUTCHours(23,59,59,999);
- 
+
     const aggregations = await prisma.user.aggregate({
       _count: {
         id: true,
@@ -735,7 +620,7 @@ export const getAmountOfSignInByNumberOfDaysGoogle = async (date: Date, numberOf
 
     date1.setUTCHours(0,0,0,0);
     date2.setUTCHours(23,59,59,999);
- 
+
     const aggregations = await prisma.user.aggregate({
       _count: {
         id: true,
@@ -752,3 +637,4 @@ export const getAmountOfSignInByNumberOfDaysGoogle = async (date: Date, numberOf
   }
   return dict;
 }
+
