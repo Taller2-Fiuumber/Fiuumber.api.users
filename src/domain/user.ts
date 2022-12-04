@@ -27,7 +27,7 @@ export abstract class User {
     createdAt: Date,
     updatedAt: Date,
     lastLogin: Date,
-    accountType: string,
+    accountType: string
   ) {
     this.userId = userId;
     this.email = email;
@@ -42,6 +42,5 @@ export abstract class User {
     this.createdAt = createdAt;
     this.updatedAt = updatedAt;
     this.accountType = accountType;
-
   }
 }

@@ -15,9 +15,22 @@ export class Passenger extends User {
     createdAt: Date,
     updatedAt: Date,
     lastLogin: Date,
-    accountType: string,
+    accountType: string
   ) {
-    super(userId, email, firstName, lastName, address, password, username, walletAddress, createdAt, updatedAt, lastLogin, accountType);
+    super(
+      userId,
+      email,
+      firstName,
+      lastName,
+      address,
+      password,
+      username,
+      walletAddress,
+      createdAt,
+      updatedAt,
+      lastLogin,
+      accountType
+    );
     this.profile = "passenger";
   }
 }
