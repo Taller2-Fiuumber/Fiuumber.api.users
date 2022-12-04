@@ -1308,17 +1308,6 @@
                 }
             }
         },
-        "Wallet": {
-            "type": "object",
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "walletPrivateKey": {
-                    "type": "string"
-                }
-            }
-        },
         "User": {
             "type": "object",
             "properties": {
@@ -1350,18 +1339,9 @@
                     "type": "string",
                     "example": "anichucai"
                 },
-                "wallet": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "type": "string",
-                            "example": "111"
-                        },
-                        "walletPrivateKey": {
-                            "type": "string",
-                            "example": "1dsnh2337d82hdu2@$%@!%tewdfwdww"
-                        }
-                    }
+                "walletAddress": {
+                    "type": "string",
+                    "example": "shdgasdghqkwne2182378ib1b1"
                 },
                 "blocked": {
                     "type": "boolean",
@@ -1403,18 +1383,9 @@
                     "type": "string",
                     "example": "anichucai"
                 },
-                "wallet": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "type": "string",
-                            "example": "111"
-                        },
-                        "walletPrivateKey": {
-                            "type": "string",
-                            "example": "1dsnh2337d82hdu2@$%@!%tewdfwdww"
-                        }
-                    }
+                "walletAddress": {
+                    "type": "string",
+                    "example": "shdgasdghqkwne2182378ib1b1"
                 },
                 "blocked": {
                     "type": "boolean",
@@ -1453,18 +1424,9 @@
                     "type": "string",
                     "example": "anichucai"
                 },
-                "wallet": {
-                    "type": "object",
-                    "properties": {
-                        "id": {
-                            "type": "string",
-                            "example": "111"
-                        },
-                        "walletPrivateKey": {
-                            "type": "string",
-                            "example": "1dsnh2337d82hdu2@$%@!%tewdfwdww"
-                        }
-                    }
+                "walletAddress": {
+                    "type": "string",
+                    "example": "shdgasdghqkwne2182378ib1b1"
                 },
                 "blocked": {
                     "type": "boolean",
