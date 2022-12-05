@@ -251,7 +251,8 @@ export const CreatePassenger = async (req: Request, res: Response) => {
       accountType,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
-    const walletAddress: string = await paymentsService.createWallet();
+    // |JERE| La hardcodeo para testear, luego fixeo un error de axios
+    const walletAddress: string = "0x235e10f22aA75CcAfF9724cE8e3519E99c786038";//await paymentsService.createWallet();
     const body = await service.createPassenger(
       email,
       firstName,
@@ -354,7 +355,8 @@ export const CreateDriver = async (req: Request, res: Response) => {
       accountType,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
-    const walletAddress: string = await paymentsService.createWallet();
+    // |JERE| La hardcodeo para testear, luego fixeo un error de axios
+    const walletAddress: string = "0xB66D50f66C02aE41BE21e7838744eC22455Aec2f";//await paymentsService.createWallet();
     const body = await service.createDriver(
       email,
       firstName,
