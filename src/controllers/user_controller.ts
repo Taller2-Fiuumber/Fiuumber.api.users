@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import { Request, Response } from "express";
 import * as service from "../services/user-service";
+import * as paymentsService from "../services/payments-service";
 import { check, encrypt } from "../utils/useful-functions";
 
 /*---------------------------------Vehicle-------------------------------------*/
@@ -247,10 +248,10 @@ export const CreatePassenger = async (req: Request, res: Response) => {
       address,
       password,
       username,
-      walletAddress,
       accountType,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
+    const walletAddress: string = await paymentsService.createWallet();
     const body = await service.createPassenger(
       email,
       firstName,
@@ -349,11 +350,11 @@ export const CreateDriver = async (req: Request, res: Response) => {
       username,
       password,
       address,
-      walletAddress,
       vehicle,
       accountType,
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
+    const walletAddress: string = await paymentsService.createWallet();
     const body = await service.createDriver(
       email,
       firstName,
