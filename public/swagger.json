@@ -1539,10 +1539,6 @@
                     "type": "string",
                     "example": "anichucai"
                 },
-                "walletAddress": {
-                    "type": "string",
-                    "example": "shdgasdghqkwne2182378ib1b1"
-                },
                 "blocked": {
                     "type": "boolean",
                     "example": false
@@ -1550,7 +1546,7 @@
                 "accountType": {
                     "type": "string",
                     "example": "EMAIL"
-                },
+                }
             }
         },
         "count": {
@@ -1587,10 +1583,6 @@
                     "type": "string",
                     "example": "anichucai"
                 },
-                "walletAddress": {
-                    "type": "string",
-                    "example": "shdgasdghqkwne2182378ib1b1"
-                },
                 "blocked": {
                     "type": "boolean",
                     "example": false
@@ -1598,7 +1590,7 @@
                 "accountType": {
                     "type": "string",
                     "example": "EMAIL"
-                },
+                }
             }
         },
         "Driver": {
@@ -1631,10 +1623,6 @@
                 "username": {
                     "type": "string",
                     "example": "anichucai"
-                },
-                "walletAddress": {
-                    "type": "string",
-                    "example": "shdgasdghqkwne2182378ib1b1"
                 },
                 "blocked": {
                     "type": "boolean",
@@ -1677,7 +1665,7 @@
                                 "image": {
                                     "type": "string",
                                     "example": "https://www.chevrolet.com.ar/content/dam/chevrolet/mercosur/argentina/espanol/index/cars/2020-onix-premier/colorizer/01-images/julio-20/2-onix-premier-seeker-met-5.png?imwidth=960"
-                                },
+                                }
                             }
                         }
                     }
