@@ -16,3 +16,4 @@ export const createWallet = async (): Promise<string> => {
     throw ex;    
   }
 };
+
