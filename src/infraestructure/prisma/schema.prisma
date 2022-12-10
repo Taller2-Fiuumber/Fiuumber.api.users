@@ -31,14 +31,14 @@ model User {
 }
 
 model Driver {
-  user      User          @relation(fields: [userId], references: [id])
+  user      User          @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId    Int           @unique
-  driverVehicle   DriverVehicle @relation(fields: [vehicleId], references: [id])
+  driverVehicle   DriverVehicle @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
   vehicleId Int           @unique
 }
 
 model Passenger {
-  user     User   @relation(fields: [userId], references: [id])
+  user     User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId   Int    @unique
 }
 
@@ -59,7 +59,7 @@ model DriverVehicle {
   domain    String   @unique
   modelYear String   @db.VarChar(255)
   colorName String?  @db.VarChar(255)
-  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id])
+  vehicle   Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
   vehicleId Int      @unique
   driver    Driver?
 }

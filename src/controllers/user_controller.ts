@@ -156,6 +156,26 @@ export const GetUsers = async (req: Request, res: Response) => {
   }
 };
 
+export const CheckUserExists = async (req: Request, res: Response) => {
+  try {
+    const email = req.params.email.toString();
+    const body = await service.checkUserExists(email);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetUsersByAccountType = async (req: Request, res: Response) => {
+  try {
+    const accountType = req.params.accountType.toString();
+    const body = await service.getUsersByAccountType(accountType);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 export const GetUser = async (req: Request, res: Response) => {
   try {
     const id = Number.parseInt(req.params.id.toString());
@@ -252,7 +272,7 @@ export const CreatePassenger = async (req: Request, res: Response) => {
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
     // |JERE| La hardcodeo para testear, luego fixeo un error de axios
-    const walletAddress = "0x235e10f22aA75CcAfF9724cE8e3519E99c786038";//await paymentsService.createWallet();
+    const walletAddress = "0x235e10f22aA75CcAfF9724cE8e3519E99c786038"; //await paymentsService.createWallet();
     const body = await service.createPassenger(
       email,
       firstName,
@@ -356,7 +376,7 @@ export const CreateDriver = async (req: Request, res: Response) => {
     } = req.body;
     const encryptedPassword: string = await encrypt(password);
     // |JERE| La hardcodeo para testear, luego fixeo un error de axios
-    const walletAddress = "0xB66D50f66C02aE41BE21e7838744eC22455Aec2f";//await paymentsService.createWallet();
+    const walletAddress = "0xB66D50f66C02aE41BE21e7838744eC22455Aec2f"; //await paymentsService.createWallet();
     const body = await service.createDriver(
       email,
       firstName,

@@ -72,6 +72,9 @@ app.delete('/api/users-service/user/:id', user_controller.DeleteUser);
 
 app.get('/api/users-service/user/page/:skip&:take', user_controller.GetUserPage);
 
+app.get('/api/users-service/user/check-if-exists/:email', user_controller.CheckUserExists);
+
+app.get('/api/users-service/users/:accountType', user_controller.GetUsersByAccountType);
 
 // Blocked User
 

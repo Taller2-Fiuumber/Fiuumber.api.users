@@ -86,6 +86,7 @@
                 }
             }
         },
+
         "/user/{id}/blocked": {
             "post": {
                 "tags": [
@@ -886,6 +887,84 @@
                         "schema": {
                             "$ref": "#/definitions/User"
                         }
+                    }
+                }
+            }
+        },
+        "/users/{accountType}": {
+            "parameters": [{
+                "in": "path",
+                "name": "accountType",
+                "required": true,
+                "description": "accountType like GOOGLE and EMAIL",
+                "schema": {
+                    "type": "accountType",
+                    "example": "EMAIL"
+                }
+            }],
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Get all users ofa particular accountType",
+                "parameters": [{
+                    "in": "path",
+                    "name": "accountType",
+                    "required": true,
+                    "description": "Users accountType",
+                    "schema": {
+                        "type": "string",
+                        "example": "GOOGLE"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "User"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
+                    }
+                }
+            }
+        },
+        "/user/check-if-exists/{email}": {
+            "parameters": [{
+                "in": "path",
+                "name": "email",
+                "required": true,
+                "description": "User id",
+                "schema": {
+                    "type": "string",
+                    "example": "acai@fi.uba.ar"
+                }
+            }],
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Check if email is already registered",
+                "parameters": [{
+                    "in": "path",
+                    "name": "email",
+                    "required": true,
+                    "description": "User email",
+                    "schema": {
+                        "type": "string",
+                        "example": "acai@fi.uba.ar"
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/User"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. User not found."
                     }
                 }
             }
