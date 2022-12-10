@@ -1,7 +1,7 @@
-import axios from 'axios';
-import { CONFIG } from '../../config';
+import axios from "axios";
+import { CONFIG } from "../../config";
 
-export const HEADERS = { headers: { Accept: 'application/json'} };
+export const HEADERS = { headers: { Accept: "application/json" } };
 const URL_PAYMETNS = `${CONFIG.microservices.payments.url}${CONFIG.microservices.payments.basePath}`;
 
 export const createWallet = async (): Promise<string> => {
@@ -10,9 +10,8 @@ export const createWallet = async (): Promise<string> => {
     const response = await axios.post(url, HEADERS);
     const { address } = response.data;
     return address;
-  }
-  catch(ex) {
+  } catch (ex) {
     console.error("Error creating wallet " + ex);
-    throw ex;    
+    throw ex;
   }
 };

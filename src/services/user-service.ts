@@ -199,15 +199,14 @@ export const getLoginUserWithGoogle = async (id: number): Promise<User> => {
   });
 };
 
-
 export const checkUserExists = async (email: string): Promise<boolean> => {
   const response = await prisma.user.findUnique({
     where: {
       email,
     },
   });
-  return response != null
-}
+  return response != null;
+};
 
 export const getUserByEmail = async (email: string): Promise<User | null> => {
   const lastLogin = new Date(Date.now());
@@ -231,14 +230,16 @@ export const getUsers = async (): Promise<User[]> => {
   return await prisma.user.findMany();
 };
 
-export const getUsersByAccountType = async (_accountType: string): Promise<User[]> => {
+export const getUsersByAccountType = async (
+  _accountType: string
+): Promise<User[]> => {
   const accountType = AccountType[_accountType as keyof typeof AccountType];
   return await prisma.user.findMany({
     where: {
       accountType,
     },
   });
-}
+};
 
 export const getUserPage = async (
   skip: number,
