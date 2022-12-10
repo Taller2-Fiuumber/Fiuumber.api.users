@@ -17,12 +17,6 @@ ALTER TABLE "DriverVehicle" DROP CONSTRAINT "DriverVehicle_vehicleId_fkey";
 -- DropForeignKey
 ALTER TABLE "Passenger" DROP CONSTRAINT "Passenger_userId_fkey";
 
--- AlterTable
-ALTER TABLE "User" DROP COLUMN "accountType",
-ADD COLUMN     "accountType" "AccountType" NOT NULL DEFAULT 'EMAIL',
-DROP COLUMN "profile",
-ADD COLUMN     "profile" "Profile" NOT NULL;
-
 -- AddForeignKey
 ALTER TABLE "Driver" ADD CONSTRAINT "Driver_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
