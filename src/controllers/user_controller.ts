@@ -156,6 +156,26 @@ export const GetUsers = async (req: Request, res: Response) => {
   }
 };
 
+export const CheckUserExists = async (req: Request, res: Response) => {
+  try {
+    const email = req.params.email.toString();
+    const body = await service.checkUserExists(email);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const GetUsersByAccountType = async (req: Request, res: Response) => {
+  try {
+    const accountType = req.params.accountType.toString();
+    const body = await service.getUsersByAccountType(accountType);
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 export const GetUser = async (req: Request, res: Response) => {
   try {
     const id = Number.parseInt(req.params.id.toString());
