@@ -2,6 +2,7 @@ import {expect, test} from '@jest/globals';
 import { prismaMock } from '../../singleton'
 import * as userServices from '../../src/services/user-service';
 import { mockReset, mockClear } from 'jest-mock-extended';
+import { AccountType, Profile } from "@prisma/client";
 
 /*---------------------------------Vehicle-------------------------------------*/
 test('should create new vehicle ', async () => {
@@ -363,3 +364,246 @@ test('should get driver vehicle by id', async () => {
 // });
 
 /*--------------------------------------User-----------------------------------*/
+
+
+test('should get user by id ', async () => { 
+ 
+    const user = {
+                id: 2,
+                createdAt: new Date("2022-12-04T19:27:28.839Z"),
+                updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+                lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+                accountType: AccountType.EMAIL,
+                email: "tomiomi@fi.uba.ar",
+                password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+                username: "anichucai",
+                address: "San Juan 111",
+                blocked: true,
+                firstName: "Tomas",
+                lastName: "Omi",
+                walletAddress: "",
+                notificationsToken: null,
+                profile: Profile.PASSENGER
+            }
+
+    prismaMock.user.findUniqueOrThrow.mockResolvedValue(user)
+
+    await expect(userServices.getUserById(user.id)).resolves.toEqual({
+        id: 2,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: null,
+        profile: Profile.PASSENGER
+    })
+});
+
+test('should get user by email ', async () => { 
+ 
+    const user = {
+                id: 2,
+                createdAt: new Date("2022-12-04T19:27:28.839Z"),
+                updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+                lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+                accountType: AccountType.EMAIL,
+                email: "tomiomi@fi.uba.ar",
+                password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+                username: "anichucai",
+                address: "San Juan 111",
+                blocked: true,
+                firstName: "Tomas",
+                lastName: "Omi",
+                walletAddress: "",
+                notificationsToken: null,
+                profile: Profile.PASSENGER
+            }
+
+    prismaMock.user.findUnique.mockResolvedValue(user)
+
+    await expect(userServices.getUserByEmail(user.email)).resolves.toEqual({
+        id: 2,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: null,
+        profile: Profile.PASSENGER
+    })
+});
+
+test('should check user exists ', async () => { 
+ 
+    const user = {
+                id: 2,
+                createdAt: new Date("2022-12-04T19:27:28.839Z"),
+                updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+                lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+                accountType: AccountType.EMAIL,
+                email: "tomiomi@fi.uba.ar",
+                password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+                username: "anichucai",
+                address: "San Juan 111",
+                blocked: true,
+                firstName: "Tomas",
+                lastName: "Omi",
+                walletAddress: "",
+                notificationsToken: null,
+                profile: Profile.PASSENGER
+            }
+
+    prismaMock.user.findUnique.mockResolvedValue(user)
+
+    await expect(userServices.checkUserExists(user.email)).resolves.toEqual(true)
+});
+
+
+
+test('should get all users', async () => {
+
+    prismaMock.user.findMany.mockResolvedValue([
+        {
+            id: 2,
+            createdAt: new Date("2022-12-04T19:27:28.839Z"),
+            updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+            lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+            accountType: AccountType.EMAIL,
+            email: "tomiomi@fi.uba.ar",
+            password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+            username: "anichucai",
+            address: "San Juan 111",
+            blocked: true,
+            firstName: "Tomas",
+            lastName: "Omi",
+            walletAddress: "",
+            notificationsToken: null,
+            profile: Profile.PASSENGER
+       },
+       {
+        id: 1,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: null,
+        profile: Profile.PASSENGER
+   }
+     ])
+ 
+     await expect(userServices.getUsers()).resolves.toEqual([
+        {
+            id: 2,
+            createdAt: new Date("2022-12-04T19:27:28.839Z"),
+            updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+            lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+            accountType: AccountType.EMAIL,
+            email: "tomiomi@fi.uba.ar",
+            password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+            username: "anichucai",
+            address: "San Juan 111",
+            blocked: true,
+            firstName: "Tomas",
+            lastName: "Omi",
+            walletAddress: "",
+            notificationsToken: null,
+            profile: Profile.PASSENGER
+       },
+       {
+        id: 1,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: null,
+        profile: Profile.PASSENGER
+   }
+     ])
+});
+
+// test('should get user by account type ', async () => { 
+ 
+//     prismaMock.user.findMany.mockResolvedValue([{
+//         id: 2,
+//         createdAt: new Date("2022-12-04T19:27:28.839Z"),
+//         updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+//         lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+//         accountType: AccountType.GOOGLE,
+//         email: "tomiomi@fi.uba.ar",
+//         password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+//         username: "anichucai",
+//         address: "San Juan 111",
+//         blocked: true,
+//         firstName: "Tomas",
+//         lastName: "Omi",
+//         walletAddress: "",
+//         notificationsToken: null,
+//         profile: Profile.PASSENGER
+//    },
+//    {
+//     id: 1,
+//     createdAt: new Date("2022-12-04T19:27:28.839Z"),
+//     updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+//     lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+//     accountType: AccountType.EMAIL,
+//     email: "tomiomi@fi.uba.ar",
+//     password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+//     username: "anichucai",
+//     address: "San Juan 111",
+//     blocked: true,
+//     firstName: "Tomas",
+//     lastName: "Omi",
+//     walletAddress: "",
+//     notificationsToken: null,
+//     profile: Profile.PASSENGER
+// }])
+
+//     await expect(userServices.getUsersByAccountType('EMAIL')).resolves.toEqual({
+//         id: 1,
+//         createdAt: new Date("2022-12-04T19:27:28.839Z"),
+//         updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+//         lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+//         accountType: AccountType.EMAIL,
+//         email: "tomiomi@fi.uba.ar",
+//         password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+//         username: "anichucai",
+//         address: "San Juan 111",
+//         blocked: true,
+//         firstName: "Tomas",
+//         lastName: "Omi",
+//         walletAddress: "",
+//         notificationsToken: null,
+//         profile: Profile.PASSENGER
+//     })
+// });
