@@ -1,5 +1,21 @@
-/** @type {import('ts-jest/dist/types').InitialOptionsTsJest} */
-module.exports = {
-  preset: 'ts-jest',
-  testEnvironment: 'node',
+/** @type {import('jest').Config} */
+const config = {
+  verbose: true,
+  collectCoverage: true,
+  coverageDirectory: "../coverage",
+  testPathIgnorePatterns: [
+  "/node_modules/",
+  "/dist/"
+  ],
+  "collectCoverageFrom" : ["**/src/domain/*.ts", "**/src/services/*.ts"],
+  coverageThreshold: {
+    global: {
+      branches: 75,
+      functions: 75,
+      lines: 75,
+      statements: -10,
+    },
+  },
 };
+
+module.exports = config;
