@@ -16,6 +16,8 @@ const config = {
       statements: -10,
     },
   },
+  setupFilesAfterEnv: ['./singleton.ts'],
+
 };
 
 module.exports = config;

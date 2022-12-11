@@ -1,5 +1,4 @@
 import {
-  PrismaClient,
   User,
   Passenger,
   Vehicle,
@@ -7,7 +6,8 @@ import {
   DriverVehicle,
   AccountType,
 } from "@prisma/client";
-const prisma = new PrismaClient();
+
+import prisma from "../../client"
 
 /*---------------------------------Vehicle-------------------------------------*/
 
