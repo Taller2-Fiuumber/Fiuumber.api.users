@@ -192,7 +192,50 @@ test('should get all admins', async () => {
 });
 
 
+test('should get admins page', async () => {
 
+    prismaMock.administrator.findMany.mockResolvedValue([
+        {
+            id:1,
+            firstName: 'Richie',
+            lastName: 'Richie',
+            email: 'hello2@prisma.io',
+            password : '1234',
+            createdAt : new Date('2022-12-11T16:09:06.714Z'),
+            updatedAt : new Date('2022-12-11T16:09:06.714Z'),
+       },
+       {
+        id:2,
+        firstName: 'Richie',
+        lastName: 'Richie',
+        email: 'hello3@prisma.io',
+        password : '1234',
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z'),
+   }
+     ])
+ 
+     await expect(adminServices.getAdministratorsPage(0, 2)).resolves.toEqual([
+        {
+            id:1,
+            firstName: 'Richie',
+            lastName: 'Richie',
+            email: 'hello2@prisma.io',
+            password : '1234',
+            createdAt : new Date('2022-12-11T16:09:06.714Z'),
+            updatedAt : new Date('2022-12-11T16:09:06.714Z'),
+       },
+       {
+        id:2,
+        firstName: 'Richie',
+        lastName: 'Richie',
+        email: 'hello3@prisma.io',
+        password : '1234',
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z'),
+   }
+     ])
+});
 
 
 

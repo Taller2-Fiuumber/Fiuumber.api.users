@@ -78,7 +78,7 @@ test('should unblock a user', async () => {
     }
     prismaMock.user.update.mockResolvedValue(user)
 
-    await expect(blockServices.blockUserById(user.id)).resolves.toEqual({
+    await expect(blockServices.unblockUserById(user.id)).resolves.toEqual({
         id: 2,
         createdAt: new Date("2022-12-04T19:27:28.839Z"),
         updatedAt: new Date("2022-12-11T18:34:11.212Z"),
@@ -120,7 +120,7 @@ test('should unblock a user', async () => {
 //     }
 
  
-//     prismaMock.user.count.mockResolvedValue(1)
+//     prismaMock.user.aggregate.mockResolvedValue(1)
  
 //     await expect(blockServices.getAmountOfBlockedUsers()).resolves.toEqual(1)
 // });
