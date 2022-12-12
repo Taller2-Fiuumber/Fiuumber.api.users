@@ -3,7 +3,7 @@ import {
   createPassenger,
   createVehicle,
 } from "../../services/user-service";
-import { encrypt } from "../../../utils/useful-functions";
+import { encrypt } from "../../utils/useful-functions";
 
 import { Passenger, PrismaClient } from "@prisma/client";
 
