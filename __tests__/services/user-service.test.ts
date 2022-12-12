@@ -538,7 +538,7 @@ test('should get user by account type ', async () => {
         createdAt: new Date("2022-12-04T19:27:28.839Z"),
         updatedAt: new Date("2022-12-11T18:34:11.212Z"),
         lastLogin: new Date("2022-12-04T19:27:28.839Z"),
-        accountType: "EMAIL",
+        accountType: AccountType.EMAIL,
         email: "tomiomi@fi.uba.ar",
         password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
         username: "anichucai",
@@ -551,9 +551,9 @@ test('should get user by account type ', async () => {
         profile: Profile.PASSENGER
     }
 
-    prismaMock.user.findMany.mockResolvedValue(user)
+    prismaMock.user.findMany.mockResolvedValue([user])
 
-    await expect(userServices.getUsersByAccountType('EMAIL')).resolves.toEqual({
+    await expect(userServices.getUsersByAccountType(AccountType.EMAIL)).resolves.toEqual([{
         id: 2,
         createdAt: new Date("2022-12-04T19:27:28.839Z"),
         updatedAt: new Date("2022-12-11T18:34:11.212Z"),
@@ -569,7 +569,7 @@ test('should get user by account type ', async () => {
         walletAddress: "",
         notificationsToken: null,
         profile: Profile.PASSENGER
-    })
+    }])
 });
 
 
@@ -824,3 +824,430 @@ test('should count passengers ', async () => {
 
     await expect(userServices.amountOfPassengers()).resolves.toEqual(2)
 });
+
+/*---------------------------------Driver--------------------------------------*/
+
+test('should create new driver ', async () => { 
+
+    const vehicle = {
+        id:1,
+        brand: 'Toyota',
+        model: 'Etios',
+        image : 'img',
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z'),
+    }
+    const driverVehicle = {
+        id: 1,
+        domain: 'ABC123',
+        modelYear: '2016',
+        colorName : 'Blue',
+        vehicleId: 1,
+        vehicle:vehicle,
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z')
+    }
+    const user = {
+        id: 2,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: null,
+        profile: Profile.DRIVER
+    }
+    const driver = {
+        userId: 1,
+        vehicleId: 1,
+        user : user,
+        driverVehicle: driverVehicle,
+    }
+
+    prismaMock.driver.create.mockResolvedValue(driver)
+
+    await expect(userServices.createDriver(
+        driver.user.email,
+        driver.user.firstName,
+        driver.user.lastName, 
+        driver.user.username,
+        driver.user.password,
+        driver.user.address,
+        driver.user.walletAddress,
+        driver.driverVehicle.domain,
+        driver.driverVehicle.modelYear,
+        driver.driverVehicle.colorName,
+        driver.driverVehicle.vehicle.brand,
+        driver.driverVehicle.vehicle.model,
+        driver.driverVehicle.vehicle.image,
+        driver.user.accountType)).resolves.toEqual({
+        userId: 1,
+        vehicleId: 1,
+        user : user,
+        driverVehicle: driverVehicle,
+    })
+});
+
+
+
+test('should update driver ', async () => { 
+
+    const vehicle = {
+        id:1,
+        brand: 'Toyota',
+        model: 'Etios',
+        image : 'img',
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z'),
+    }
+    const driverVehicle = {
+        id: 1,
+        domain: 'ABC123',
+        modelYear: '2016',
+        colorName : 'Red',
+        vehicleId: 1,
+        vehicle:vehicle,
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z')
+    }
+    const user = {
+        id: 2,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: null,
+        profile: Profile.DRIVER
+    }
+    const driver = {
+        userId: 1,
+        vehicleId: 1,
+        user : user,
+        driverVehicle: driverVehicle,
+    }
+
+    prismaMock.driver.update.mockResolvedValue(driver)
+
+    await expect(userServices.updateDriver(
+        driver.userId,
+        driver.user.email,
+        driver.user.firstName,
+        driver.user.lastName, 
+        driver.user.username,
+        driver.user.password,
+        driver.user.address,
+        driver.user.walletAddress,
+        driver.driverVehicle.domain,
+        driver.driverVehicle.modelYear,
+        driver.driverVehicle.colorName,
+        driver.driverVehicle.vehicle.brand,
+        driver.driverVehicle.vehicle.model,
+        driver.driverVehicle.vehicle.image,
+        )).resolves.toEqual({
+
+        userId: 1,
+        vehicleId: 1,
+        user : user,
+        driverVehicle: driverVehicle,
+    })
+});
+
+test('should get driver by id ', async () => { 
+ 
+    const vehicle = {
+        id:1,
+        brand: 'Toyota',
+        model: 'Etios',
+        image : 'img',
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z'),
+    }
+    const driverVehicle = {
+        id: 1,
+        domain: 'ABC123',
+        modelYear: '2016',
+        colorName : 'Red',
+        vehicleId: 1,
+        vehicle:vehicle,
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z')
+    }
+    const user = {
+        id: 2,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: null,
+        profile: Profile.DRIVER
+    }
+    const driver = {
+        userId: 1,
+        vehicleId: 1,
+        user : user,
+        driverVehicle: driverVehicle,
+    }
+
+    prismaMock.driver.findUniqueOrThrow.mockResolvedValue(driver)
+
+    await expect(userServices.getDriver(driver.userId)).resolves.toEqual({
+        userId: 1,
+        vehicleId: 1,
+        user : user,
+        driverVehicle: driverVehicle,
+    })
+});
+
+
+test('should get all drivers ', async () => { 
+ 
+    const vehicle1 = {
+        id:1,
+        brand: 'Toyota',
+        model: 'Etios',
+        image : 'img',
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z'),
+    }
+    const driverVehicle1 = {
+        id: 1,
+        domain: 'ABC123',
+        modelYear: '2016',
+        colorName : 'Red',
+        vehicleId: 1,
+        vehicle:vehicle1,
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z')
+    }
+    const user1 = {
+        id: 1,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: null,
+        profile: Profile.DRIVER
+    }
+    const driver1 = {
+        userId: 1,
+        vehicleId: 1,
+        user : user1,
+        driverVehicle: driverVehicle1,
+    }
+
+    const vehicle2 = {
+        id:2,
+        brand: 'Toyota',
+        model: 'Etios',
+        image : 'img',
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z'),
+    }
+    const driverVehicle2 = {
+        id: 2,
+        domain: 'ABC123',
+        modelYear: '2016',
+        colorName : 'Red',
+        vehicleId: 1,
+        vehicle:vehicle2,
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z')
+    }
+    const user2 = {
+        id: 2,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: null,
+        profile: Profile.DRIVER
+    }
+    const driver2 = {
+        userId: 2,
+        vehicleId: 2,
+        user : user2,
+        driverVehicle: driverVehicle2,
+    }
+
+    prismaMock.driver.findMany.mockResolvedValue([driver1 ,driver2])
+
+    await expect(userServices.getDrivers()).resolves.toEqual(
+        [driver1 ,driver2]
+    )
+});
+
+
+test('should count drivers ', async () => { 
+ 
+    const vehicle1 = {
+        id:1,
+        brand: 'Toyota',
+        model: 'Etios',
+        image : 'img',
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z'),
+    }
+    const driverVehicle1 = {
+        id: 1,
+        domain: 'ABC123',
+        modelYear: '2016',
+        colorName : 'Red',
+        vehicleId: 1,
+        vehicle:vehicle1,
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z')
+    }
+    const user1 = {
+        id: 1,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: null,
+        profile: Profile.DRIVER
+    }
+    const driver1 = {
+        userId: 1,
+        vehicleId: 1,
+        user : user1,
+        driverVehicle: driverVehicle1,
+    }
+
+    const vehicle2 = {
+        id:2,
+        brand: 'Toyota',
+        model: 'Etios',
+        image : 'img',
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z'),
+    }
+    const driverVehicle2 = {
+        id: 2,
+        domain: 'ABC123',
+        modelYear: '2016',
+        colorName : 'Red',
+        vehicleId: 1,
+        vehicle:vehicle2,
+        createdAt : new Date('2022-12-11T16:09:06.714Z'),
+        updatedAt : new Date('2022-12-11T16:09:06.714Z')
+    }
+    const user2 = {
+        id: 2,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: null,
+        profile: Profile.DRIVER
+    }
+    const driver2 = {
+        userId: 2,
+        vehicleId: 2,
+        user : user2,
+        driverVehicle: driverVehicle2,
+    }
+
+    prismaMock.driver.count.mockResolvedValue(2)
+
+    await expect(userServices.amountOfDrivers()).resolves.toEqual(2)
+});
+
+/*---------------------------------Otros Endpoints--------------------------------------*/
+
+
+test('should set notification Token', async () => { 
+ 
+    const user = {
+                id: 2,
+                createdAt: new Date("2022-12-04T19:27:28.839Z"),
+                updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+                lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+                accountType: AccountType.EMAIL,
+                email: "tomiomi@fi.uba.ar",
+                password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+                username: "anichucai",
+                address: "San Juan 111",
+                blocked: true,
+                firstName: "Tomas",
+                lastName: "Omi",
+                walletAddress: "",
+                notificationsToken: "Token",
+                profile: Profile.PASSENGER
+            }
+
+    prismaMock.user.update.mockResolvedValue(user)
+
+    await expect(userServices.setNotificationsToken(user.id, user.notificationsToken)).resolves.toEqual({
+        id: 2,
+        createdAt: new Date("2022-12-04T19:27:28.839Z"),
+        updatedAt: new Date("2022-12-11T18:34:11.212Z"),
+        lastLogin: new Date("2022-12-04T19:27:28.839Z"),
+        accountType: AccountType.EMAIL,
+        email: "tomiomi@fi.uba.ar",
+        password: "$2b$10$5FSVMtusNsz9mz.b2iSnQu/Mwvq6UD3oCrdECfYwLUnd1asIDyxFm",
+        username: "anichucai",
+        address: "San Juan 111",
+        blocked: true,
+        firstName: "Tomas",
+        lastName: "Omi",
+        walletAddress: "",
+        notificationsToken: "Token",
+        profile: Profile.PASSENGER
+    })
+});
+
