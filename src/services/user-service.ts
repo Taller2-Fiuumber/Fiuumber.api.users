@@ -1,5 +1,4 @@
 import {
-  PrismaClient,
   User,
   Passenger,
   Vehicle,
@@ -7,7 +6,8 @@ import {
   DriverVehicle,
   AccountType,
 } from "@prisma/client";
-const prisma = new PrismaClient();
+
+import prisma from "../../client"
 
 /*---------------------------------Vehicle-------------------------------------*/
 
@@ -646,7 +646,7 @@ export const getAmountOfLoginsByNumberOfDaysGoogle = async (
   }
   return dict;
 };
-
+  /* istanbul ignore next */
 export const getAmountOfSignInByNumberOfDaysGoogle = async (
   date: Date,
   numberOfDays: number
