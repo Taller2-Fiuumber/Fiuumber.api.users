@@ -12,7 +12,7 @@ const config = {
       branches: 75,
       functions: 75,
       lines: 75,
-      statements: -10,
+      statements: -50,
     },
   },
   setupFilesAfterEnv: ['./singleton.ts'],
