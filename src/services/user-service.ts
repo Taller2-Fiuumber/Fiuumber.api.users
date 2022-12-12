@@ -646,7 +646,7 @@ export const getAmountOfLoginsByNumberOfDaysGoogle = async (
   }
   return dict;
 };
-
+  /* istanbul ignore next */
 export const getAmountOfSignInByNumberOfDaysGoogle = async (
   date: Date,
   numberOfDays: number
