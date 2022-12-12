@@ -606,7 +606,6 @@ test('should get all users', async () => {
      ])
 });
 
-//pasa pero esta rara
 
 test('should get user by account type ', async () => { 
  
