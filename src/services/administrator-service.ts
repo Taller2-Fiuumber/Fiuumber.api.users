@@ -1,5 +1,5 @@
 import { Administrator } from "@prisma/client";
-import prisma from "../../client"
+import prisma from "../../client";
 
 export const amountOfAdministrators = async (): Promise<number> => {
   return await prisma.administrator.count();

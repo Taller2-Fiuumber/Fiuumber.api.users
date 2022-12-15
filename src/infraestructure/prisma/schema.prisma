@@ -83,3 +83,11 @@ model Administrator {
   firstName String
   lastName  String
 }
+
+model Report {
+  id        Int        @id @default(autoincrement())
+  createdAt DateTime   @default(now())
+  driverId    Int
+  passengerId    Int
+  reason String
+}

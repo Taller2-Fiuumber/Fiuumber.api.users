@@ -3,6 +3,8 @@ import cors from 'cors';
 import * as user_controller from './src/controllers/user_controller';
 import * as administrator_controller from './src/controllers/administrator_controller';
 import * as block_controller from './src/controllers/block_controller';
+import * as report_controller from './src/controllers/report_controller';
+
 
 import { CONFIG } from './config';
 import bodyParser from "body-parser";
@@ -135,3 +137,18 @@ app.post('/api/users-service/user/:id/notifications-token', user_controller.SetN
 app.listen(CONFIG.app.port, () => {
   console.log(`⚡️[server]: Server is running at http://localhost:${CONFIG.app.port}`);
 });
+
+// Report driver 
+
+app.get('/api/users-service/report', report_controller.GetReports)
+
+app.get('/api/users-service/report/driver/:id', report_controller.GetReportByDriverId)
+
+app.get('/api/users-service/report/passenger/:id', report_controller.GetReportByPassengerId)
+
+app.get('/api/users-service/report/driver/amount/:id', report_controller.GetAmountOfReports)
+
+app.post('/api/users-service/report', report_controller.CreateReport)
+
+
+
