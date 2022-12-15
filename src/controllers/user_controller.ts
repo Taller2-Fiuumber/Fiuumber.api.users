@@ -309,6 +309,26 @@ export const GetPassengers = async (req: Request, res: Response) => {
   }
 };
 
+export const UpdatePassengerWithoutPassword = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { userId, email, firstName, lastName, username, address } = req.body;
+    const body = await service.updatePassengerWithoutPassword(
+      userId,
+      email,
+      firstName,
+      lastName,
+      username,
+      address
+    );
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
 export const UpdatePassenger = async (req: Request, res: Response) => {
   try {
     const {
@@ -588,6 +608,33 @@ export const GetAmountOfSignInByNumberOfDaysGoogle = async (
     const body = await service.getAmountOfSignInByNumberOfDaysGoogle(
       date_f,
       number_of_days
+    );
+    res.json(body).status(200);
+  } catch (error) {
+    res.status(500).send(error);
+  }
+};
+
+export const UpdateDriverWithoutPassword = async (
+  req: Request,
+  res: Response
+) => {
+  try {
+    const { userId, email, firstName, lastName, username, address, vehicle } =
+      req.body;
+    const body = service.updateDriverWithoutPassword(
+      userId,
+      email,
+      firstName,
+      lastName,
+      username,
+      address,
+      vehicle.domain,
+      vehicle.modelYear,
+      vehicle.colorName,
+      vehicle.vehicle.brand,
+      vehicle.vehicle.model,
+      vehicle.vehicle.image
     );
     res.json(body).status(200);
   } catch (error) {

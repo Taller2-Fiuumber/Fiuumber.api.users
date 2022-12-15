@@ -1083,6 +1083,73 @@
                 }
             }
         },
+        "/driver/edit": {
+            "put": {
+                "summary": "Update driver with given ID",
+                "tags": [
+                    "Driver"
+                ],
+                "requestBody": {
+                    "description": "Driver Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Driver"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Driver"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    },
+                    "404": {
+                        "description": "Failed. Driver not found."
+                    }
+                }
+            }
+        },
+
+        "/passenger/edit": {
+            "put": {
+                "summary": "Update passenger with given ID",
+                "tags": [
+                    "Passenger"
+                ],
+                "requestBody": {
+                    "description": "Passenger Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Passenger"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Passenger"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    },
+                    "404": {
+                        "description": "Failed. Passenger not found."
+                    }
+                }
+            }
+        },
         "/passenger": {
             "get": {
                 "tags": [
@@ -1488,7 +1555,7 @@
                     }
                 }
             }
-        }, 
+        },
         "/report": {
             "get": {
                 "tags": [
@@ -1615,7 +1682,7 @@
                     }
                 }
             }
-            
+
         },
         "/report/passenger/{id}": {
             "parameters": [{
@@ -1655,7 +1722,7 @@
                     }
                 }
             }
-            
+
         }
     },
 
