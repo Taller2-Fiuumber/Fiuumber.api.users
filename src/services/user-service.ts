@@ -7,7 +7,7 @@ import {
   AccountType,
 } from "@prisma/client";
 
-import prisma from "../../client"
+import prisma from "../../client";
 
 /*---------------------------------Vehicle-------------------------------------*/
 
@@ -646,7 +646,7 @@ export const getAmountOfLoginsByNumberOfDaysGoogle = async (
   }
   return dict;
 };
-  /* istanbul ignore next */
+/* istanbul ignore next */
 export const getAmountOfSignInByNumberOfDaysGoogle = async (
   date: Date,
   numberOfDays: number
