@@ -1488,6 +1488,174 @@
                     }
                 }
             }
+        }, 
+        "/report": {
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Get all reports in system",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Report"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Create a new report in system",
+                "requestBody": {
+                    "description": "Report Object",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/definitions/Report"
+                            }
+                        }
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Report"
+                        }
+                    },
+                    "400": {
+                        "description": "Failed. Bad post data."
+                    }
+                }
+            }
+
+        },
+        "/report/driver/{id}": {
+            "parameters": [{
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "description": "Driver id",
+                "schema": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }],
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Get report with given driver ID",
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "description": "Driver id",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Report"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Driver not found."
+                    }
+                }
+            }
+
+        },
+        "/report/driver/amount/{id}": {
+            "parameters": [{
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "description": "Driver id",
+                "schema": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }],
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Get amount of reports by given driver ID",
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "description": "Driver id",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Report"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Driver not found."
+                    }
+                }
+            }
+            
+        },
+        "/report/passenger/{id}": {
+            "parameters": [{
+                "in": "path",
+                "name": "id",
+                "required": true,
+                "description": "Passenger id",
+                "schema": {
+                    "type": "integer",
+                    "example": 1
+                }
+            }],
+            "get": {
+                "tags": [
+                    "Report"
+                ],
+                "summary": "Get report with given passenger ID",
+                "parameters": [{
+                    "in": "path",
+                    "name": "id",
+                    "required": true,
+                    "description": "Passenger id",
+                    "schema": {
+                        "type": "integer",
+                        "example": 1
+                    }
+                }],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/Report"
+                        }
+                    },
+                    "404": {
+                        "description": "Failed. Passenger not found."
+                    }
+                }
+            }
+            
         }
     },
 
@@ -1751,6 +1919,28 @@
                 }
 
             }
+        },
+        "Report": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "number",
+                    "example": 1
+                },
+                "driverId": {
+                    "type": "number",
+                    "example": 2
+                },
+                "passengerId": {
+                    "type": "number",
+                    "example": 3
+                },
+                "reason": {
+                    "type": "string",
+                    "example": "Mean"
+                }
+            }
         }
     }
 }
+
