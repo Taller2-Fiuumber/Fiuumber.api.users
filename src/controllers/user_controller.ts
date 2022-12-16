@@ -328,35 +328,6 @@ export const UpdatePassengerWithoutPassword = async (
   }
 };
 
-export const UpdatePassenger = async (req: Request, res: Response) => {
-  try {
-    const {
-      userId,
-      email,
-      firstName,
-      lastName,
-      username,
-      password,
-      address,
-      walletAddress,
-    } = req.body;
-    const encryptedPassword: string = await encrypt(password);
-    const body = await service.updatePassenger(
-      userId,
-      email,
-      firstName,
-      lastName,
-      username,
-      encryptedPassword,
-      address,
-      walletAddress
-    );
-    res.json(body).status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
-
 export const GetPassengerPage = async (req: Request, res: Response) => {
   try {
     const skip = Number.parseInt(req.params.skip.toString());
@@ -430,42 +401,6 @@ export const GetDriver = async (req: Request, res: Response) => {
 export const GetDrivers = async (req: Request, res: Response) => {
   try {
     const body = await service.getDrivers();
-    res.json(body).status(200);
-  } catch (error) {
-    res.status(500).send(error);
-  }
-};
-
-export const UpdateDriver = async (req: Request, res: Response) => {
-  try {
-    const {
-      userId,
-      email,
-      firstName,
-      lastName,
-      username,
-      password,
-      address,
-      walletAddress,
-      vehicle,
-    } = req.body;
-    const encryptedPassword: string = await encrypt(password);
-    const body = await service.updateDriver(
-      userId,
-      email,
-      firstName,
-      lastName,
-      username,
-      encryptedPassword,
-      address,
-      walletAddress,
-      vehicle.domain,
-      vehicle.modelYear,
-      vehicle.colorName,
-      vehicle.vehicle.brand,
-      vehicle.vehicle.model,
-      vehicle.vehicle.image
-    );
     res.json(body).status(200);
   } catch (error) {
     res.status(500).send(error);

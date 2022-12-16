@@ -1,12 +1,11 @@
 import {expect, test} from '@jest/globals';
 import { prismaMock } from '../../singleton'
 import * as userServices from '../../src/services/user-service';
-import { mockReset, mockClear } from 'jest-mock-extended';
 import { AccountType, Profile } from "@prisma/client";
 
 /*---------------------------------Vehicle-------------------------------------*/
 test('should create new vehicle ', async () => {
-   
+
     const vehicle = {
         id:1,
         brand: 'Toyota',
@@ -76,8 +75,8 @@ test('should delete vehicle ', async () => {
     })
 });
 
-test('should get vehicle by id ', async () => { 
- 
+test('should get vehicle by id ', async () => {
+
     const vehicle = {
         id:1,
         brand: 'Toyota',
@@ -120,7 +119,7 @@ test('should get all vehicles', async () => {
         updatedAt : new Date('2022-12-11T16:09:06.714Z'),
    }
      ])
- 
+
      await expect(userServices.getVehicles()).resolves.toEqual([
         {
             id:1,
@@ -161,7 +160,7 @@ test('should get vehicle pages', async () => {
         updatedAt : new Date('2022-12-11T16:09:06.714Z'),
    }
      ])
- 
+
      await expect(userServices.getVehiclePage(0, 2)).resolves.toEqual([
         {
             id:1,
@@ -377,7 +376,7 @@ test('should get all driver vehicles', async () => {
    }
 
     prismaMock.driverVehicle.findMany.mockResolvedValue([driverVehicle1,driverVehicle2])
- 
+
      await expect(userServices.getDriverVehicles()).resolves.toEqual([driverVehicle1,driverVehicle2])
 });
 
@@ -420,8 +419,8 @@ test('should get driver vehicle page', async () => {
 /*--------------------------------------User-----------------------------------*/
 
 
-test('should get user by id ', async () => { 
- 
+test('should get user by id ', async () => {
+
     const user = {
                 id: 2,
                 createdAt: new Date("2022-12-04T19:27:28.839Z"),
@@ -461,8 +460,8 @@ test('should get user by id ', async () => {
     })
 });
 
-test('should get user by email ', async () => { 
- 
+test('should get user by email ', async () => {
+
     const user = {
                 id: 2,
                 createdAt: new Date("2022-12-04T19:27:28.839Z"),
@@ -502,8 +501,8 @@ test('should get user by email ', async () => {
     })
 });
 
-test('should check user exists ', async () => { 
- 
+test('should check user exists ', async () => {
+
     const user = {
                 id: 2,
                 createdAt: new Date("2022-12-04T19:27:28.839Z"),
@@ -567,7 +566,7 @@ test('should get all users', async () => {
         profile: Profile.PASSENGER
    }
      ])
- 
+
      await expect(userServices.getUsers()).resolves.toEqual([
         {
             id: 2,
@@ -607,8 +606,8 @@ test('should get all users', async () => {
 });
 
 
-test('should get user by account type ', async () => { 
- 
+test('should get user by account type ', async () => {
+
     const user = {
         id: 2,
         createdAt: new Date("2022-12-04T19:27:28.839Z"),
@@ -649,8 +648,8 @@ test('should get user by account type ', async () => {
 });
 
 
-test('should delete user by id ', async () => { 
- 
+test('should delete user by id ', async () => {
+
     const user = {
                 id: 2,
                 createdAt: new Date("2022-12-04T19:27:28.839Z"),
@@ -690,8 +689,8 @@ test('should delete user by id ', async () => {
     })
 });
 
-test('should get user page', async () => { 
- 
+test('should get user page', async () => {
+
     const user = {
                 id: 2,
                 createdAt: new Date("2022-12-04T19:27:28.839Z"),
@@ -730,8 +729,8 @@ test('should get user page', async () => {
         profile: Profile.PASSENGER
     }])
 });
-test('should get last login with google', async () => { 
- 
+test('should get last login with google', async () => {
+
     const user = {
                 id: 2,
                 createdAt: new Date("2022-12-04T19:27:28.839Z"),
@@ -774,7 +773,7 @@ test('should get last login with google', async () => {
 /*---------------------------------Passenger-----------------------------------*/
 
 
-test('should create new passenger ', async () => { 
+test('should create new passenger ', async () => {
 
     const user = {
         id: 2,
@@ -808,7 +807,7 @@ test('should create new passenger ', async () => {
 
 
 
-test('should update passenger ', async () => { 
+test('should update passenger ', async () => {
 
     const user = {
         id: 2,
@@ -834,14 +833,14 @@ test('should update passenger ', async () => {
 
     prismaMock.passenger.update.mockResolvedValue(passenger)
 
-    await expect(userServices.updatePassenger(passenger.userId,passenger.user.email,passenger.user.firstName,passenger.user.lastName, passenger.user.username,passenger.user.password,passenger.user.address,passenger.user.walletAddress)).resolves.toEqual({
+    await expect(userServices.updatePassengerWithoutPassword(passenger.userId,passenger.user.email,passenger.user.firstName,passenger.user.lastName, passenger.user.username,passenger.user.address)).resolves.toEqual({
         userId: 2,
         user : user
     })
 });
 
-test('should get passenger by id ', async () => { 
- 
+test('should get passenger by id ', async () => {
+
     const user = {
         id: 2,
         createdAt: new Date("2022-12-04T19:27:28.839Z"),
@@ -873,8 +872,8 @@ test('should get passenger by id ', async () => {
 });
 
 
-test('should get all passengers ', async () => { 
- 
+test('should get all passengers ', async () => {
+
     const user1 = {
         id: 1,
         createdAt: new Date("2022-12-04T19:27:28.839Z"),
@@ -892,7 +891,7 @@ test('should get all passengers ', async () => {
         notificationsToken: null,
         profile: Profile.PASSENGER
     }
-    
+
     const passenger1= {
         userId: 1,
         user : user1
@@ -915,7 +914,7 @@ test('should get all passengers ', async () => {
         notificationsToken: null,
         profile: Profile.PASSENGER
     }
-    
+
     const passenger2 = {
         userId: 2,
         user : user2
@@ -929,8 +928,8 @@ test('should get all passengers ', async () => {
 });
 
 
-test('should count passengers ', async () => { 
- 
+test('should count passengers ', async () => {
+
     const user1 = {
         id: 1,
         createdAt: new Date("2022-12-04T19:27:28.839Z"),
@@ -948,7 +947,7 @@ test('should count passengers ', async () => {
         notificationsToken: null,
         profile: Profile.PASSENGER
     }
-    
+
     const passenger1= {
         userId: 1,
         user : user1
@@ -971,7 +970,7 @@ test('should count passengers ', async () => {
         notificationsToken: null,
         profile: Profile.PASSENGER
     }
-    
+
     const passenger2 = {
         userId: 2,
         user : user2
@@ -982,8 +981,8 @@ test('should count passengers ', async () => {
     await expect(userServices.amountOfPassengers()).resolves.toEqual(2)
 });
 
-test('should get passenger page ', async () => { 
- 
+test('should get passenger page ', async () => {
+
     const user1 = {
         id: 1,
         createdAt: new Date("2022-12-04T19:27:28.839Z"),
@@ -1001,7 +1000,7 @@ test('should get passenger page ', async () => {
         notificationsToken: null,
         profile: Profile.PASSENGER
     }
-    
+
     const passenger1= {
         userId: 1,
         user : user1
@@ -1024,7 +1023,7 @@ test('should get passenger page ', async () => {
         notificationsToken: null,
         profile: Profile.PASSENGER
     }
-    
+
     const passenger2 = {
         userId: 2,
         user : user2
@@ -1038,7 +1037,7 @@ test('should get passenger page ', async () => {
 });
 /*---------------------------------Driver--------------------------------------*/
 
-test('should create new driver ', async () => { 
+test('should create new driver ', async () => {
 
     const vehicle = {
         id:1,
@@ -1087,7 +1086,7 @@ test('should create new driver ', async () => {
     await expect(userServices.createDriver(
         driver.user.email,
         driver.user.firstName,
-        driver.user.lastName, 
+        driver.user.lastName,
         driver.user.username,
         driver.user.password,
         driver.user.address,
@@ -1108,7 +1107,7 @@ test('should create new driver ', async () => {
 
 
 
-test('should update driver ', async () => { 
+test('should update driver ', async () => {
 
     const vehicle = {
         id:1,
@@ -1154,15 +1153,13 @@ test('should update driver ', async () => {
 
     prismaMock.driver.update.mockResolvedValue(driver)
 
-    await expect(userServices.updateDriver(
+    await expect(userServices.updateDriverWithoutPassword(
         driver.userId,
         driver.user.email,
         driver.user.firstName,
-        driver.user.lastName, 
+        driver.user.lastName,
         driver.user.username,
-        driver.user.password,
         driver.user.address,
-        driver.user.walletAddress,
         driver.driverVehicle.domain,
         driver.driverVehicle.modelYear,
         driver.driverVehicle.colorName,
@@ -1178,8 +1175,8 @@ test('should update driver ', async () => {
     })
 });
 
-test('should get driver by id ', async () => { 
- 
+test('should get driver by id ', async () => {
+
     const vehicle = {
         id:1,
         brand: 'Toyota',
@@ -1233,8 +1230,8 @@ test('should get driver by id ', async () => {
 });
 
 
-test('should get all drivers ', async () => { 
- 
+test('should get all drivers ', async () => {
+
     const vehicle1 = {
         id:1,
         brand: 'Toyota',
@@ -1327,8 +1324,8 @@ test('should get all drivers ', async () => {
 });
 
 
-test('should count drivers ', async () => { 
- 
+test('should count drivers ', async () => {
+
     const vehicle1 = {
         id:1,
         brand: 'Toyota',
@@ -1418,8 +1415,8 @@ test('should count drivers ', async () => {
     await expect(userServices.amountOfDrivers()).resolves.toEqual(2)
 });
 
-test('should get driver page', async () => { 
- 
+test('should get driver page', async () => {
+
     const vehicle1 = {
         id:1,
         brand: 'Toyota',
@@ -1514,8 +1511,8 @@ test('should get driver page', async () => {
 /*---------------------------------Otros Endpoints--------------------------------------*/
 
 
-test('should set notification Token', async () => { 
- 
+test('should set notification Token', async () => {
+
     const user = {
                 id: 2,
                 createdAt: new Date("2022-12-04T19:27:28.839Z"),
