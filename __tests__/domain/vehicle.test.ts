@@ -1,7 +1,7 @@
 import {expect, test} from '@jest/globals';
 import { Vehicle } from '../../src/domain/vehicle';
 
-test('creates a new vehivle', () => {
+test('creates a new vehicle', () => {
 
     const vehicle = new Vehicle(
         1,
