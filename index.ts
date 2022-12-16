@@ -103,9 +103,7 @@ app.get('/api/users-service/passenger/:id', user_controller.GetPassenger);
 
 app.post('/api/users-service/passenger', user_controller.CreatePassenger);
 
-app.put('/api/users-service/passenger', user_controller.UpdatePassenger);
-
-app.put('/api/users-service/passenger/edit', user_controller.UpdatePassengerWithoutPassword);
+app.put('/api/users-service/passenger', user_controller.UpdatePassengerWithoutPassword);
 
 app.get('/api/users-service/passenger/page/:skip&:take', user_controller.GetPassengerPage);
 
@@ -119,9 +117,7 @@ app.get('/api/users-service/driver/:id', user_controller.GetDriver);
 
 app.post('/api/users-service/driver', user_controller.CreateDriver);
 
-app.put('/api/users-service/driver', user_controller.UpdateDriver);
-
-app.put('/api/users-service/driver/edit', user_controller.UpdateDriverWithoutPassword);
+app.put('/api/users-service/driver', user_controller.UpdateDriverWithoutPassword);
 
 app.get('/api/users-service/driver/page/:skip&:take', user_controller.GetDriverPage);
 

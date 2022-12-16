@@ -334,15 +334,13 @@ export const createPassenger = (
   return passenger;
 };
 
-export const updatePassenger = (
+export const updatePassengerWithoutPassword = (
   id: number,
   email: string,
   firstName: string,
   lastName: string,
   username: string,
-  password: string,
-  address: string,
-  walletAddress: string
+  address: string
 ): Promise<Passenger> => {
   return prisma.passenger.update({
     where: {
@@ -355,45 +353,9 @@ export const updatePassenger = (
           firstName,
           lastName,
           address,
-          password,
-          username,
-          walletAddress,
-        },
-      },
-    },
-  });
-};
-
-export const updatePassengerWithoutPassword = (
-  id: number,
-  email: string,
-  firstName: string,
-  lastName: string,
-  username: string,
-  address: string
-): Promise<Passenger> => {
-  prisma.passenger.update({
-    where: {
-      userId: id,
-    },
-    data: {
-      user: {
-        update: {
-          email,
-          firstName,
-          lastName,
-          address,
           username,
         },
       },
-    },
-  });
-  return prisma.passenger.findUniqueOrThrow({
-    where: {
-      userId: id,
-    },
-    include: {
-      user: true,
     },
   });
 };
@@ -412,7 +374,7 @@ export const updateDriverWithoutPassword = (
   model: string,
   image: string
 ): Promise<Driver> => {
-  prisma.driver.update({
+  return prisma.driver.update({
     where: {
       userId,
     },
@@ -438,20 +400,6 @@ export const updateDriverWithoutPassword = (
               image,
             },
           },
-        },
-      },
-    },
-  });
-  return prisma.driver.findUniqueOrThrow({
-    where: {
-      userId,
-    },
-    include: {
-      user: true,
-
-      driverVehicle: {
-        include: {
-          vehicle: true,
         },
       },
     },
@@ -574,56 +522,6 @@ export const createDriver = async (
   });
 
   return driver;
-};
-
-export const updateDriver = (
-  userId: number,
-  email: string,
-  firstName: string,
-  lastName: string,
-  username: string,
-  password: string,
-  address: string,
-  walletAddress: string,
-  domain: string,
-  modelYear: string,
-  colorName: string,
-  brand: string,
-  model: string,
-  image: string
-): Promise<Driver> => {
-  return prisma.driver.update({
-    where: {
-      userId,
-    },
-    data: {
-      user: {
-        update: {
-          email,
-          firstName,
-          lastName,
-          username,
-          password,
-          address,
-          walletAddress,
-        },
-      },
-      driverVehicle: {
-        update: {
-          domain,
-          modelYear,
-          colorName,
-          vehicle: {
-            update: {
-              brand,
-              model,
-              image,
-            },
-          },
-        },
-      },
-    },
-  });
 };
 
 export const setNotificationsToken = (userId: number, token: string) => {
