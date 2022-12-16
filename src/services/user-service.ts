@@ -364,6 +364,100 @@ export const updatePassenger = (
   });
 };
 
+export const updatePassengerWithoutPassword = (
+  id: number,
+  email: string,
+  firstName: string,
+  lastName: string,
+  username: string,
+  address: string
+): Promise<Passenger> => {
+  prisma.passenger.update({
+    where: {
+      userId: id,
+    },
+    data: {
+      user: {
+        update: {
+          email,
+          firstName,
+          lastName,
+          address,
+          username,
+        },
+      },
+    },
+  });
+  return prisma.passenger.findUniqueOrThrow({
+    where: {
+      userId: id,
+    },
+    include: {
+      user: true,
+    },
+  });
+};
+
+export const updateDriverWithoutPassword = (
+  userId: number,
+  email: string,
+  firstName: string,
+  lastName: string,
+  username: string,
+  address: string,
+  domain: string,
+  modelYear: string,
+  colorName: string,
+  brand: string,
+  model: string,
+  image: string
+): Promise<Driver> => {
+  prisma.driver.update({
+    where: {
+      userId,
+    },
+    data: {
+      user: {
+        update: {
+          email,
+          firstName,
+          lastName,
+          username,
+          address,
+        },
+      },
+      driverVehicle: {
+        update: {
+          domain,
+          modelYear,
+          colorName,
+          vehicle: {
+            update: {
+              brand,
+              model,
+              image,
+            },
+          },
+        },
+      },
+    },
+  });
+  return prisma.driver.findUniqueOrThrow({
+    where: {
+      userId,
+    },
+    include: {
+      user: true,
+
+      driverVehicle: {
+        include: {
+          vehicle: true,
+        },
+      },
+    },
+  });
+};
+
 /*---------------------------------Driver--------------------------------------*/
 
 export const amountOfDrivers = async (): Promise<number> => {
